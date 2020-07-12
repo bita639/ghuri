@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{% url 'agencys_new' %}">Create Record</a>
+<table>
+  <tr>
+    <th>username</th>
+    <th>full_name</th>
+    <th>email
+    <th>mobile_no</th>
+    <th>website</th>
+    <th>address</th>
+    <th>country</th>
+  </tr>
+  {% for agency in object_list %}
+  <tr>
+    <td>
+      {{ agency.myuser.username }}
+    </td>
+    <td>{{ agency.myuser.email }}</td>
+    <td>{{ agency.myuser.mobile_no }}</td>
+    <td>{{ agency.website }}</td>
+    <td>{{ agency.country }}</td>
+    
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

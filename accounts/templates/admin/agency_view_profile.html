@@ -1,0 +1,22 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+{% csrf_token %}
+
+<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-8">
+                <div id="login-box" class="col-md-12">
+                    <h2 class="text-center text-black pt-5">Update Your Profile Information!!</h2>
+                   <div class="alert alert-warning">
+                       Are you sure you want to delete Agency {{agency.website}} ?
+                   </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <br><br>
+</div>
+{% endblock %}
