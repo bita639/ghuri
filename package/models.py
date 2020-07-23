@@ -29,6 +29,9 @@ class Location(models.Model):
     city_name = models.CharField(max_length=35)
     country = models.CharField(max_length=35)
 
+    def __str__(self):
+        return self.city_name
+
 
 class PackageLocation(models.Model):
     package_id = models.OneToOneField(Package, on_delete=models.CASCADE, related_name='package')
@@ -74,18 +77,26 @@ class Review(models.Model):
 class Accomodation(models.Model):
     accomodation_type = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.accomodation_type
 
 
 class Meals(models.Model):
     meals_name = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.meals_name
+
 
 class Event(models.Model):
-    meals_id = models.ForeignKey(Meals, on_delete=models.CASCADE, related_name='meals_id')
+    meals_id = models.ManyToManyField(Meals, related_name='meals_id')
     accomodation_type = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomodation')
     event_name = models.CharField(max_length=50)
     event_desc = models.TextField()
     guide_name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.event_name
 
 
 class Days(models.Model):
@@ -122,5 +133,12 @@ class Activities(models.Model):
     activity_type_id = models.ManyToManyField(ActivityType, related_name='activity_type_id')
     package_id = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='activity_package')
 
+
+class MapLocation(models.Model):
+    package_id = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='map_package_id')
+    locattion_name = models.CharField(max_length=50)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+
     def __str__(self):
-        return self.id
+        return self.locattion_name

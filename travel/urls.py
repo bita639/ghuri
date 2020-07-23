@@ -9,6 +9,7 @@ from django.conf.urls.static import static
 
 
 from accounts import views
+from package import packageviews
 
 urlpatterns = [
     path('sadmin/', admin.site.urls),
@@ -16,7 +17,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login_view'),
     path('logout/', views.logout_view, name='logout_view'),
-    path('', views.home, name='home'),
+    # path('', views.home, name='home'),
+    path('', packageviews.showthis, name='showthis'),
    
     #-------------------App URL
     #path('accounts/', include('django.contrib.auth.urls')),
