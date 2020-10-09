@@ -17,8 +17,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login_view'),
     path('logout/', views.logout_view, name='logout_view'),
-    # path('', views.home, name='home'),
-    path('', packageviews.showthis, name='showthis'),
+    path('', views.home, name='home'),
+    path('map', packageviews.showthis, name='showthis'),
    
     #-------------------App URL
     #path('accounts/', include('django.contrib.auth.urls')),
@@ -26,7 +26,7 @@ urlpatterns = [
 
 
     #-------------------Admin Dashboard Area
-    path('admin', views.admin_dashboard, name='admin_dashboard'),
+    path('admin/', views.admin_dashboard, name='admin_dashboard'),
     path('admin/add/', views.add_new_admin, name='adminregister'),
     path('admin/profile/', views.AdminProfileView.as_view(), name='admin_profile'),
     path('admin/admin/', views.AllAdminView.as_view(), name='all_admin_list'),

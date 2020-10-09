@@ -1,0 +1,7 @@
+bita639 	1000310@daffodil.ac          12345678         admin
+
+admin 	        admin@admin.com             jannat@14311      admin
+
+letsgo1	        letsgo@gmail.com            jannat@14311      partner
+
+paul007	         paul@gmail.com		    jannat@14311      user

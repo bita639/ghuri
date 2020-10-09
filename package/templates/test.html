@@ -19,7 +19,7 @@
 	
 	
 
-<div id="mapid" style="width: 600px; height: 400px;"></div>
+<div id="mapid" style="width: 400px; height: 300px;"></div>
 
 <script>
 
@@ -37,7 +37,7 @@
  console.log(myData);
 
 
-	var mymap = L.map('mapid').setView([0,0], 15);
+	var mymap = L.map('mapid').setView([0,0], 7);
 
 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYml0YTYzOSIsImEiOiJja2NsNDQwZGMwMG5iMnB0ZHoxaDJzeXZ0In0.jcSkP5MJWjG3yuRGn8J5og', {
 		maxZoom: 18,
@@ -59,13 +59,13 @@
 		
 		
 	myData.map(item=>L.marker([item.fields.latitude, item.fields.longitude]).addTo(mymap)
-		.bindPopup(`<b>End Point!</b><br />${item.fields.locattion_name}`).openPopup())
+		.bindPopup(`${item.fields.locattion_name}`).openPopup())
 
 	var polyArr = [];
 
 	myData.map(item=>polyArr.push([item.fields.latitude, item.fields.longitude]))
 console.log(polyArr)
-	L.polyline(polyArr,{color: 'red'}).addTo(mymap).bindPopup("I am a polygon.");
+	L.polyline(polyArr,{color: 'blue'}).addTo(mymap).bindPopup("I am a polygon.");
 
 
 	var popup = L.popup();
