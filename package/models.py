@@ -5,7 +5,10 @@ from accounts.models import MyUser
 
 
 class Package(models.Model):
-    booking_type = models.CharField(max_length=30)
+    b_type = (
+        ('Instant Booking', 'Instant Booking'),
+		)
+    booking_type = models.CharField(max_length=30,blank=True, null=True, choices=b_type)
     agency_id = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='agency_id')
     package_title = models.CharField(max_length=80)
     start_point = models.CharField(max_length=50)
@@ -28,41 +31,33 @@ class Package(models.Model):
 class Location(models.Model):
     city_name = models.CharField(max_length=35)
     country = models.CharField(max_length=35)
+    package_id = models.OneToOneField(Package, on_delete=models.CASCADE, related_name='package')
 
     def __str__(self):
         return self.city_name
 
 
-class PackageLocation(models.Model):
-    package_id = models.OneToOneField(Package, on_delete=models.CASCADE, related_name='package')
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location')
 
 
 class Image(models.Model):
     image_location = models.ImageField()
     image_title = models.CharField(max_length=40)
-
-
-class ImagePackage(models.Model):
-    image_id = models.OneToOneField(Image, on_delete=models.CASCADE, related_name='image_id')
     package_id = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='package_id')
 
 
-class TourType(models.Model):
-    name = models.CharField(max_length=50)
 
-class TourTypePackage(models.Model):
-    tour_type_id = models.ManyToManyField(TourType, related_name='tour_type_id')
+class TourType(models.Model):
+    t_type = (
+        ('Private','Private'),
+        ('Group','Group'),
+        ('Private and Group','Private and Group'),
+		)
+    tour_type = models.CharField(max_length=50,blank=True, null=True,choices=t_type)
     package_id = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='T_package_id')
 
 
-class TransportType(models.Model):
-    transport_type = models.CharField(max_length=30)
 
 
-class TransportTypePackage(models.Model):
-    transport_type_id = models.ManyToManyField(TransportType, related_name='transport_type_id')
-    package_id = models.ForeignKey(Package, on_delete=models.CASCADE)
 
 
 

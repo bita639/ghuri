@@ -18,7 +18,11 @@ urlpatterns = [
     path('login/', views.login_view, name='login_view'),
     path('logout/', views.logout_view, name='logout_view'),
     path('', views.home, name='home'),
+
     path('map', packageviews.showthis, name='showthis'),
+
+    path('package/', packageviews.packageList, name='packageList'),
+    path('package/add/', packageviews.PackageCreateView.as_view(), name='PackageCreateView'),
    
     #-------------------App URL
     #path('accounts/', include('django.contrib.auth.urls')),
@@ -62,6 +66,7 @@ urlpatterns = [
     
     
     path('agency/register/', views.agencyregister, name='agency_register'),
+
     
 ]
 

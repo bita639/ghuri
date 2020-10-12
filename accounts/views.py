@@ -167,7 +167,7 @@ class AgencyProfileView(LoginRequiredMixin,View):
 
         myuser_form = MyUserForm(instance=current_user)
         AgencyInlineFormSet = inlineformset_factory(
-            MyUser, Agency, fields=('website', 'address', 'country',),can_delete=False,extra=0)
+            MyUser, Agency, fields=('photo','website', 'address', 'country',),can_delete=False,extra=0)
         formset = AgencyInlineFormSet(instance=current_user)
 
         return render(request,"agency/agency_profile.html", {
@@ -179,7 +179,7 @@ class AgencyProfileView(LoginRequiredMixin,View):
         
         current_user = get_object_or_404(MyUser, user_id=request.user.user_id)
         AgencyInlineFormSet = inlineformset_factory(
-            MyUser, Agency, fields=('website', 'address', 'country',), can_delete=False, extra=0)
+            MyUser, Agency, fields=('photo','website', 'address', 'country',), can_delete=False, extra=0)
         formset = AgencyInlineFormSet(request.POST)
         myuser_form = MyUserForm(request.POST, instance=current_user)
 

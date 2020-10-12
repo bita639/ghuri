@@ -1,0 +1,30 @@
+{% extends 'agency/agency_base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-8">
+                <div id="login-box" class="col-md-12">
+                    <h2 class="text-center text-black pt-5">Add a New Tour Package</h2>
+                   <form action="." method="post" enctype="multipart/form-data">
+                     {% csrf_token %}
+        
+                     {{form|crispy}}
+                     {{Tour_type_form|crispy}}
+                     {{Image_form|crispy}}
+                     {{map_form|crispy}}
+                     
+                     
+                     <input type="submit" value="submit" />
+                   </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <br><br>
+</div>
+{% endblock %}
