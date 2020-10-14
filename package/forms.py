@@ -14,11 +14,13 @@ class MapForm(forms.ModelForm):
     class Meta:
         model = MapLocation
         fields = '__all__'
+        exclude = ['package_id',]
 
 class PackageForm(forms.ModelForm):
     class Meta:
         model = Package
         fields = ('booking_type','package_title', 'start_point','end_point','age_requirement','price','special_offer','discount_price','days','tags','highlights','what_included','what_excluded','good_to_know',)
+        exclude = ['agency_id',]
 
 class ItineraryForm(forms.ModelForm):
     class Meta:

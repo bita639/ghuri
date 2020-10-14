@@ -60,7 +60,9 @@ class PackageCreateView(CreateView):
         """
         self.object = None
         form_class = self.get_form_class()
-        form = self.get_form(form_class)
+        PackageFormSet = inlineformset_factory(MyUser, Package, fields=('booking_type','package_title',), can_delete=False, extra=1)
+        current_user = get_object_or_404(MyUser, user_id=request.user.user_id) #request.user.user_id
+        form = PackageFormSet(instance=current_user)
         map_form = MapFormSet()
         Image_form = ImageFormSet()
         Tour_type_form = TourTypeFormSet()
@@ -76,41 +78,56 @@ class PackageCreateView(CreateView):
         """
         self.object = None
         form_class = self.get_form_class()
-        form = self.get_form(form_class)
+        PackageFormSet = inlineformset_factory(MyUser, Package, fields=('booking_type','package_title',), can_delete=False, extra=1)
+        current_user = get_object_or_404(MyUser, user_id=request.user.user_id) #request.user.user_id
+        form = PackageForm(request.POST, instance=current_user)
         map_form = MapFormSet()
         Image_form = ImageFormSet()
         Tour_type_form = TourTypeFormSet()
-        if (form.is_valid() and map_form.is_valid() and
-            Image_form.is_valid() and Tour_type_form.is_valid()):
-            return self.form_valid(form, map_form, Image_form, Tour_type_form)
+        if form.is_valid():
+            x = form.save(commit=False)
+            y = MapFormSet(request.POST, request.FILES, instance=x)
+
+            if y.is_valid():
+                x.save()
+                y.save()
+
+            return HttpResponse("/package/add/")
         else:
-            return self.form_invalid(form, map_form, Image_form, Tour_type_form)
+            pass
 
-    def form_valid(self, form, map_form, Image_form, Tour_type_form):
-        """
-        Called if all forms are valid. Creates a Recipe instance along with
-        associated Ingredients and Instructions and then redirects to a
-        success page.
-        """
-        self.object = form.save()
-        map_form.instance = self.object
-        map_form.save()
-        Image_form.instance = self.object
-        Image_form.save()
-        Tour_type_form.instance = self.object
-        Tour_type_form.save()
-        return HttpResponseRedirect(self.get_success_url())
+        # if (form.is_valid() and map_form.is_valid() and
+        #     Image_form.is_valid() and Tour_type_form.is_valid()):
+        #     return self.form_valid(form, map_form, Image_form, Tour_type_form)
+        # else:
+        #     return self.form_invalid(form, map_form, Image_form, Tour_type_form)
 
-    def form_invalid(self, form, map_form, Image_form, Tour_type_form):
-        """
-        Called if a form is invalid. Re-renders the context data with the
-        data-filled forms and errors.
-        """
-        return self.render_to_response(
-            self.get_context_data(form=form,
-                                  map_form=map_form,
-                                  Image_form=Image_form,
-                                  Tour_type_form= Tour_type_form))
+    # def form_valid(self, form, map_form, Image_form, Tour_type_form):
+    #     """
+    #     Called if all forms are valid. Creates a Recipe instance along with
+    #     associated Ingredients and Instructions and then redirects to a
+    #     success page.
+    #     """
+    #     form.user_id=MyUser.id
+    #     self.object = form.save()
+    #     map_form.instance = self.object
+    #     map_form.save()
+    #     Image_form.instance = self.object
+    #     Image_form.save()
+    #     Tour_type_form.instance = self.object
+    #     Tour_type_form.save()
+    #     return HttpResponseRedirect(self.get_success_url())
+
+    # def form_invalid(self, form, map_form, Image_form, Tour_type_form):
+    #     """
+    #     Called if a form is invalid. Re-renders the context data with the
+    #     data-filled forms and errors.
+    #     """
+    #     return self.render_to_response(
+    #         self.get_context_data(form=form,
+    #                               map_form=map_form,
+    #                               Image_form=Image_form,
+    #                               Tour_type_form= Tour_type_form))
 
 # class PackageCreateView(LoginRequiredMixin,View):
 #     def get(self, request, *args, **kwargs):

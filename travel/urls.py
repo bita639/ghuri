@@ -10,10 +10,12 @@ from django.conf.urls.static import static
 
 from accounts import views
 from package import packageviews
+from TestApp import Testviews
 
 urlpatterns = [
     path('sadmin/', admin.site.urls),
-    
+
+    path('test/', Testviews.add_new_value, name='add_new_value'),
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login_view'),
     path('logout/', views.logout_view, name='logout_view'),

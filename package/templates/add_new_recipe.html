@@ -1,0 +1,27 @@
+{% extends 'agency/agency_base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Recipe</title>
+</head>
+
+<body>
+    <div>
+        <h1>Add Recipe</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div>
+                {{ rform.as_p }}
+                {{ iform.as_p }}
+                {{ cform.as_p }}
+            </div>
+            <input type="submit" value="Add recipe" class="submit" />
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}
