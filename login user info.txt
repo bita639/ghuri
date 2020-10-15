@@ -1,4 +1,4 @@
-bita639 	1000310@daffodil.ac          12345678         admin
+bita639 	1000310@daffodil.ac          12345678         super admin
 
 admin 	        admin@admin.com             jannat@14311      admin
 

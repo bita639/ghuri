@@ -226,8 +226,12 @@ class AdminProfileView(LoginRequiredMixin, View):
                 x.save()
                 y.save()
 
+            else:
+                print(y.errors())
+
             return HttpResponseRedirect("/admin/profile")
         else:
+            print(myuser_form.errors())
             pass
 
 
