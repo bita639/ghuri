@@ -7,9 +7,11 @@ from accounts.models import MyUser
 class Package(models.Model):
     b_type = (
         ('Instant Booking', 'Instant Booking'),
-		)
-    booking_type = models.CharField(max_length=30,blank=True, null=True, choices=b_type)
-    agency_id = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='agency_id')
+    )
+    booking_type = models.CharField(
+        max_length=30, blank=True, null=True, choices=b_type)
+    agency_id = models.ForeignKey(
+        MyUser, on_delete=models.CASCADE, related_name='agency_id')
     package_title = models.CharField(max_length=80)
     start_point = models.CharField(max_length=50)
     end_point = models.CharField(max_length=50)
@@ -31,39 +33,37 @@ class Package(models.Model):
 class Location(models.Model):
     city_name = models.CharField(max_length=35)
     country = models.CharField(max_length=35)
-    package_id = models.OneToOneField(Package, on_delete=models.CASCADE, related_name='package')
+    package_id = models.OneToOneField(
+        Package, on_delete=models.CASCADE, related_name='package')
 
     def __str__(self):
         return self.city_name
 
 
-
-
 class Image(models.Model):
-    image_location = models.ImageField()
+    image_location = models.ImageField(null=True, blank=True)
     image_title = models.CharField(max_length=40)
-    package_id = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='package_id')
-
+    package_id = models.ForeignKey(
+        Package, on_delete=models.CASCADE, related_name='package_id')
 
 
 class TourType(models.Model):
     t_type = (
-        ('Private','Private'),
-        ('Group','Group'),
-        ('Private and Group','Private and Group'),
-		)
-    tour_type = models.CharField(max_length=50,blank=True, null=True,choices=t_type)
-    package_id = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='T_package_id')
-
-
-
-
-
+        ('Private', 'Private'),
+        ('Group', 'Group'),
+        ('Private and Group', 'Private and Group'),
+    )
+    tour_type = models.CharField(
+        max_length=50, blank=True, null=True, choices=t_type)
+    package_id = models.ForeignKey(
+        Package, on_delete=models.CASCADE, related_name='T_package_id')
 
 
 class Review(models.Model):
-    package_id = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='review_package')
-    user_id = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='end_user_id')
+    package_id = models.ForeignKey(
+        Package, on_delete=models.CASCADE, related_name='review_package')
+    user_id = models.ForeignKey(
+        MyUser, on_delete=models.CASCADE, related_name='end_user_id')
     commented_date = models.DateTimeField(auto_now_add=True)
     review_desc = models.TextField()
     ratings = models.FloatField(blank=True)
@@ -85,7 +85,8 @@ class Meals(models.Model):
 
 class Event(models.Model):
     meals_id = models.ManyToManyField(Meals, related_name='meals_id')
-    accomodation_type = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomodation')
+    accomodation_type = models.ForeignKey(
+        Accomodation, on_delete=models.CASCADE, related_name='accomodation')
     event_name = models.CharField(max_length=50)
     event_desc = models.TextField()
     guide_name = models.CharField(max_length=30)
@@ -95,19 +96,21 @@ class Event(models.Model):
 
 
 class Days(models.Model):
-    event_id = models.OneToOneField(Event, on_delete=models.CASCADE, related_name='event_id')
+    event_id = models.OneToOneField(
+        Event, on_delete=models.CASCADE, related_name='event_id')
     days_name = models.CharField(max_length=30)
-    
 
 
 class Itinerary(models.Model):
-    package_id = models.OneToOneField(Package, on_delete=models.CASCADE, related_name='iti_package_id')
-    day_id = models.ForeignKey(Days, on_delete=models.CASCADE, related_name='day_id')
-
+    package_id = models.OneToOneField(
+        Package, on_delete=models.CASCADE, related_name='iti_package_id')
+    day_id = models.ForeignKey(
+        Days, on_delete=models.CASCADE, related_name='day_id')
 
 
 class Subscription(models.Model):
     subscription_mail = models.EmailField(max_length=100)
+
 
 class Activity(models.Model):
     Activity_name = models.CharField(max_length=30)
@@ -117,20 +120,24 @@ class Activity(models.Model):
 
 
 class ActivityType(models.Model):
-    activity_id = models.OneToOneField(Activity, on_delete=models.CASCADE, related_name='activity_id')
+    activity_id = models.OneToOneField(
+        Activity, on_delete=models.CASCADE, related_name='activity_id')
     activity_type_name = models.CharField(max_length=50)
-
 
     def __str__(self):
         return self.activity_type_name
 
+
 class Activities(models.Model):
-    activity_type_id = models.ManyToManyField(ActivityType, related_name='activity_type_id')
-    package_id = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='activity_package')
+    activity_type_id = models.ManyToManyField(
+        ActivityType, related_name='activity_type_id')
+    package_id = models.ForeignKey(
+        Package, on_delete=models.CASCADE, related_name='activity_package')
 
 
 class MapLocation(models.Model):
-    package_id = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='map_package_id')
+    package_id = models.ForeignKey(
+        Package, on_delete=models.CASCADE, related_name='map_package_id')
     locattion_name = models.CharField(max_length=50)
     latitude = models.FloatField()
     longitude = models.FloatField()
