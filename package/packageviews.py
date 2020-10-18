@@ -13,26 +13,28 @@ from django.shortcuts import get_list_or_404, get_object_or_404, Http404
 from django.views import View
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView
-from .forms import PackageForm, MapFormSet, AccomodationForm, ImageFormSet, ImageForm, TourTypeFormSet
+from .forms import PackageForm, LocationFormSet, ImageFormSet, ImageForm, PLFormSet, LocationForm
+from django.db.models import F
+from django.conf import settings
 
 # Create your views here.
 
 
-def showthis(request):
-    # all_objects= MapLocation.objects.all()
-    # all_objects = MapLocation.objects.filter(package_id=1)
+# def showthis(request,):
+#     # all_objects= MapLocation.objects.all()
+#     # all_objects = MapLocation.objects.filter(package_id=1)
 
-    # json_res = json.dumps(MapLocation.objects.filter(package_id=1),only('latitude','longitude'))
-    json_res = serializers.serialize('json',MapLocation.objects.filter(package_id=1),fields=('latitude','longitude','locattion_name'))
+#     # json_res = json.dumps(MapLocation.objects.filter(package_id=1),only('latitude','longitude'))
+#     json_res = serializers.serialize('json', MapLocation.objects.filter(
+#         package_id=1), fields=('latitude', 'longitude', 'locattion_name'))
 
-    # dump = json.dumps(json_res)
+#     # dump = json.dumps(json_res)
 
-    context= {'all_objects': json_res}
+#     context = {'all_objects': json_res}
 
-    return render(request, 'test.html', context)
+#     return render(request, 'package.html', context)
 
-
-    #  dataDictionary = {} 
+    #  dataDictionary = {}
     # counter = 1
     # for i in all_objects:
     #     print(i.locattion_name)
@@ -43,97 +45,131 @@ def showthis(request):
     # print(len(dataDictionary))
 
 
-def packageList(request):
-    return render(request, 'POST.html')
+# def packageList(request):
+#     return render(request, 'POST.html')
 
 
-class PackageCreateView(CreateView):
+class PackageCreateView(LoginRequiredMixin, CreateView):
     template_name = 'add_package.html'
     model = Package
     form_class = PackageForm
     success_url = 'success/'
 
     def get(self, request, *args, **kwargs):
-        """
-        Handles GET requests and instantiates blank versions of the form
-        and its inline formsets.
-        """
         self.object = None
         form_class = self.get_form_class()
-        PackageFormSet = inlineformset_factory(MyUser, Package, fields=('booking_type','package_title',), can_delete=False, extra=1)
-        current_user = get_object_or_404(MyUser, user_id=request.user.user_id) #request.user.user_id
-        form = PackageFormSet(instance=current_user)
-        map_form = MapFormSet()
-        Image_form = ImageFormSet()
-        Tour_type_form = TourTypeFormSet()
-        # event_form = EventFormSet()
-        # instruction_form = InstructionFormSet()
+        form = self.get_form(form_class)
+        location_form = LocationFormSet()
+        
+        pl_form = PLFormSet()
+        
+        image_form = ImageFormSet(queryset=Image.objects.none())
         return self.render_to_response(
-            self.get_context_data(form=form, Tour_type_form = Tour_type_form, Image_form= Image_form, map_form=map_form))
+            self.get_context_data(form=form, pl_form=pl_form, location_form=location_form,
+                                  image_form=image_form))
 
     def post(self, request, *args, **kwargs):
-        """
-        Handles GET requests and instantiates blank versions of the form
-        and its inline formsets.
-        """
         self.object = None
         form_class = self.get_form_class()
-        PackageFormSet = inlineformset_factory(MyUser, Package, fields=('booking_type','package_title',), can_delete=False, extra=1)
-        current_user = get_object_or_404(MyUser, user_id=request.user.user_id) #request.user.user_id
-        form = PackageForm(request.POST, instance=current_user)
-        map_form = MapFormSet()
-        Image_form = ImageFormSet()
-        Tour_type_form = TourTypeFormSet()
-        if form.is_valid():
-            x = form.save(commit=False)
-            y = MapFormSet(request.POST, request.FILES, instance=x)
-
-            if y.is_valid():
-                x.save()
-                y.save()
-
-            return HttpResponse("/package/add/")
+        form = self.get_form(form_class)
+        pl_form = PLFormSet(self.request.POST)
+        location_form = LocationFormSet(self.request.POST)
+        
+        image_form = ImageFormSet(self.request.POST, self.request.FILES)
+        pl_form = PLFormSet(self.request.POST)
+        if (form.is_valid() and  pl_form.is_valid() and location_form.is_valid() and image_form.is_valid()):
+            return self.form_valid(form, pl_form, location_form, image_form)
         else:
-            pass
+            return self.form_invalid(form, pl_form, location_form, image_form)
 
-        # if (form.is_valid() and map_form.is_valid() and
-        #     Image_form.is_valid() and Tour_type_form.is_valid()):
-        #     return self.form_valid(form, map_form, Image_form, Tour_type_form)
-        # else:
-        #     return self.form_invalid(form, map_form, Image_form, Tour_type_form)
+    def form_valid(self, form, pl_form, location_form, image_form):
 
-    # def form_valid(self, form, map_form, Image_form, Tour_type_form):
-    #     """
-    #     Called if all forms are valid. Creates a Recipe instance along with
-    #     associated Ingredients and Instructions and then redirects to a
-    #     success page.
-    #     """
-    #     form.user_id=MyUser.id
-    #     self.object = form.save()
-    #     map_form.instance = self.object
-    #     map_form.save()
-    #     Image_form.instance = self.object
-    #     Image_form.save()
-    #     Tour_type_form.instance = self.object
-    #     Tour_type_form.save()
-    #     return HttpResponseRedirect(self.get_success_url())
+        self.object = form.save(commit=False)
+        self.object.agency_id = self.request.user
+        self.object.save()
 
-    # def form_invalid(self, form, map_form, Image_form, Tour_type_form):
-    #     """
-    #     Called if a form is invalid. Re-renders the context data with the
-    #     data-filled forms and errors.
-    #     """
-    #     return self.render_to_response(
-    #         self.get_context_data(form=form,
-    #                               map_form=map_form,
-    #                               Image_form=Image_form,
-    #                               Tour_type_form= Tour_type_form))
+        location_form.instance = self.object
+        location_form.save()
+
+        pl_form.instance = self.object
+        pl_form.save()
+
+       
+
+        image_form.instance = self.object
+        media = image_form.save(commit=False)
+        for img in media:
+                img.product = self.object
+                img.save()
+        image_form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, pl_form, location_form, image_form):
+        print(form.errors, pl_form.errors, location_form.errors, image_form.errors)
+        return self.render_to_response(
+            self.get_context_data(form=form, pl_form=pl_form,
+                                  location_form=location_form,
+                                  image_form=image_form))
+
+def view_package(request):
+    # package = Package.objects.select_related('agency_idx').annotate(agency_name=
+    #         F('myuser__user_id')).values('user_id', 'full_name')
+
+    package = Package.objects.all()
+    
+ 
+    return render(request, "post.html", {"package": package, 'media_url':settings.MEDIA_URL})
+
+
+def package_detail(request, year, month, day, package,package_id):    
+    package = get_object_or_404(Package, id=package_id, slug=package,publish__year=year,publish__month=month,publish__day=day)
+    image = Image.objects.filter(package_id=package_id)
+    agency = MyUser.objects.filter(username=package.agency_id)
+    print(agency)
+
+    json_res = serializers.serialize('json', MapLocation.objects.filter(
+        package_id=1), fields=('latitude', 'longitude', 'locattion_name'))
+
+    # dump = json.dumps(json_res)
+
+    
+
+   
+ 
+    # comments = post.comments.filter(active=True)
+
+    # new_comment = None
+    # comment_form = CommentForm(data=request.POST)
+    # if request.method == 'POST':
+    #     if comment_form.is_valid():
+    #         new_comment = comment_form.save(commit=False)
+    #         new_comment.post = post
+    #         new_comment.save()
+    #     else:
+    #         comment_form =CommentForm()
+        
+    return render(request,'package.html',{'package': package,'all_objects': json_res, 'image':image, 'media_url':settings.MEDIA_URL})
+
+
+
+
+# def view_single_package(request):
+#     # package = Package.objects.select_related('agency_idx').annotate(agency_name=
+#     #         F('myuser__user_id')).values('user_id', 'full_name')
+#     id = 11
+#     package = Package.objects.filter(id=id).first()
+#     location = Location.objects.filter(package_id=package.id).first()
+#     print(package.package_title)
+#     print(location)
+#     return render(request, "test1.html", {"package": package,})
+    
+
 
 # class PackageCreateView(LoginRequiredMixin,View):
 #     def get(self, request, *args, **kwargs):
 #         current_user = get_object_or_404(MyUser, user_id=request.user.user_id) #request.user.user_id
 
-       
+
 #         AgencyPackageInlineFormSet = inlineformset_factory(MyUser, Package, fields=('booking_type','package_title', 'start_point','end_point','age_requirement','price','special_offer','discount_price','days','tags','highlights','what_included','what_excluded','good_to_know',), can_delete=False, extra=1)
 #         formset = AgencyPackageInlineFormSet(instance=current_user)
 
@@ -142,7 +178,7 @@ class PackageCreateView(CreateView):
 #     def post(self, request, *args, **kwargs):
 #         current_user = get_object_or_404(MyUser, user_id=request.user.user_id) #request.user.user_id
 
-       
+
 #         AgencyPackageInlineFormSet = inlineformset_factory(MyUser, Package, fields=('booking_type','package_title', 'start_point','end_point','age_requirement','price','special_offer','discount_price','days','tags','highlights','what_included','what_excluded','good_to_know',), can_delete=False, extra=1)
 #         formset = AgencyPackageInlineFormSet(request.POST)
 
@@ -158,12 +194,11 @@ class PackageCreateView(CreateView):
 #         else:
 #             pass
 
-        
 
 # class CreatePackage(LoginRequiredMixin,View):
 #     model = Package
 #     fields = ['booking_type', 'package_title', 'start_point','end_point','age_requirement','price','special_offer','discount_price','days','tags','highlights','what_included','what_excluded','good_to_know']
-    
+
 #     def get_context_data(self, **kwargs):
 #         data = super(CreatePackage, self).get_context_data(**kwargs)
 #         if self.request.POST:
@@ -182,7 +217,7 @@ class PackageCreateView(CreateView):
 #         return render(request,"add_package.html", formset)
 
     # def post(self, request, *args, **kwargs):
-        
+
     #     current_user = get_object_or_404(MyUser, user_id=request.user.user_id)
     #     AgencyInlineFormSet = inlineformset_factory(
     #         MyUser, Agency, fields=('website', 'address', 'country',), can_delete=False, extra=0)

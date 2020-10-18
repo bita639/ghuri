@@ -173,18 +173,29 @@
         </ul>
     </div>
 </div>
+
+<!-- {% for i in package %}
+    
+    {{ i.start_point }}
+    {{ i.end_point }}
+	{% endfor %} -->
+	
                     <div class="trips-out" id="trips-results">
                             <div class="trips-holder" id="tours-main-holder">
         <div class="spinner-frame filters-loading">
             <div class="spinner-circle"></div>
-        </div>
-        <div class="trips-block" data-trip-id=3841>
+		</div>
+		
+
+		{% for i in package %}
+    
+        <div class="trips-block" >
     <div class="trip-img-holder">
     <div class="trip-frame">
         
         <span class="info-title best-seller"><span data-tooltip="This product is a best seller: High ratings, knowledgeable staff, and great time guaranteed."> BEST SELLER</span></span>        <div class="image-holder">
-            <a href="https://www.bookmundi.com/kathmandu/everest-base-camp-trek-3841" rel="noopener" target="_blank" class="target-link">
-            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/everest-base-camp-trek-tour-2-3841_1580274861.JPG" alt="Everest Base Camp Trek" data-sizes="auto" width="373" height="212">
+            <a href="#" rel="noopener" target="_blank" class="target-link">
+            <img src="{{media_url}}{{ i.image }} " data-src="{{media_url}}{{ i.image }}" alt="Everest Base Camp Trek" data-sizes="auto" width="373" height="212">
         </a>
         </div>
         <span class="wishlist-link showing-popover" data-wish-id="3841">
@@ -193,24 +204,23 @@
                 </div>
         <div class="start-end-wrap">
                         <div class="map-preview">
-                    <a href="javascript:void(0)" class="map-link" data-target-id="3841" data-target-is-itinerary-trip="1" data-target-is-api-trip="NO" data-target-map-mbl-title='Everest Base Camp Trek' data-target-map-mbl-locationtexts="{&quot;title&quot;:&quot;Starts\\Ends&quot;,&quot;content&quot;:&quot;Kathmandu, Nepal\\Kathmandu, Nepal&quot;}" data-target-map-mbl-pricetexts='{&quot;currency&quot;:&quot;US$&quot;,&quot;discount_pct&quot;:&quot;0&quot;,&quot;crossed&quot;:&quot;1,020&quot;,&quot;price&quot;:&quot;1,020&quot;,&quot;instantView&quot;:&quot;&lt;span class=\&quot;icon-eco7 instant\&quot;&gt;&lt;\/span&gt;&quot;}' data-target-map-mbl-durationtexts='{&quot;duration&quot;:&quot;12&quot;,&quot;durationType&quot;:&quot;days&quot;}' data-target-map-mbl-tripurl='https://www.bookmundi.com/kathmandu/everest-base-camp-trek-3841' id="trip-map-tag">
-                    <img data-src="https://www.bookmundi.com/files/agency/himalayan-leisure-inc/maps/38411597567329.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALoAAABOCAYAAACXDQz+AAAApUlEQVR42u3SsQ0AAAQAMPx/rcnoCou0NzR7ugKeS9ERHUQH0UF0EB1EB9FBdEQXHdFBdBAdRAfRQXQQHURHdBAdRAfRQXQQHUQH0UF0RAfRQXQQHUQH0UF0EB1ER3QQHUQH0UF0EB1EB9FBdEQH0UF0EB1EB9FBdBAdREd0EB1EB9FBdBAdRAfRQXREB9FBdBAdRAfRQXQQHURHdBAdRAfRQXS4ss3K3/NgM7tiAAAAAElFTkSuQmCC" alt="map-preview" class="img-responsive">
+                    <img data-src="https://www.bookmundi.com/files/agency/himalayan-leisure-inc/maps/38411595032626.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALoAAABOCAYAAACXDQz+AAAApUlEQVR42u3SsQ0AAAQAMPx/rcnoCou0NzR7ugKeS9ERHUQH0UF0EB1EB9FBdEQXHdFBdBAdRAfRQXQQHURHdBAdRAfRQXQQHUQH0UF0RAfRQXQQHUQH0UF0EB1ER3QQHUQH0UF0EB1EB9FBdEQH0UF0EB1EB9FBdBAdREd0EB1EB9FBdBAdRAfRQXREB9FBdBAdRAfRQXQQHURHdBAdRAfRQXS4ss3K3/NgM7tiAAAAAElFTkSuQmCC" alt="map-preview" class="img-responsive">
                 </a>
             </div>
                                     <div class="map-start-end">
                 <ul class="start-end-list">
                     <li>
                         <span class="title">Starts</span>
-                        <span class="txt" title="Kathmandu, Nepal">
+                        <span class="txt" title="{{ i.start_point }}">
                                                             <a href="javascript:void(0)" data-innerfilter="sdid" data-target="start-dest-112">
-                                    Kathmandu, Nepal                                </a>
+                                                                {{ i.start_point }}                                </a>
                                                     </span>
                     </li>
                     <li>
                         <span class="title">Ends</span>
-                        <span class="txt" title="Kathmandu, Nepal">
+                        <span class="txt" title="{{ i.end_point }}">
                                                             <a href="javascript:void(0)" data-innerfilter="edid" data-target="end-dest-112">
-                                    Kathmandu, Nepal                                </a>
+                                                                {{ i.end_point }}                               </a>
                                                     </span>
                     </li>
                 </ul>
@@ -220,8 +230,8 @@
     <div class="text-details" id="text-details-3841">
         <div class="details-block">
             <h4>
-    <a title="Everest Base Camp Trek" href="https://www.bookmundi.com/kathmandu/everest-base-camp-trek-3841" target="_blank" class="target-link" rel="noopener">
-        Everest Base Camp Trek    </a>
+    <a title="Everest Base Camp Trek" href="{{ i.get_absolute_url }}" target="_blank" class="target-link" rel="noopener">
+        {{ i.package_title }}    </a>
     </h4>            <div class="r-div">
 			<!--Star Rating-->
 			<div class="rating-deals-div">
@@ -234,71 +244,98 @@
 </div>
             <ul class="trips-options-list">
     <li><span class="icon-check-mark"></span>Free cancellation</li>        <li><span class="icon-check-mark"></span>Trip customizable</li>        </ul>
-            <div class="trip-txt r">
-                <i>“</i>The EBC trek must be a to do on everyones list. The stunning views and the sense of achievement, peo ...<i>”</i>                            </div>
+            <!-- <div class="trip-txt r">
+				<i>“</i>The EBC trek must be a to do on everyones list. The stunning views and the sense of achievement, peo ...<i>”</i>                           
+			</div> -->
             <ul class="trip-info-list">
         <li>
-    <span class="title">Tour Type</span>
-    <span class="txt">Private and Group Tour <span class="info-i-h" data-tooltip="Private Tour with a few fixed group departures available."><span class="icon-info"></span></span></span>
+
+	
+
+			<span class="title">Tour Type</span>
+
+    
+	
+
+	<span class="txt">{{ i.tour_type }}<span class="info-i-h" data-tooltip="Private Tour with a few fixed group departures available."><span class="icon-info"></span></span></span>
+	
+	
 </li>
-    <li>
+<li>
     <span class="title">Operator</span>
     <span class="txt opp">
-    <span class="isonline online-icon status mob-online-3289" style="display:none">Online</span>
-        <span title="Himalayan Leisure, Inc." class="op-title">Himalayan Leisure, Inc.</span>
-                <span class="op-badge premier">Premier <i class="popovr top"><span class="arr"></span>This operator is consistently delivering tours which receive customer ratings above 4.5 on average.</i></span>    </span>
+		<!-- <span class="isonline online-icon status mob-online-3289" style="display:none">Online</span> -->
+		<span title="Himalayan Leisure, Inc." class="op-title full-title">{{ i.agency_id }}</span>
+		<!-- <span class="isnotonline online-icon offline status mob-notonline-3289">Active 13 hours ago</span>        
+		<span class="op-badge premier">Premier <i class="popovr top"><span class="arr"></span>This operator is consistently delivering tours which receive customer ratings above 4.5 on average.</i></span>    -->
+	</span>
 </li>
     	<li class="common-li">
 		<span class="title">Activities</span>
-		<span class="txt elps" data-keys-v="activities-3841"><a href="javascript:void(0)" data-target="act-1" data-innerfilter="inneraid">Trekking</a></span>
+		<span class="txt elps" data-keys-v="activities-3841"><a href="javascript:void(0)" data-target="act-1" data-innerfilter="inneraid">{{i.toppings}}</a></span>
 	</li>
 	<li class="common-li">
 		<span class="title">Accommodation</span>
-		<span class="txt elps" data-keys-v="accommodation-3841">Guest House & Hotel</span>
+		<span class="txt elps" data-keys-v="accommodation-3841">{{i.accomodation}}</span>
 	</li>
 	<li class="common-li">
 		<span class="title">Transport</span>
-		<span class="txt elps" data-keys-v="transport-3841">Private Vehicle & Flight</span>
+		<span class="txt elps" data-keys-v="transport-3841">{{i.transport}}</span>
 	</li>
     
-<li><span class="title">Age Range</span><span class="txt">6+ years old</span></li></ul>
+<li><span class="title">Age Range</span><span class="txt">{{ i.age_requirement }}+ years old</span></li></ul>
         </div>
         <div class="details-right">
             <div class="price-details">
     <span class="price-holder">        
         <span class="info-text">
             <span>
-                <b>days</b>12            </span>            
+                <b>days</b>{{ i.days }}            </span>            
         </span>
         <span class="from-price">
             <i>
                 <span class="inst" data-tooltip="Your tour will be instantly confirmed when you book."><span class="icon-eco7"></span></span>                From
                             </i>
-            <b class="p">US$ 1,020</b>        
+            <b class="p">US$ {{ i.price }}</b>        
+
         </span>        
     </span>
-    <a class="btn-view-tour target-link" href="https://www.bookmundi.com/kathmandu/everest-base-camp-trek-3841" target="_blank" rel="noopener">View Tour</a>
+    <a class="btn-view-tour target-link" href="kathmandu/everest-base-camp-trek-3841.html" target="_blank" rel="noopener">View Tour</a>
 </div>                            <div class="departures-col">
                     <span class="title">Next Departures</span>
                     <ul class="departure-table">
                                                     <li>
-                                <span><span class="icon-check-mark-button"></span>Aug 19</span>
+                                <span><span class="icon-check-mark-button"></span>Jul 26</span>
                                 <span>
                                     <span class="limited"></span>
                                 </span>
                             </li>
                                                     <li>
-                                <span><span class="icon-check-mark-button"></span>Aug 20</span>
+                                <span><span class="icon-check-mark-button"></span>Jul 27</span>
                                 <span>
                                     <span class="limited"></span>
                                 </span>
                             </li>
-                                               
+                                                <!-- hardcoded -->
+                        <!--             <li>
+              <a href="javascript:void(0)" class="popover">
+                View More
+                <i>
+                  <span>
+                    Jan 1, 2019<br>
+                    Jan 2, 2019<br>
+                    Jan 3, 2019<br>
+                  </span>
+                </i>
+              </a>
+            </li> -->
                     </ul>
                 </div>
                     </div>
     </div>
 </div>
+
+{% endfor %}
 
 
 

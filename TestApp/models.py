@@ -19,3 +19,5 @@ class Instruction(models.Model):
     recipee = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='instruction_owner_id')
     number = models.PositiveSmallIntegerField()
     description = models.TextField()
+
+

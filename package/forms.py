@@ -7,53 +7,57 @@ from django import forms
 from django_countries.data import COUNTRIES
 User = get_user_model()
 from django.forms import ModelForm
-from .models import Package, Location, Itinerary, Days, MapLocation, Activities, Meals, Event, Accomodation, Image, TourType
+from .models import Package, Location, Itinerary, Days, MapLocation, Activities, Meals, Event, Accomodation, Image
 from accounts.models import MyUser
 
-class MapForm(forms.ModelForm):
-    class Meta:
-        model = MapLocation
-        fields = '__all__'
-        exclude = ['package_id',]
-
-class PackageForm(forms.ModelForm):
-    class Meta:
-        model = Package
-        fields = ('booking_type','package_title', 'start_point','end_point','age_requirement','price','special_offer','discount_price','days','tags','highlights','what_included','what_excluded','good_to_know',)
-        exclude = ['agency_id',]
 
 class ItineraryForm(forms.ModelForm):
     class Meta:
         model = Itinerary
         fields = '__all__'
 
+
 class AccomodationForm(forms.ModelForm):
     class Meta:
         model = Accomodation
         fields = '__all__'
+
+
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = '__all__'
 
+
+class MapForm(forms.ModelForm):
+    class Meta:
+        model = MapLocation
+        exclude = ('package_id', )
+
+
+class PackageForm(forms.ModelForm):
+    class Meta:
+        model = Package
+        exclude = ('agency_id','approve','publish', )
+
+
 class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
-        fields = ('image_title','image_location',)
+        exclude = ('package_id', )
 
-class TourTypeForm(forms.ModelForm):
+
+
+
+class LocationForm(forms.ModelForm):
     class Meta:
-        model = TourType
-        fields = '__all__'
+        model = Location
+        exclude = ('package_id', )
 
 
+LocationFormSet = inlineformset_factory(Package, MapLocation, form=MapForm, extra=1)
+ImageFormSet = inlineformset_factory(Package, Image, form=ImageForm, extra=1)
 
-# PackageFormSet = inlineformset_factory(Package, Itinerary, form=PackageForm, can_delete=False, extra=1)
-MapFormSet = inlineformset_factory(Package, MapLocation, form=MapForm, can_delete=False, extra=6)
+PLFormSet = inlineformset_factory(Package, Location, form=LocationForm, can_delete=False, extra=1)
 
-ImageFormSet = inlineformset_factory(Package, Image, form=ImageForm, can_delete=False, extra=6)
 
-TourTypeFormSet = inlineformset_factory(Package, TourType, form=TourTypeForm, can_delete=False, extra=1)
-
-# EventFormSet = inlineformset_factory(Accomodation, Event, form=AccomodationForm, can_delete=False, extra=1)
-# InstructionFormSet = inlineformset_factory(Recipe, Instruction)

@@ -12,6 +12,8 @@ from accounts import views
 from package import packageviews
 from TestApp import Testviews
 
+
+
 urlpatterns = [
     path('sadmin/', admin.site.urls),
 
@@ -21,10 +23,15 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout_view'),
     path('', views.home, name='home'),
 
-    path('map', packageviews.showthis, name='showthis'),
+    # path('map', packageviews.showthis, name='showthis'), 
+    # path('test1', packageviews.view_single_package, name='view_package'),
 
-    path('package/', packageviews.packageList, name='packageList'),
+    path('test1', packageviews.view_package, name='view_package'),
+
+    # path('package/', packageviews.packageList, name='packageList'),
     path('package/add/', packageviews.PackageCreateView.as_view(), name='PackageCreateView'),
+
+    path('<int:package_id>/<int:year>/<int:month>/<int:day>/<slug:package>/',packageviews.package_detail,name='package_detail'),
    
     #-------------------App URL
     #path('accounts/', include('django.contrib.auth.urls')),

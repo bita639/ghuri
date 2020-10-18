@@ -1,0 +1,7 @@
+{% for i in package %}
+		
+		{% for table2Instance in i.table2_set.all %}
+		<span class="txt">{{ table2Instance.tour_type }}<span class="info-i-h" data-tooltip="Private Tour with a few fixed group departures available."><span class="icon-info"></span></span></span>
+		{% endfor %}
+
+	{% endfor %}
