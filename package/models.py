@@ -74,6 +74,8 @@ class Package(models.Model):
     package_title = models.CharField(max_length=80)
     image = models.ImageField(upload_to="packageImage", default='packageImage/blank.png', blank=True, null=True)
     start_point = models.CharField(max_length=50)
+    city_name = models.CharField(max_length=35)
+    country = models.CharField(max_length=35)
     end_point = models.CharField(max_length=50)
     age_requirement = models.CharField(max_length=50)
     price = models.IntegerField()
@@ -97,7 +99,9 @@ class Package(models.Model):
 
     def get_absolute_url(self):        
         return reverse('package_detail',args=[self.id,self.publish.year,self.publish.month,self.publish.day,self.slug])
-
+    # def get_package_url(self):        
+    #     return reverse('view_package',args=[self.country])
+    
     class Meta:
         ordering = ('-publish',)
 
@@ -106,14 +110,6 @@ class Package(models.Model):
 
     
 
-class Location(models.Model):
-    city_name = models.CharField(max_length=35)
-    country = models.CharField(max_length=35)
-    package_id = models.OneToOneField(
-        Package, on_delete=models.CASCADE, related_name='package')
-
-    def __str__(self):
-        return self.city_name
 
 
 class Image(models.Model):
@@ -122,15 +118,6 @@ class Image(models.Model):
     package_id = models.ForeignKey(
         Package, on_delete=models.CASCADE, related_name='package_id')
 
-
-class Review(models.Model):
-    package_id = models.ForeignKey(
-        Package, on_delete=models.CASCADE, related_name='review_package')
-    user_id = models.ForeignKey(
-        MyUser, on_delete=models.CASCADE, related_name='end_user_id')
-    commented_date = models.DateTimeField(auto_now_add=True)
-    review_desc = models.TextField()
-    ratings = models.FloatField(blank=True)
 
 
 class Accomodation(models.Model):
@@ -208,3 +195,20 @@ class MapLocation(models.Model):
 
     def __str__(self):
         return self.locattion_name
+
+
+class Review(models.Model):
+    package = models.ForeignKey('Package', on_delete = models.CASCADE, related_name ='reviews')
+    title = models.CharField(max_length=100)
+    email = models.EmailField(max_length=255)
+    name = models.CharField(max_length=50)
+    review = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering= ('created',)
+
+    def __str__(self):
+        return 'comment by {} on {}'. format(self.name, self.package_id)

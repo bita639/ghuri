@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 
-from .models import Package, MapLocation, Location, Image, Review, Accomodation, Meals, Event, Days, Itinerary, Subscription, Activity, ActivityType, Activities
+from .models import Package, MapLocation, Image, Review, Accomodation, Meals, Event, Days, Itinerary, Subscription, Activity, ActivityType, Activities
 # Register your models here.
 
 admin.site.register(Package)
-admin.site.register(Location)
+
 
 admin.site.register(Image)
 

@@ -26,7 +26,7 @@ urlpatterns = [
     # path('map', packageviews.showthis, name='showthis'), 
     # path('test1', packageviews.view_single_package, name='view_package'),
 
-    path('test1', packageviews.view_package, name='view_package'),
+    path('test1/', packageviews.view_package, name='view_package'),
 
     # path('package/', packageviews.packageList, name='packageList'),
     path('package/add/', packageviews.PackageCreateView.as_view(), name='PackageCreateView'),

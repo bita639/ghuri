@@ -1,13 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from accounts.models import MyUser, Agency, Client, Admin
-from .models import Package, Location
 from django.forms import inlineformset_factory
 from django import forms
 from django_countries.data import COUNTRIES
 User = get_user_model()
 from django.forms import ModelForm
-from .models import Package, Location, Itinerary, Days, MapLocation, Activities, Meals, Event, Accomodation, Image
+from .models import Package, Itinerary, Days, MapLocation, Activities, Meals, Event, Accomodation, Image, Review
 from accounts.models import MyUser
 
 
@@ -46,18 +45,16 @@ class ImageForm(forms.ModelForm):
         model = Image
         exclude = ('package_id', )
 
-
-
-
-class LocationForm(forms.ModelForm):
+class ReviewForm(forms.ModelForm):
     class Meta:
-        model = Location
-        exclude = ('package_id', )
+        model = Review
+        fields = ('name', 'email', 'title', 'review' )
+
 
 
 LocationFormSet = inlineformset_factory(Package, MapLocation, form=MapForm, extra=1)
 ImageFormSet = inlineformset_factory(Package, Image, form=ImageForm, extra=1)
 
-PLFormSet = inlineformset_factory(Package, Location, form=LocationForm, can_delete=False, extra=1)
+
 
 

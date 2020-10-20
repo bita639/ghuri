@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MapLocation, Package, Location, Itinerary, Image
+from .models import MapLocation, Package, Itinerary, Image, Review
 from accounts.models import MyUser, Agency, Admin, Client
 from django.core import serializers
 import json
@@ -13,10 +13,10 @@ from django.shortcuts import get_list_or_404, get_object_or_404, Http404
 from django.views import View
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView
-from .forms import PackageForm, LocationFormSet, ImageFormSet, ImageForm, PLFormSet, LocationForm
+from .forms import PackageForm, LocationFormSet, ImageFormSet, ImageForm, ReviewForm
 from django.db.models import F
 from django.conf import settings
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 
@@ -61,28 +61,28 @@ class PackageCreateView(LoginRequiredMixin, CreateView):
         form = self.get_form(form_class)
         location_form = LocationFormSet()
         
-        pl_form = PLFormSet()
+        
         
         image_form = ImageFormSet(queryset=Image.objects.none())
         return self.render_to_response(
-            self.get_context_data(form=form, pl_form=pl_form, location_form=location_form,
+            self.get_context_data(form=form, location_form=location_form,
                                   image_form=image_form))
 
     def post(self, request, *args, **kwargs):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        pl_form = PLFormSet(self.request.POST)
+        
         location_form = LocationFormSet(self.request.POST)
         
         image_form = ImageFormSet(self.request.POST, self.request.FILES)
-        pl_form = PLFormSet(self.request.POST)
-        if (form.is_valid() and  pl_form.is_valid() and location_form.is_valid() and image_form.is_valid()):
-            return self.form_valid(form, pl_form, location_form, image_form)
+        
+        if (form.is_valid()  and location_form.is_valid() and image_form.is_valid()):
+            return self.form_valid(form, location_form, image_form)
         else:
-            return self.form_invalid(form, pl_form, location_form, image_form)
+            return self.form_invalid(form, location_form, image_form)
 
-    def form_valid(self, form, pl_form, location_form, image_form):
+    def form_valid(self, form, location_form, image_form):
 
         self.object = form.save(commit=False)
         self.object.agency_id = self.request.user
@@ -91,8 +91,7 @@ class PackageCreateView(LoginRequiredMixin, CreateView):
         location_form.instance = self.object
         location_form.save()
 
-        pl_form.instance = self.object
-        pl_form.save()
+        
 
        
 
@@ -104,54 +103,83 @@ class PackageCreateView(LoginRequiredMixin, CreateView):
         image_form.save()
         return HttpResponseRedirect(self.get_success_url())
 
-    def form_invalid(self, form, pl_form, location_form, image_form):
-        print(form.errors, pl_form.errors, location_form.errors, image_form.errors)
+    def form_invalid(self, form, location_form, image_form):
+        print(form.errors, location_form.errors, image_form.errors)
         return self.render_to_response(
-            self.get_context_data(form=form, pl_form=pl_form,
+            self.get_context_data(form=form,
                                   location_form=location_form,
                                   image_form=image_form))
 
 def view_package(request):
     # package = Package.objects.select_related('agency_idx').annotate(agency_name=
     #         F('myuser__user_id')).values('user_id', 'full_name')
+    query = request.GET.get('country')
+    package = Package.objects.filter(country=query)
+    # print(package.id)
+    for x in package:
+        json_res = serializers.serialize('json', 
+            MapLocation.objects.filter(package_id = x), fields=('latitude', 'longitude', 'locattion_name'))
+        print(json_res)
+    
+    
 
-    package = Package.objects.all()
+    paginator = Paginator(package, 6)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     
  
-    return render(request, "post.html", {"package": package, 'media_url':settings.MEDIA_URL})
+    return render(request, "POST.html", {"package": package,'posts':posts, 'all_objects': json_res, 'page':page, 'media_url':settings.MEDIA_URL})
 
 
 def package_detail(request, year, month, day, package,package_id):    
     package = get_object_or_404(Package, id=package_id, slug=package,publish__year=year,publish__month=month,publish__day=day)
     image = Image.objects.filter(package_id=package_id)
-    agency = MyUser.objects.filter(username=package.agency_id)
-    print(agency)
+    agency = Agency.objects.filter(user_id=package.agency_id)
 
-    json_res = serializers.serialize('json', MapLocation.objects.filter(
-        package_id=1), fields=('latitude', 'longitude', 'locattion_name'))
+    reviews = package.reviews.filter(active=True)
 
-    # dump = json.dumps(json_res)
+    new_review = None
+    review_form = ReviewForm(data=request.POST)
+    if request.method == 'POST':
+        if review_form.is_valid():
+            new_review = review_form.save(commit=False)
+            new_review.package = package
+            new_review.save()
+        else:
+            review_form =ReviewForm()
 
     
 
-   
- 
-    # comments = post.comments.filter(active=True)
+    json_res = serializers.serialize('json', MapLocation.objects.filter(
+        package_id=package_id), fields=('latitude', 'longitude', 'locattion_name'))
 
-    # new_comment = None
-    # comment_form = CommentForm(data=request.POST)
-    # if request.method == 'POST':
-    #     if comment_form.is_valid():
-    #         new_comment = comment_form.save(commit=False)
-    #         new_comment.post = post
-    #         new_comment.save()
-    #     else:
-    #         comment_form =CommentForm()
         
-    return render(request,'package.html',{'package': package,'all_objects': json_res, 'image':image, 'media_url':settings.MEDIA_URL})
+    return render(request,'package.html',{'package': package, 'reviews':reviews, 'review_form':review_form, 'all_objects': json_res, 'agency':agency, 'image':image, 'media_url':settings.MEDIA_URL})
 
 
+# def package_booking(request, package_id):
+#     package = get_object_or_404(Package, id=package_id)
+#     sent = False
 
+#     if request.method == 'POST':
+#         form = EmailPostForm(request.POST)
+#         if form.is_valid():
+#             cd = form.cleaned_data
+#             post_url = request.build_absolute_uri(post.get_absolute_url())
+#             subject ='{} ({}) recomends you reading " {}"'. format(cd['name'], cd['email'], post.title)
+#             message = 'Read "{}" at {}\n\n{}\'s comments:{}'.format(post.title, post_url, cd['name'], cd['comments'])
+#             send_mail(subject, message, '1000310@daffodil.ac', [cd['to']])
+ 
+#             sent = True
+#     else:
+#         form = EmailPostForm()
+#     return render(request, 'blog/share.html', {'post':post, 'form':form, 'sent':sent})
 
 # def view_single_package(request):
 #     # package = Package.objects.select_related('agency_idx').annotate(agency_name=

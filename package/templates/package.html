@@ -3,8 +3,8 @@
 
 {% block content %}
 
-<div class="breadcrumb">
-    <span><a href="#"><span>Home</span></a></span>    &nbsp;› &nbsp;<span><a href="#asia"><span>Asia Tours</span></a></span>    &nbsp;› &nbsp;<span><a href="#nepal"><span>Nepal Tours</span></a></span>    &nbsp;› &nbsp;<span><a href="#everest-base-camp-trek/d5-bm"><span>Everest Base Camp Trek </span></a></span>    &nbsp;› &nbsp;<span><a href="#everest-base-camp-trek/adventure-and-sport/d5-a1795"><span>Adventure And Sport</span></a></span>    &nbsp;› &nbsp;<span><a href="#everest-base-camp-trek/trekking/d5-a1"><span>Trekking</span></a></span>    &nbsp;› &nbsp;<span>Everest Base Camp Trek</span></div>        <!-- breadcrumb end -->
+<!-- <div class="breadcrumb">
+    <span><a href="#"><span>Home</span></a></span>    &nbsp;› &nbsp;<span><a href="#asia"><span>Asia Tours</span></a></span>    &nbsp;› &nbsp;<span><a href="#nepal"><span>Nepal Tours</span></a></span>    &nbsp;› &nbsp;<span><a href="#everest-base-camp-trek/d5-bm"><span>Everest Base Camp Trek </span></a></span>    &nbsp;› &nbsp;<span><a href="#everest-base-camp-trek/adventure-and-sport/d5-a1795"><span>Adventure And Sport</span></a></span>    &nbsp;› &nbsp;<span><a href="#everest-base-camp-trek/trekking/d5-a1"><span>Trekking</span></a></span>    &nbsp;› &nbsp;<span>Everest Base Camp Trek</span></div>        breadcrumb end -->
 
         <!-- two cols start -->
         <div class="two-cols">
@@ -23,7 +23,10 @@
     <i data-alt="1" class="icon-star-on" title="Excellent"></i> <i data-alt="2" class="icon-star-on" title="Excellent"></i> <i data-alt="3" class="icon-star-on" title="Excellent"></i> <i data-alt="4" class="icon-star-on" title="Excellent"></i> <i data-alt="5" class="icon-star-on" title="Excellent"></i> </span>
             <i>5.0</i>
         </span>
-        <span class="r-based">Based on <a href="javascript:void(0)" id="scroll-to-reviews">317 Reviews</a></span>
+        {% with reviews.count as total_reviews %}
+        <span class="r-based">Based on {{ total_reviews }} Reviews </span>
+        {% endwith %}
+
     </div>
     </header>
 <div class="carousel" id="tour-carousel">
@@ -194,71 +197,57 @@ console.log(polyArr)
             <i data-alt="1" class="icon-star-on" title="Excellent"></i> <i data-alt="2" class="icon-star-on" title="Excellent"></i> <i data-alt="3" class="icon-star-on" title="Excellent"></i> <i data-alt="4" class="icon-star-on" title="Excellent"></i> <i data-alt="5" class="icon-star-on" title="Excellent"></i>         </div>
         <strong class="reviews-title"><span>5</span> - Excellent </strong>
     </div>
-    <strong class="title">Based on <span>317</span> reviews</strong>
+    {% with reviews.count as total_reviews %}
+        <span class="r-based">Based on {{ total_reviews }} Reviews </span>
+        {% endwith %}
 </div>
         <div class="reviews-wrap">
         <div id="mblReviewList">
+            {% for review in reviews %}
             <div class="col-holder">
-            <div class="heading">
-                <strong class="r-title">
-                    <span>
-                        The most amazing experience of my life !                    </span>
-                </strong>
-                			<!--Star Rating-->
-			<div class="r-stars">
-    <span class="s-holder">
-        <i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>     </span>
-    <span>
-        5 -
-        Excellent    </span>
-</div>
-                <ul class="meta-r">
-                    <li>Kristiyan</li>
-                                            <li>From Bulgaria</li>
-                                                                <li>On Sep 24 2020</li>
-                                    </ul>
+                <div class="heading">
+                    <strong class="r-title">
+                        <span>{{review.title}}</span>
+                    </strong>
+                                <!--Star Rating-->
+                    <div class="r-stars">
+                        <span class="s-holder"><i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>     </span>
+                        <span>5 -Excellent    </span>
+                    </div>
+                    <ul class="meta-r">
+                        <li>{{review.name}}</li>
+                        
+                        <li>{{review.created}}</li>
+                    </ul>
+                </div>
+                <div class="r-text">
+                    {{review.review|linebreaks}}
+                </div>
+                {% empty %}
+                <strong class="h-title">There are no Reviews yet.</strong>       
             </div>
-            <div class="r-text">
-                “I don't know from where to start, this was really the best experience of my life and it's all thanks to Lok our amazing guide.I have visited many countries and different places but the views are no matchto the views you are going to see on the EBC trek.There were a few moments where I would post a picture during the trek or send it to friends and they would say it's photoshopped , and it would look photoshopped even to me haha When me and my friend started planning the trip there were so many companies to choose from and it was a bit overwhelming, so I started asking questions to a few of them but Upendra the owner had the most impact on me , he was so fast to respond to the million questions I had that I was left pleasantry surprised and decided to go with Himalayan Leisure Inc and it was the best decision I have made.Our guide Lok welcomed us at the airport , and took us to the hotel where we had a short meeting with Upendra to give us a summary of the trip , and he also gave us duffel bags, sleeping bags since we didn't have any.Next morning we got up early and went towards the domestic airport to get a flight to Lukla, Lok had arranged a breakfast with the hotel in advance and had it packed  and ready for us because it was still too early. Even before we boarded the flight to Lukla he told us where to sit to get the best views and pictures.Once we arrived at Lukla the trek started and we were lucky to have very good weather through all of it.Every single day our guide Lok made sure he asks us what we want to have for breakfast and when we woke up , 5 minutes later we had it server with coffee/tea.He was also organizing our lunch and dinner and it was always fast which was really good after a long day.We were never in rush , he was walking behind us letting us set the pace and take as many breaks as we needed , and if anyone of us was ever tired he would offer to take our bag.Every night he would also take measurement of our oxygen and ask us how are we doing , do we have any issues and make sure we drink plenty of water when resting and have always water in our bags for the trek.One of the days I was not feeling very well probably because I got sunburned so he went immediatly and got a thermometer but luckily after getting some sleep I was a lot better and didn't have any other issues during the trip or AMS symptoms, so make sure you have sun protection for those long treks and a hat.During the trek there were a few people that we met and they didn't make it all the way to Base Camp and I feel if we were doing the trek on our own we might not have made it as well.If you are considering the EBC trek , just do it honestly, I was thinking about it for at least a whole year having the feeling that it might be too much for me but it wasn't, I just regret not doing it earlier.Also definetly make sure to ask for Lok to be your guide if possible , he is such a good human being and also really funny that you will feel way better just having him around you.”
-            </div>
-                            <ul class="cus-r-img">
-                                            <li>
-                            <a href="../../d3hne3c382ip58.cloudfront.net/files/rating/uploads/54798/1600962433-826.jpg" class="glightbox" data-gallery="gallery1" data-description="The most amazing experience of my life !">
-                                <img data-src="https://d3hne3c382ip58.cloudfront.net/resized/70x70/the-most-amazing-experience-of-my-life-2169_1600962610.JPG" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAQAAADbJyoPAAAAQ0lEQVR42u3OQQ0AAAgEIC+5xX1YQzdIQKbrjMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj8zCy572fpXyFPSwAAAABJRU5ErkJggg==" alt="The most amazing experience of my life !">
-                            </a>
-                        </li>
-                                            <li>
-                            <a href="../../d3hne3c382ip58.cloudfront.net/files/rating/uploads/54798/1600962433-108.jpg" class="glightbox" data-gallery="gallery1" data-description="The most amazing experience of my life !">
-                                <img data-src="https://d3hne3c382ip58.cloudfront.net/resized/70x70/the-most-amazing-experience-of-my-life-2170_1600962610.JPG" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAQAAADbJyoPAAAAQ0lEQVR42u3OQQ0AAAgEIC+5xX1YQzdIQKbrjMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj8zCy572fpXyFPSwAAAABJRU5ErkJggg==" alt="The most amazing experience of my life !">
-                            </a>
-                        </li>
-                                            <li>
-                            <a href="../../d3hne3c382ip58.cloudfront.net/files/rating/uploads/54798/1600962433-864.jpg" class="glightbox" data-gallery="gallery1" data-description="The most amazing experience of my life !">
-                                <img data-src="https://d3hne3c382ip58.cloudfront.net/resized/70x70/the-most-amazing-experience-of-my-life-2171_1600962610.JPG" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAQAAADbJyoPAAAAQ0lEQVR42u3OQQ0AAAgEIC+5xX1YQzdIQKbrjMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj8zCy572fpXyFPSwAAAABJRU5ErkJggg==" alt="The most amazing experience of my life !">
-                            </a>
-                        </li>
-                                            <li>
-                            <a href="../../d3hne3c382ip58.cloudfront.net/files/rating/uploads/54798/1600962433-337.jpg" class="glightbox" data-gallery="gallery1" data-description="The most amazing experience of my life !">
-                                <img data-src="https://d3hne3c382ip58.cloudfront.net/resized/70x70/the-most-amazing-experience-of-my-life-2172_1600962610.JPG" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAQAAADbJyoPAAAAQ0lEQVR42u3OQQ0AAAgEIC+5xX1YQzdIQKbrjMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj8zCy572fpXyFPSwAAAABJRU5ErkJggg==" alt="The most amazing experience of my life !">
-                            </a>
-                        </li>
-                                            <li>
-                            <a href="../../d3hne3c382ip58.cloudfront.net/files/rating/uploads/54798/1600962521-691.jpg" class="glightbox" data-gallery="gallery1" data-description="The most amazing experience of my life !">
-                                <img data-src="https://d3hne3c382ip58.cloudfront.net/resized/70x70/the-most-amazing-experience-of-my-life-2173_1600962610.JPG" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAQAAADbJyoPAAAAQ0lEQVR42u3OQQ0AAAgEIC+5xX1YQzdIQKbrjMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj8zCy572fpXyFPSwAAAABJRU5ErkJggg==" alt="The most amazing experience of my life !">
-                            </a>
-                        </li>
-                                            <li>
-                            <a href="../../d3hne3c382ip58.cloudfront.net/files/rating/uploads/54798/1600962521-403.jpg" class="glightbox" data-gallery="gallery1" data-description="The most amazing experience of my life !">
-                                <img data-src="https://d3hne3c382ip58.cloudfront.net/resized/70x70/the-most-amazing-experience-of-my-life-2174_1600962610.JPG" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAQAAADbJyoPAAAAQ0lEQVR42u3OQQ0AAAgEIC+5xX1YQzdIQKbrjMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj8zCy572fpXyFPSwAAAABJRU5ErkJggg==" alt="The most amazing experience of my life !">
-                            </a>
-                        </li>
-                                    </ul>
-                                </div>
+            {% endfor %}
 
-    </div>
-                        <div class="btn-more" id="loadMoreProductReviewsParent">
-                <a href="javascript:void(0)" data-total-review-count="317" id="loadMoreProductReviews">Read more reviews</a>
+            <div class="comment-form-wrap pt-5">
+                {% if new_review %}
+                <h3 class="mb-5">Your Review has been added.</h3>
+                {% else %}
+                <h3 class="mb-5">Write a Review</h3>
+                <form action="." method= "post" class="p-3 p-md-5 bg-light">
+
+                    {{ review_form.as_p }}    
+                    {% csrf_token %}    
+                    <p><input type="submit" value="Add comment"></p>
+                </form>
+                {% endif %}
             </div>
+
+            
+
+        </div>
+                        <!-- <div class="btn-more" id="loadMoreProductReviewsParent">
+                <a href="javascript:void(0)" data-total-review-count="317" id="loadMoreProductReviews">Read more reviews</a>
+            </div> -->
                 </div>
 </div>
                 <!-- Reviews Component from mobile end -->
@@ -310,7 +299,7 @@ console.log(polyArr)
                                 <div class="w-box t scrl" id="good-to-know">
 	<div class="t-hlghts">
     	<strong class="h-title">GOOD TO KNOW</strong>
-    	<a href="javascript:void(0)" class="w-btn" data-id="trip-note-btn">Download trip notes</a>
+    	<!-- <a href="javascript:void(0)" class="w-btn" data-id="trip-note-btn">Download trip notes</a> -->
     </div>
     <div class="gtn-block">
        {{package.good_to_know}}
@@ -339,10 +328,11 @@ console.log(polyArr)
         </i>
         <b class="p">US$ {{package.price}}</b>    </span>
 </span>
-<a href="javascript:void(0)" class="gd-link">See Group Discount</a></div>                <ul class="i-list">
-            <li><span class="icon-check-mark"></span><span>Best price guaranteed</span></li>
-            <li><span class="icon-check-mark"></span><span>No booking fees</span></li>
-            <li id="booking_saving_text"><span class="icon-check-mark"></span><span><b>Earn US$ 36</b> in travel credits</span><div class='popovr'><span class='arr'></span>You will earn <b>US$ 36</b> in travel credits when buying this tour. The <span>US$ 36</span> earned travel credits can be used on any future booking on Bookmundi.</div></li>        </ul>
+<a href="javascript:void(0)" class="gd-link">See Group Discount</a></div>                
+    <ul class="i-list">
+        <li><span class="icon-check-mark"></span><span>Best price guaranteed</span></li>
+        <li><span class="icon-check-mark"></span><span>No booking fees</span></li>
+    </ul>
         
                     <div class="collapse" id="gd-discount" style="display:none">
                 <ul class="gd-ul">
@@ -373,7 +363,7 @@ console.log(polyArr)
                                     </ul>
             </div>
         
-                    <a href="javascript:void(0)" class="a-btn" id="check-availability"><span>BOOK NOW</span></a>
+                    <a href="{% url 'login_view' %}" class="a-btn" ><span>BOOK NOW</span></a>
         
                     <div class="en-block">
                 <span>
@@ -393,12 +383,18 @@ console.log(polyArr)
         <!-- enquiry box start -->
         <div class="w-box t en-box">
 <div class="ag-logo">
+    {%for i in agency%}
     <div class="lgo">
-        <img src="../files/resized/72x72/ad11cb80d6dbad320d1a1dd06027f489_1525323639.jpg" alt="IHimalayan Leisure, Inc." class="img-responsive">
+        <img src="{{media_url}} {{ i.photo }}" alt="IHimalayan Leisure, Inc." class="img-responsive">
     </div>
     <div class="ag-details">
         <i>Tour is operated by :</i>
-        <span><a href="#companies/himalayan-leisure-inc/c1082" target="_blank" rel="noopener">###</a> <span class="online" id="agency_status" data-activeago=""></span></span>
+        <span><a href="#companies/himalayan-leisure-inc/c1082" target="_blank" rel="noopener">
+        
+                {{i.name}}
+           
+        
+        </a> <span class="online" id="agency_status" data-activeago=""></span></span>
                     <div class="r-stars">
                  			<!--Star Rating-->
 			<span class="s-holder" data-loadcompanyreviews="1" data-ag-id=3289>
@@ -408,6 +404,7 @@ console.log(polyArr)
                 </span>
             </div>
             </div>
+            {% endfor %}
 </div>
 <div class="ag-btn">
                     <i>Currently 17:51 in Kathmandu                                    - <span data-tooltip="Open Now - Expect Fast Response Times On Bookings and Enquiries. Bookings can be made 24/7.">Open Now</span>
