@@ -17,6 +17,7 @@ from .forms import PackageForm, LocationFormSet, ImageFormSet, ImageForm, Review
 from django.db.models import F
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -60,9 +61,6 @@ class PackageCreateView(LoginRequiredMixin, CreateView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         location_form = LocationFormSet()
-        
-        
-        
         image_form = ImageFormSet(queryset=Image.objects.none())
         return self.render_to_response(
             self.get_context_data(form=form, location_form=location_form,
@@ -115,14 +113,15 @@ def view_package(request):
     #         F('myuser__user_id')).values('user_id', 'full_name')
     query = request.GET.get('country')
     package = Package.objects.filter(country=query)
-    # print(package.id)
-    for x in package:
-        json_res = serializers.serialize('json', 
-            MapLocation.objects.filter(package_id = x), fields=('latitude', 'longitude', 'locattion_name'))
-        print(json_res)
-    
-    
 
+    # print(package)
+
+    
+    for x in package:
+        json_ress = serializers.serialize('json',MapLocation.objects.filter(package_id = x), fields=('latitude', 'longitude', 'locattion_name'))
+    
+    
+    json_res =json_ress
     paginator = Paginator(package, 6)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
@@ -134,7 +133,9 @@ def view_package(request):
         posts = paginator.page(paginator.num_pages)
     
  
-    return render(request, "POST.html", {"package": package,'posts':posts, 'all_objects': json_res, 'page':page, 'media_url':settings.MEDIA_URL})
+    return render(request, "POST.html", {"package": package,'posts':posts, 'all_objects':json_res, 'page':page, 'media_url':settings.MEDIA_URL})
+
+
 
 
 def package_detail(request, year, month, day, package,package_id):    
@@ -162,6 +163,108 @@ def package_detail(request, year, month, day, package,package_id):
         
     return render(request,'package.html',{'package': package, 'reviews':reviews, 'review_form':review_form, 'all_objects': json_res, 'agency':agency, 'image':image, 'media_url':settings.MEDIA_URL})
 
+
+
+@login_required
+def login_view_package(request):
+    # package = Package.objects.select_related('agency_idx').annotate(agency_name=
+    #         F('myuser__user_id')).values('user_id', 'full_name')
+    query = request.GET.get('country')
+    package = Package.objects.filter(country=query)
+
+    # print(package)
+
+    
+    for x in package:
+        json_ress = serializers.serialize('json',MapLocation.objects.filter(package_id = x), fields=('latitude', 'longitude', 'locattion_name'))
+    
+    
+    json_res =json_ress
+    paginator = Paginator(package, 6)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    context = {
+        'query':query,
+        'package': package,
+        'posts':posts, 
+        'all_objects':json_res, 
+        'page':page, 
+        'media_url':settings.MEDIA_URL}
+    
+ 
+    return render(request, "POST2.html", context)
+
+
+
+
+@login_required
+def login_package_detail(request, year, month, day, package,package_id):    
+    package = get_object_or_404(Package, id=package_id, slug=package,publish__year=year,publish__month=month,publish__day=day)
+    image = Image.objects.filter(package_id=package_id)
+    agency = Agency.objects.filter(user_id=package.agency_id)
+
+    reviews = package.reviews.filter(active=True)
+
+    new_review = None
+    review_form = ReviewForm(data=request.POST)
+    if request.method == 'POST':
+        if review_form.is_valid():
+            new_review = review_form.save(commit=False)
+            new_review.package = package
+            new_review.save()
+        else:
+            review_form =ReviewForm()
+
+    
+
+    json_res = serializers.serialize('json', MapLocation.objects.filter(
+        package_id=package_id), fields=('latitude', 'longitude', 'locattion_name'))
+
+        
+    return render(request,'profile_package.html',{'package': package, 'reviews':reviews, 'review_form':review_form, 'all_objects': json_res, 'agency':agency, 'image':image, 'media_url':settings.MEDIA_URL})
+
+
+def booking_now(request, package_id):
+    
+    package = get_object_or_404(Package, id=package_id)
+    current_user = request.user
+    print(current_user.user_id)
+    
+    
+    # new_review = None
+    # review_form = ReviewForm(data=request.POST)
+    # if request.method == 'POST':
+    #     if review_form.is_valid():
+    #         new_review = review_form.save(commit=False)
+    #         new_review.package = package
+    #         new_review.save()
+    #     else:
+    #         review_form =ReviewForm()
+            
+
+    # if request.method == 'POST':
+    #     form = EmailPostForm(request.POST)
+    #     if form.is_valid():
+    #         cd = form.cleaned_data
+    #         post_url = request.build_absolute_uri(post.get_absolute_url())
+    #         subject ='{} ({}) recomends you reading " {}"'. format(cd['name'], cd['email'], post.title)
+    #         message = 'Read "{}" at {}\n\n{}\'s comments:{}'.format(post.title, post_url, cd['name'], cd['comments'])
+    #         send_mail(subject, message, '1000310@daffodil.ac', [cd['to']])
+ 
+    #         sent = True
+    # else:
+    #     form = EmailPostForm()
+
+    return render(request, 'booking/booking.html',{'package':package})
+
+    
 
 # def package_booking(request, package_id):
 #     package = get_object_or_404(Package, id=package_id)

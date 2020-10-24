@@ -1,0 +1,606 @@
+{% extends 'profile_package_base.html' %}
+{%load static%}
+
+{% block content %}
+
+<!-- <div class="breadcrumb">
+    <span><a href="#"><span>Home</span></a></span>    &nbsp;› &nbsp;<span><a href="#asia"><span>Asia Tours</span></a></span>    &nbsp;› &nbsp;<span><a href="#nepal"><span>Nepal Tours</span></a></span>    &nbsp;› &nbsp;<span><a href="#everest-base-camp-trek/d5-bm"><span>Everest Base Camp Trek </span></a></span>    &nbsp;› &nbsp;<span><a href="#everest-base-camp-trek/adventure-and-sport/d5-a1795"><span>Adventure And Sport</span></a></span>    &nbsp;› &nbsp;<span><a href="#everest-base-camp-trek/trekking/d5-a1"><span>Trekking</span></a></span>    &nbsp;› &nbsp;<span>Everest Base Camp Trek</span></div>        breadcrumb end -->
+
+        <!-- two cols start -->
+        <div class="two-cols">
+            <article class="p-holder">
+                <div class="p-intro w-box t">
+                    <!-- carousel component from mobile start -->
+                    <header class="p-heading">
+    <div class="p-title">
+        <h1>Everest Base Camp Trek</h1>
+        <ul class="trip-features"><li><span class="icon-check-mark"></span>Best price guaranteed</li><li><span class="icon-check-mark"></span>No booking fees</li><li><span class="icon-check-mark"></span>E-ticket/Mobile voucher</li></ul>
+            </div>
+        <div class="main-review">
+        <span class="m-stars" id="tour-stars">
+        			<!--Star Rating-->
+			<span class="s-holder" data-loadcompanyreviews="1" data-ag-id=>
+    <i data-alt="1" class="icon-star-on" title="Excellent"></i> <i data-alt="2" class="icon-star-on" title="Excellent"></i> <i data-alt="3" class="icon-star-on" title="Excellent"></i> <i data-alt="4" class="icon-star-on" title="Excellent"></i> <i data-alt="5" class="icon-star-on" title="Excellent"></i> </span>
+            <i>5.0</i>
+        </span>
+        {% with reviews.count as total_reviews %}
+        <span class="r-based">Based on {{ total_reviews }} Reviews </span>
+        {% endwith %}
+
+    </div>
+    </header>
+<div class="carousel" id="tour-carousel">
+    <div class="slideshow-container">
+{% for i in image %}
+<div class="mySlides fade">
+  
+  <img src="{{media_url}}{{ i.image_location }}" style="width:100%">
+  <div class="text">{{ i.image_title }}</div>
+</div>
+{% endfor %}
+
+
+
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+<br>
+
+
+
+</div>
+                    <!-- carousel component from mobile end -->
+                    <div class="top-details scrl" id="overview">
+    <div class="top-information">
+        <ul class="act-list">
+                                        <li>
+                    <a href="#">
+                        {{package.toppings}}                    </a>
+                </li>
+                    </ul>
+        <a class="top-lnk" href="#itinerary" id="scroll-to-iti">See Itinerary</a>
+    </div>
+    <div class="top-row t td">
+        <ul class="t-points t-details">
+                            <li>
+                    <span>Booking Type</span>
+                    <b>
+                        <span class="i-p" data-tooltip="This tour will be instantly confirmed when you book.">
+                            <span class="icon-eco7 instant"></span>
+                        </span>
+                        {{package.booking_type}}</b>
+                </li>
+                                            <li>
+                        <span>duration</span>
+                        <b>{{package.days}} days </b>
+                    </li>
+                                    <li>
+                        <span>tour type</span>
+                        <b>{{package.tour_type}}  <span class="info-i-h" data-tooltip="Private Tour with a few fixed group departures available."><span class="icon-info"></span></span></b>
+                    </li>
+                                    <li>
+                        <span>age requirement</span>
+                        <b>{{package.age_requirement}}+ years old </b>
+                    </li>
+                                    <li>
+                        <span>guiding method</span>
+                        <b>{{package.guide_method}} </b>
+                    </li>
+                                   
+                                                </ul>
+        <div class="m-col t">
+            <div id="mapid" style="width: 450px; height: 187px;"></div>
+
+<script>
+
+	var js_list = "{{all_objects|escapejs}}";
+	
+	var myJSONList = (("{{all_objects}}").replace(/&(l|g|quo)t;/g, function(a,b){
+                return {
+                    l   : '<',
+                    g   : '>',
+                    quo : '"'
+                }[b];
+            }));
+
+ myData = JSON.parse( myJSONList );
+ console.log(myData);
+
+
+	var mymap = L.map('mapid').setView([0,0], 7);
+
+	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYml0YTYzOSIsImEiOiJja2NsNDQwZGMwMG5iMnB0ZHoxaDJzeXZ0In0.jcSkP5MJWjG3yuRGn8J5og', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox/streets-v11',
+		tileSize: 512,
+		zoomOffset: -1
+	}).addTo(mymap);
+
+	
+
+	// L.marker([51.52, -0.05]).addTo(mymap)
+	// 	.bindPopup("<b>End Point!</b><br />I am a popup.").openPopup();
+
+	// L.marker([51.509, -0.08]).addTo(mymap)
+	// 	.bindPopup("<b>Start Point!</b><br />I am a popup.").openPopup();
+		
+		
+	myData.map(item=>L.marker([item.fields.latitude, item.fields.longitude]).addTo(mymap)
+		.bindPopup(`${item.fields.locattion_name}`).openPopup())
+
+	var polyArr = [];
+
+	myData.map(item=>polyArr.push([item.fields.latitude, item.fields.longitude]))
+console.log(polyArr)
+	L.polyline(polyArr,{color: 'blue'}).addTo(mymap).bindPopup("I am a polygon.");
+
+
+	var popup = L.popup();
+
+	function onMapClick(e) {
+		popup
+			.setLatLng(e.latlng)
+			.setContent("You clicked the map at " + e.latlng.toString())
+			.openOn(mymap);
+	}
+
+	mymap.on('click', onMapClick);
+
+</script>
+            <ul class="t-points" id="trip-loc-tag">
+                <li>
+                    <span>Starts</span>
+                    <b>{{package.start_point}}                                            <span class="info-i-h" data-tooltip="Meeting/Starting point: Pick-up at your hotel or location in Kathmandu">
+                            <span class="icon-info"></span>
+                        </span>
+                                    </b>
+            </li>
+                            <li>
+                    <span>Ends</span>
+                    <b>{{package.end_point}}</b>
+                </li>
+                                        <i class="t-count">+9</i>
+                    </ul>
+    </div>
+</div>
+    <div class="top-row t-hlghts">
+        <!-- <strong class="h-title">HIGHLIGHTS</strong>
+                <ul>
+            <li><span class="icon-check-mark"></span>ttt</li><li><span class="icon-check-mark"></span>Enjoy amazing views of the Himalayas from Kala Patthar</li><li><span class="icon-check-mark"></span>Travel through the Sherpa villages of Namche, Khumjung, Khunde and Dingboche</li><li><span class="icon-check-mark"></span>Visit Tengboche, the biggest and oldest monastery in the region</li>        </ul>
+    </div> -->
+<div class="top-row n">
+    <div class="desc-p">
+        {{package.highlights}}
+
+
+ <div class="link-holder">
+            <a href="javascript:void(0)" id="link-p">View More</a>
+        </div>
+    </div>
+</div>
+</div>
+
+                </div>
+
+                <!-- Reviews Component from mobile start -->
+                <div class="w-box t scrl reviews-block" id="product-reviews">
+    <strong class="h-title">        
+        CUSTOMER REVIEWS     </strong>
+    			<!--Star Rating-->
+			 <div class="reviews-h-wrap">
+    <div class="reviews-heading">
+        <div class="reviews-holder">
+            <i data-alt="1" class="icon-star-on" title="Excellent"></i> <i data-alt="2" class="icon-star-on" title="Excellent"></i> <i data-alt="3" class="icon-star-on" title="Excellent"></i> <i data-alt="4" class="icon-star-on" title="Excellent"></i> <i data-alt="5" class="icon-star-on" title="Excellent"></i>         </div>
+        <strong class="reviews-title"><span>5</span> - Excellent </strong>
+    </div>
+    {% with reviews.count as total_reviews %}
+        <span class="r-based">Based on {{ total_reviews }} Reviews </span>
+        {% endwith %}
+</div>
+        <div class="reviews-wrap">
+        <div id="mblReviewList">
+            {% for review in reviews %}
+            <div class="col-holder">
+                <div class="heading">
+                    <strong class="r-title">
+                        <span>{{review.title}}</span>
+                    </strong>
+                                <!--Star Rating-->
+                    <div class="r-stars">
+                        <span class="s-holder"><i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>     </span>
+                        <span>5 -Excellent    </span>
+                    </div>
+                    <ul class="meta-r">
+                        <li>{{review.name}}</li>
+                        
+                        <li>{{review.created}}</li>
+                    </ul>
+                </div>
+                <div class="r-text">
+                    {{review.review|linebreaks}}
+                </div>
+                {% empty %}
+                <strong class="h-title">There are no Reviews yet.</strong>       
+            </div>
+            {% endfor %}
+
+            <div class="comment-form-wrap pt-5">
+                {% if new_review %}
+                <h3 class="mb-5">Your Review has been added.</h3>
+                {% else %}
+                <h3 class="mb-5">Write a Review</h3>
+                <form action="." method= "post" class="p-3 p-md-5 bg-light">
+
+                    {{ review_form.as_p }}    
+                    {% csrf_token %}    
+                    <p><input type="submit" value="Add comment"></p>
+                </form>
+                {% endif %}
+            </div>
+
+            
+
+        </div>
+                        <!-- <div class="btn-more" id="loadMoreProductReviewsParent">
+                <a href="javascript:void(0)" data-total-review-count="317" id="loadMoreProductReviews">Read more reviews</a>
+            </div> -->
+                </div>
+</div>
+                <!-- Reviews Component from mobile end -->
+
+                <!-- Itinerary Component in mobile Start -->
+                
+
+                    <!-- Itinerary Component in mobile End -->
+
+
+                <!-- Includes/Excludes Component from mobile start -->
+                <div class="w-box t scrl" id="includes">
+    <strong class="h-title">WHAT'S INCLUDED</strong>
+    {{package.what_included}}
+</div>                <!-- Includes/Excludes Component from mobile end -->
+
+
+
+                
+
+               
+                <div class="c-box">
+    <!-- why bookmundi component start -->
+    <div class="why-book-block"><strong class="book-title">Why Book with Ghuri Travel</strong>
+        <div class="book-holder">
+            <ul class="book-list">
+                
+                    <li><span class="icon-default"></span>Earn <b id="earn-travel-credit">US$ 36+</b> in travel credits.</li>                
+                    <li><span class="icon-default"></span>Excellent customer service. Our travel experts are ready to help you 24/7.</li>                
+                    <li><span class="icon-default"></span>Best price guaranteed.</li>                
+                    <li><span class="icon-default"></span>No credit card or booking fees.</li>                
+                    <li><span class="icon-default"></span>100% financial protection. <i data-tooltip="Bookmundi is a member of the Danish Travel Fund which guarantees for any payment made via us. Our guarantee covers all travelers, irrespective of nationality."><span class="icon-info"></span></i></li>                                <div id="collapse-why-book-collapse" class="collapse">
+                                            <li><span class="icon-default"></span>25,000+ trip reviews, with an average rating of 4.9 out of 5.</li>                                    </div>
+                <li class="full-width rm">
+                    <a class="why-book-more" href="javascript:void(0)">Read
+                        <span class="b-more">more reasons to book with Ghuri travel</span><span class="b-less">less</span>
+                    </a>
+                    <a class="why-book-less" href="javascript:void(0)" style="display:none">Read
+                        <span class="b-less">less</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- why bookmundi component end -->
+</div>
+                
+
+                                <div class="w-box t scrl" id="good-to-know">
+	<div class="t-hlghts">
+    	<strong class="h-title">GOOD TO KNOW</strong>
+    	<!-- <a href="javascript:void(0)" class="w-btn" data-id="trip-note-btn">Download trip notes</a> -->
+    </div>
+    <div class="gtn-block">
+       {{package.good_to_know}}
+    </div>
+                                                                <div class="w-box t">
+    
+</div>                            </article>
+            <aside id="sidebar">
+    <div class="sbox-wrap" id="sbox-wrap">
+        <!-- top pricing start -->
+
+        <div id="book-holder"></div><div class="stiky-box " id="book-holder-init">
+        <div class="w-box t">
+        
+        <div class="bottom-details">
+<span class="b-info" id="trip-duration">
+    <i>days</i>
+    <b>{{package.days}}</b>
+</span>
+<script>try{var popDiscountPopOver='';}catch(e){console.log(e);}</script><span class="b-info pr" id="from-price-dom">
+    <span>
+        <i>
+                       <span class="t-left instant" data-tooltip="This tour will be instantly confirmed when you book."><span class="icon-eco7"></span></span>            <span>
+                From
+                            </span>
+        </i>
+        <b class="p">US$ {{package.price}}</b>    </span>
+</span>
+<a href="javascript:void(0)" class="gd-link">See Group Discount</a></div>                
+    <ul class="i-list">
+        <li><span class="icon-check-mark"></span><span>Best price guaranteed</span></li>
+        <li><span class="icon-check-mark"></span><span>No booking fees</span></li>
+    </ul>
+        
+                    <div class="collapse" id="gd-discount" style="display:none">
+                <ul class="gd-ul">
+                    <li key="gd-title-lists">
+                        <span>No of people</span>
+                        <span>Price per person</span>
+                    </li>
+                                            <li>
+                            <span>1&nbsp;-&nbsp;1</span>
+                            <span>US$ 1,312</span>
+                        </li>
+                                            <li>
+                            <span>2&nbsp;-&nbsp;2</span>
+                            <span>US$ 1,033</span>
+                        </li>
+                                            <li>
+                            <span>3&nbsp;-&nbsp;6</span>
+                            <span>US$ 1,020</span>
+                        </li>
+                                            <li>
+                            <span>7&nbsp;-&nbsp;9</span>
+                            <span>US$ 952</span>
+                        </li>
+                                            <li>
+                            <span>10&nbsp;+</span>
+                            <span>US$ 928</span>
+                        </li>
+                                    </ul>
+            </div>
+        
+                    <a href="{% url 'booking_now' package.id %}" class="a-btn" ><span>BOOK NOW</span></a>
+        
+                    <div class="en-block">
+                <span>
+    <span data-tooltip="The average response time is 2 hours">Response Time: <b>2 hours</b></span>
+    <span>Response Rate: <b>100%</b></span>
+    </span>
+                <a href="javascript:void(0)" class="en-btn" id="make-enquiry" data-duplex-agency-id="3289" data-duplex-agency-name="Himalayan Leisure, Inc." data-duplex-mbl-title='Everest Base Camp Trek' data-duplex-aname-hidden=''><span>MAKE AN ENQUIRY</span>
+            </a>
+        </div>
+        <span class="con-block"></span>
+</div>
+</div>
+
+        <!-- top pricing end -->
+        <!-- review box -->
+        
+        <!-- enquiry box start -->
+        <div class="w-box t en-box">
+<div class="ag-logo">
+    {%for i in agency%}
+    <div class="lgo">
+        <img src="{{media_url}} {{ i.photo }}" alt="IHimalayan Leisure, Inc." class="img-responsive">
+    </div>
+    <div class="ag-details">
+        <i>Tour is operated by :</i>
+        <span><a href="#companies/himalayan-leisure-inc/c1082" target="_blank" rel="noopener">
+        
+                {{i.name}}
+           
+        
+        </a> <span class="online" id="agency_status" data-activeago=""></span></span>
+                    <div class="r-stars">
+                 			<!--Star Rating-->
+			<span class="s-holder" data-loadcompanyreviews="1" data-ag-id=3289>
+    <i data-alt="1" class="icon-star-on" title="Excellent"></i> <i data-alt="2" class="icon-star-on" title="Excellent"></i> <i data-alt="3" class="icon-star-on" title="Excellent"></i> <i data-alt="4" class="icon-star-on" title="Excellent"></i> <i data-alt="5" class="icon-star-on" title="Excellent"></i> </span>
+                <span>
+                    <a href="javascript:void(0)" class="reviews-init" data-loadcompanyreviews="1" data-ag-id=3289>502 Reviews</a>
+                </span>
+            </div>
+            </div>
+            {% endfor %}
+</div>
+<div class="ag-btn">
+                    <i>Currently 17:51 in Kathmandu                                    - <span data-tooltip="Open Now - Expect Fast Response Times On Bookings and Enquiries. Bookings can be made 24/7.">Open Now</span>
+                                </i>
+                <a href="javascript:void(0)" class="en-btn" id="make-enquiry" data-duplex-agency-id="3289" data-duplex-agency-name="Himalayan Leisure, Inc." data-duplex-mbl-title='Everest Base Camp Trek' data-duplex-aname-hidden=''><span>MAKE AN ENQUIRY</span>
+</a>
+<span>
+    <span data-tooltip="The average response time is 2 hours">Response Time: <b>2 hours</b></span>
+    <span>Response Rate: <b>100%</b></span>
+    </span>
+</div>
+</div>
+
+        <!-- enquiry box end -->
+                
+        
+                
+    </div>
+</aside>
+        </div>
+        <!-- two cols end -->
+
+        <!-- You may also like section Start -->
+            <div class="other-trips">
+        <strong class="h-title">YOU MAY ALSO LIKE</strong>
+        <div class="trips-holder">
+        
+	<div class="trips-block">
+		<div class="trip-img-holder">
+			<div class="image-holder">
+				<a href="16-days-manaslu-circuit-trekking-3905.html">
+					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAACYCAQAAAC7BR/5AAABBElEQVR42u3SMQEAAAgDIJfc6BrA1xMykOmCI2IgBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGiIEYiIEYiIEYiIEYiIEYiIEYiAFiIAZiIAZiIAZiIAZiIAZiIAaIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmIghhiIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGYoAYiIEYiIEYiIEYiIEYiIEYiAFiIAZi8GcBdcDjaadxyKIAAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/16-days-manaslu-circuit-trekking-tour-2-3905_1559833743.JPG" alt="16 Days Manaslu Circuit Trekking" width="373" height="212">
+				</a>
+			</div>
+							<span class="info-title best-seller">Best Seller</span>
+								</div>
+		<div class="text-details">
+            <div class="txt-d">
+			<h2>
+				<a href="16-days-manaslu-circuit-trekking-3905.html">16 Days Manaslu Circuit Trekking</a>
+			</h2>
+						<!--Star Rating-->
+			<div class="rating-deals-div">
+    <span class="of-reviews">
+        <span>
+        	<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>         </span>
+        <i> of <span>55</span> reviews</i>
+    </span>
+</div>
+    </div>
+			<div class="bottom-details">
+				<span class="b-info"><i>days</i><b>16</b></span>
+				<span class="b-info pr">
+					<span>
+						<i>
+															<span class="icon-eco7 instant"></span>
+														<span>
+								From
+															</span>
+						</i>
+						<b class="p">US$ 878</b>
+					</span>
+				</span>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="trips-block">
+		<div class="trip-img-holder">
+			<div class="image-holder">
+				<a href="20-days-ebc-3-high-passes-trek-3908.html">
+					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAACYCAQAAAC7BR/5AAABBElEQVR42u3SMQEAAAgDIJfc6BrA1xMykOmCI2IgBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGiIEYiIEYiIEYiIEYiIEYiIEYiAFiIAZiIAZiIAZiIAZiIAZiIAaIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmIghhiIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGYoAYiIEYiIEYiIEYiIEYiIEYiAFiIAZi8GcBdcDjaadxyKIAAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/20-days-ebc-3-high-passes-trek-tour-2-3908_1577090014.JPG" alt="20 Days EBC 3 High Passes Trek" width="373" height="212">
+				</a>
+			</div>
+							<span class="info-title best-seller">Best Seller</span>
+								</div>
+		<div class="text-details">
+            <div class="txt-d">
+			<h2>
+				<a href="20-days-ebc-3-high-passes-trek-3908.html">20 Days EBC 3 High Passes Trek</a>
+			</h2>
+						<!--Star Rating-->
+			<div class="rating-deals-div">
+    <span class="of-reviews">
+        <span>
+        	<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>         </span>
+        <i> of <span>33</span> reviews</i>
+    </span>
+</div>
+    </div>
+			<div class="bottom-details">
+				<span class="b-info"><i>days</i><b>20</b></span>
+				<span class="b-info pr">
+					<span>
+						<i>
+															<span class="icon-eco7 instant"></span>
+														<span>
+								From
+															</span>
+						</i>
+						<b class="p">US$ 1,336</b>
+					</span>
+				</span>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="trips-block">
+		<div class="trip-img-holder">
+			<div class="image-holder">
+				<a href="everest-base-camp-trek-143.html">
+					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAACYCAQAAAC7BR/5AAABBElEQVR42u3SMQEAAAgDIJfc6BrA1xMykOmCI2IgBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGiIEYiIEYiIEYiIEYiIEYiIEYiAFiIAZiIAZiIAZiIAZiIAZiIAaIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmIghhiIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGYoAYiIEYiIEYiIEYiIEYiIEYiAFiIAZi8GcBdcDjaadxyKIAAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/everest-base-camp-trek-tour-2-143_1581999005.JPG" alt="Everest Base Camp Trek" width="373" height="212">
+				</a>
+			</div>
+							<span class="info-title best-seller">Best Seller</span>
+								</div>
+		<div class="text-details">
+            <div class="txt-d">
+			<h2>
+				<a href="everest-base-camp-trek-143.html">Everest Base Camp Trek</a>
+			</h2>
+						<!--Star Rating-->
+			<div class="rating-deals-div">
+    <span class="of-reviews">
+        <span>
+        	<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>         </span>
+        <i> of <span>220</span> reviews</i>
+    </span>
+</div>
+    </div>
+			<div class="bottom-details">
+				<span class="b-info"><i>days</i><b>12</b></span>
+				<span class="b-info pr">
+					<span>
+						<i>
+															<span class="icon-eco7 instant"></span>
+														<span>
+								From
+															</span>
+						</i>
+						<b class="p">US$ 1,133</b>
+					</span>
+				</span>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="trips-block">
+		<div class="trip-img-holder">
+			<div class="image-holder">
+				<a href="everest-base-camp-kalapathar-trek-79.html">
+					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAACYCAQAAAC7BR/5AAABBElEQVR42u3SMQEAAAgDIJfc6BrA1xMykOmCI2IgBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGiIEYiIEYiIEYiIEYiIEYiIEYiAFiIAZiIAZiIAZiIAZiIAZiIAaIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmIghhiIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGYoAYiIEYiIEYiIEYiIEYiIEYiAFiIAZi8GcBdcDjaadxyKIAAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/everest-base-camp-kalapathar-trek-tour-2-79_1582439967.JPG" alt="Everest Base Camp/ Kalapathar Trek " width="373" height="212">
+				</a>
+			</div>
+							<span class="info-title best-seller">Best Seller</span>
+								</div>
+		<div class="text-details">
+            <div class="txt-d">
+			<h2>
+				<a href="everest-base-camp-kalapathar-trek-79.html">Everest Base Camp/ Kalapathar Trek </a>
+			</h2>
+						<!--Star Rating-->
+			<div class="rating-deals-div">
+    <span class="of-reviews">
+        <span>
+        	<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>         </span>
+        <i> of <span>100</span> reviews</i>
+    </span>
+</div>
+    </div>
+			<div class="bottom-details">
+				<span class="b-info"><i>days</i><b>12</b></span>
+				<span class="b-info pr">
+					<span>
+						<i>
+															<span class="icon-eco7 instant"></span>
+														<span>
+								From
+															</span>
+						</i>
+						<b class="p">US$ 1,150</b>
+					</span>
+				</span>
+			</div>
+		</div>
+	</div>
+
+        </div>
+    </div>
+    <div class="bottom-links">
+    <div class="container">
+        
+    </div>
+</div>
+
+{% endblock %}

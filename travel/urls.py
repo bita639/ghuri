@@ -26,12 +26,18 @@ urlpatterns = [
     # path('map', packageviews.showthis, name='showthis'), 
     # path('test1', packageviews.view_single_package, name='view_package'),
 
-    path('test1/', packageviews.view_package, name='view_package'),
+    path('package/', packageviews.view_package, name='view_package'),
+
+    path('user/package/location/', packageviews.login_view_package, name='login_view_package'),
 
     # path('package/', packageviews.packageList, name='packageList'),
     path('package/add/', packageviews.PackageCreateView.as_view(), name='PackageCreateView'),
 
     path('<int:package_id>/<int:year>/<int:month>/<int:day>/<slug:package>/',packageviews.package_detail,name='package_detail'),
+    
+    path('user/package/<int:package_id>/<int:year>/<int:month>/<int:day>/<slug:package>/',packageviews.login_package_detail,name='login_package_detail'),
+    path('user/package/booking/<int:package_id>/',packageviews.booking_now,name='booking_now'),
+    
    
     #-------------------App URL
     #path('accounts/', include('django.contrib.auth.urls')),

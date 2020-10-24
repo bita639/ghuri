@@ -98,45 +98,59 @@
     </nav>
 </div>
                 <div class="w1">
-                
-            <header id="header">
-    <div class="header-left">
-        <div class="logo">
-            <a href="#/">
-                <span class="icon-logo"></span>
-                <strong>Ghuri Travel</strong>
-            </a>
-        </div>
-                    <form class="top-search" onsubmit="return false">
-                <input type="search" placeholder="Search" value="" class="form-control">
-                <button type="submit" value="Search" class="btn" id="mbl-query-search-btn">
-                    <span class="icon-magnifier13"></span>
-                </button>
-                <div class="d-down" id="mbl-suggestions-dropdown" style="display: none;">
-                    <div class="suggestions-holder">
-                        <div class="spinner-circle" id="mbl-bar-suggestion-spinner" style="display: none;"></div>
-                        <div id="mbl-top-bar-suggestions"></div>
-                    </div>
-                </div>
-            </form>
-            </div>
-    <nav class="top-nav">
-        <ul>
-            
-                        
-            
-                <li id="link-register-header">
-                    <a href="{% url 'register' %}" >Signup</a>
-                </li>
-                <li id="mbl-non-login-header">
-                    <a href="{% url 'login_view' %}">Login</a>
-                </li>
-                    </ul>
-        <div class="menu-wrapper" id="menu-opener">
-            <div class="hamburger-menu"></div>
-        </div>
-    </nav>
-</header>
+                    <header id="header">
+                        <div class="header-left">
+                            <div class="logo">
+                                <a href="{% url 'user_dashboard' %}">
+                                    <span class="icon-logo"></span>
+                                    <strong>Ghuri Travel</strong>
+                                </a>
+                            </div>
+                                </div>
+                        <nav class="top-nav">
+                            <ul>
+                               
+                                <li class="wishlist-li t-bottom" >
+                                    <a href="{% url 'user_profile' %}" target="__blank" rel="noopener noreferrer">Profile
+                                        
+                                    </a>
+                                </li>
+                    
+                                <li class="wishlist-li t-bottom" >
+                                    <a href="{% url 'change_password' %}" target="__blank" rel="noopener noreferrer">Change Password
+                                        
+                                    </a>
+                                </li>
+                                            
+                               
+                                                <li class="dest-dd destination-dd">
+                                        <a href="#"  >My Tours</a>
+                                        
+                                    </li>
+                                                
+                                        
+                                                    <li class="prof">
+                                        {% if request.user.is_authenticated %}
+                                        
+                                        <a href="{% url 'user_profile' %}" >
+                                            <img src="{{ request.user.client.photo.url }}" alt="{{ request.user.full_name|upper }}" class="img-responsive">
+                                        </a>
+                                        {% endif %}
+                                        
+                                    </li>
+                    
+                                    <li class="wishlist-li t-bottom" >
+                                        <a href="{% url 'logout_view' %}" target="__blank" rel="noopener noreferrer">LogOut
+                                            
+                                        </a>
+                                    </li>
+                    
+                                        </ul>
+                            <div class="menu-wrapper" id="menu-opener">
+                                <div class="hamburger-menu"></div>
+                            </div>
+                        </nav>
+                    </header>
             <main id="main">
                 
 <script data-pagespeed-no-defer>var product_id=3841;var baseUrl='#';var provider='';var code='';var discountThreshold=4;var symbol='US$';var seperator=',';var fromPrice=1020;var conversionRate=1;var isInstant='1';var bid='16030227616GVXw';var cdnUrl='https://d3hne3c382ip58.cloudfront.net/';var aLogo='../files/resized/72x72/ad11cb80d6dbad320d1a1dd06027f489_1525323639.jpg';var user_id='0';var isDebug='';var product_channel='pc-3841';var duration='12';var trip_duration_type='days';var trip_type='Private and Group tour';var d_p='0';var activeChatCounts=0;var activeOffers=4;var ag_id='3289';var curr='US$';var isCompanyNameHidden='';var hasFlexibleBooking='0'</script>
@@ -305,9 +319,10 @@ function showSlides(n) {
     <!-- Facebook Pixel Code -->
     <script>function initFacebook(){!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','../../connect.facebook.net/en_US/fbevents.js');fbq('init','1277560508936549');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Everest Base Camp Trek',currency:'USD',content_ids:'BM-3841',content_type:'product'});}</script>
         <noscript>
-            <img height="1" width="1" src="https://www.facebook.com/tr?id=1277560508936549&amp;ev=PageView%20%20%20%20%20%20%20%20%20%20%20%20&amp;noscript=1"/>
+            <img height="1" width="1" src="#"/>
         </noscript>
 <!-- End Facebook Pixel Code -->
+
 <script>(function(e1,e2){function ue(e){this.removeEventListener(e1,ue);this.removeEventListener(e2,ue);if(typeof initFacebook!=="undefined"){initAdmitad()}if(typeof initFacebook!=="undefined"){initFacebook();}window.dataLayer=window.dataLayer||[];window.dataLayer.push({'event':'MouseMove'});}window.addEventListener(e1,ue);window.addEventListener(e2,ue);})("mousemove","touchmove");if(typeof initGTM!=="undefined"){initGTM();}if(typeof initBmTracker!=="undefined"){initBmTracker();}</script>
         <div id="toast-container" class="toast-bottom-left" aria-live="polite" role="alert"></div>
         <div id="toast-container" class="toast-bottom-left" aria-live="polite" role="alert">    <div class="toast green booking" data-noti-id="5" data-noti-views="0" dasta-noti-index="0" data-noti-trigger="6000" data-noti-display="7000" style="display:none">
@@ -318,5 +333,4 @@ function showSlides(n) {
 </div>
 </body>
 
-<!-- Mirrored from www.bookmundi.com/kathmandu/everest-base-camp-trek-3841 by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 18 Oct 2020 12:06:29 GMT -->
 </html>

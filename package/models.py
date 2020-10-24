@@ -99,6 +99,9 @@ class Package(models.Model):
 
     def get_absolute_url(self):        
         return reverse('package_detail',args=[self.id,self.publish.year,self.publish.month,self.publish.day,self.slug])
+
+    def get_absolute_url1(self):        
+        return reverse('login_package_detail',args=[self.id,self.publish.year,self.publish.month,self.publish.day,self.slug])
     # def get_package_url(self):        
     #     return reverse('view_package',args=[self.country])
     
@@ -212,3 +215,21 @@ class Review(models.Model):
 
     def __str__(self):
         return 'comment by {} on {}'. format(self.name, self.package_id)
+
+class Booking(models.Model):
+    package = models.OneToOneField('Package', on_delete = models.CASCADE, related_name ='booking_package')
+    user_id = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='booking_user')
+    full_name = models.CharField(max_length=50)
+    select_date = models.DateTimeField(auto_now_add=True)
+    participants = models.IntegerField(blank=True, null=True)
+    duration = models.IntegerField(blank=True, null=True)
+    tour_type = models.CharField(max_length=50)
+    what_included = models.TextField()
+
+class Payment(models.Model):
+    booking = models.OneToOneField('Booking', on_delete = models.CASCADE, related_name ='booking_payment')
+    card_number = models.IntegerField(blank=True, null=True)
+    expiry_date = models.DateTimeField(auto_now_add=True)
+    card_holder_name = models.CharField(max_length=50)
+    cvv = models.IntegerField(blank=True, null=True)
+    

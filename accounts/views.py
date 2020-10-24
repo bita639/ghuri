@@ -22,6 +22,7 @@ from django.views import View
 from django.forms import formset_factory
 from django.shortcuts import get_list_or_404, get_object_or_404, Http404
 from django.forms.models import inlineformset_factory
+from package.models import Package
 # Create your views here.
 from .forms import UserCreationForm, UserProfileForm_MyUser, UserProfileForm_Clients, UserLoginForm, AgencyCreationForm, MyUserForm, AgencyForm, AdminCreationForm
 
@@ -152,8 +153,15 @@ def agency_dashboard(request):
 
 @login_required
 def user_dashboard(request):
+    nepal = Package.objects.filter(country='Nepal').count()
+    bd = Package.objects.filter(country='Bangladesh').count()
+
+    context = {
+        'nepal':nepal,
+        'bd':bd,
+    }
     
-    return render(request, 'user/user_dashboard.html')
+    return render(request, 'index.html', context)
 
 @login_required
 def secret_page(request):

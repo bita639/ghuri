@@ -6,7 +6,7 @@ from django import forms
 from django_countries.data import COUNTRIES
 User = get_user_model()
 from django.forms import ModelForm
-from .models import Package, Itinerary, Days, MapLocation, Activities, Meals, Event, Accomodation, Image, Review
+from .models import Package, Itinerary,Booking, Days, MapLocation, Activities, Meals, Event, Accomodation, Image, Review
 from accounts.models import MyUser
 
 
@@ -50,10 +50,17 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ('name', 'email', 'title', 'review' )
 
+class BookingForm(forms.ModelForm):
+    class meta:
+        model = Booking
+        fields = ('full_name', 'select_date', 'participants', )
+
+
 
 
 LocationFormSet = inlineformset_factory(Package, MapLocation, form=MapForm, extra=1)
 ImageFormSet = inlineformset_factory(Package, Image, form=ImageForm, extra=1)
+# BookingFormset = inlineformset_factory(Package, Booking, form=BookingForm, extra=1)
 
 
 
