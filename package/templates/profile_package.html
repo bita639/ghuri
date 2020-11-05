@@ -13,7 +13,7 @@
                     <!-- carousel component from mobile start -->
                     <header class="p-heading">
     <div class="p-title">
-        <h1>Everest Base Camp Trek</h1>
+                <h1>{{package.package_title}}</h1>
         <ul class="trip-features"><li><span class="icon-check-mark"></span>Best price guaranteed</li><li><span class="icon-check-mark"></span>No booking fees</li><li><span class="icon-check-mark"></span>E-ticket/Mobile voucher</li></ul>
             </div>
         <div class="main-review">
@@ -385,37 +385,21 @@ console.log(polyArr)
 <div class="ag-logo">
     {%for i in agency%}
     <div class="lgo">
-        <img src="{{media_url}} {{ i.photo }}" alt="IHimalayan Leisure, Inc." class="img-responsive">
+        <img src="{{media_url}}{{ i.photo }}" alt="IHimalayan Leisure, Inc." class="img-responsive">
     </div>
     <div class="ag-details">
         <i>Tour is operated by :</i>
-        <span><a href="#companies/himalayan-leisure-inc/c1082" target="_blank" rel="noopener">
+        <span>
         
                 {{i.name}}
            
         
-        </a> <span class="online" id="agency_status" data-activeago=""></span></span>
-                    <div class="r-stars">
-                 			<!--Star Rating-->
-			<span class="s-holder" data-loadcompanyreviews="1" data-ag-id=3289>
-    <i data-alt="1" class="icon-star-on" title="Excellent"></i> <i data-alt="2" class="icon-star-on" title="Excellent"></i> <i data-alt="3" class="icon-star-on" title="Excellent"></i> <i data-alt="4" class="icon-star-on" title="Excellent"></i> <i data-alt="5" class="icon-star-on" title="Excellent"></i> </span>
-                <span>
-                    <a href="javascript:void(0)" class="reviews-init" data-loadcompanyreviews="1" data-ag-id=3289>502 Reviews</a>
-                </span>
-            </div>
+         <span class="online" id="agency_status" data-activeago=""></span></span>
+                   
             </div>
             {% endfor %}
 </div>
-<div class="ag-btn">
-                    <i>Currently 17:51 in Kathmandu                                    - <span data-tooltip="Open Now - Expect Fast Response Times On Bookings and Enquiries. Bookings can be made 24/7.">Open Now</span>
-                                </i>
-                <a href="javascript:void(0)" class="en-btn" id="make-enquiry" data-duplex-agency-id="3289" data-duplex-agency-name="Himalayan Leisure, Inc." data-duplex-mbl-title='Everest Base Camp Trek' data-duplex-aname-hidden=''><span>MAKE AN ENQUIRY</span>
-</a>
-<span>
-    <span data-tooltip="The average response time is 2 hours">Response Time: <b>2 hours</b></span>
-    <span>Response Rate: <b>100%</b></span>
-    </span>
-</div>
+
 </div>
 
         <!-- enquiry box end -->
@@ -432,168 +416,43 @@ console.log(polyArr)
         <strong class="h-title">YOU MAY ALSO LIKE</strong>
         <div class="trips-holder">
         
-	<div class="trips-block">
-		<div class="trip-img-holder">
-			<div class="image-holder">
-				<a href="16-days-manaslu-circuit-trekking-3905.html">
-					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAACYCAQAAAC7BR/5AAABBElEQVR42u3SMQEAAAgDIJfc6BrA1xMykOmCI2IgBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGiIEYiIEYiIEYiIEYiIEYiIEYiAFiIAZiIAZiIAZiIAZiIAZiIAaIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmIghhiIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGYoAYiIEYiIEYiIEYiIEYiIEYiAFiIAZi8GcBdcDjaadxyKIAAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/16-days-manaslu-circuit-trekking-tour-2-3905_1559833743.JPG" alt="16 Days Manaslu Circuit Trekking" width="373" height="212">
-				</a>
-			</div>
-							<span class="info-title best-seller">Best Seller</span>
-								</div>
-		<div class="text-details">
-            <div class="txt-d">
-			<h2>
-				<a href="16-days-manaslu-circuit-trekking-3905.html">16 Days Manaslu Circuit Trekking</a>
-			</h2>
-						<!--Star Rating-->
-			<div class="rating-deals-div">
-    <span class="of-reviews">
-        <span>
-        	<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>         </span>
-        <i> of <span>55</span> reviews</i>
-    </span>
-</div>
-    </div>
-			<div class="bottom-details">
-				<span class="b-info"><i>days</i><b>16</b></span>
-				<span class="b-info pr">
-					<span>
-						<i>
-															<span class="icon-eco7 instant"></span>
-														<span>
-								From
-															</span>
-						</i>
-						<b class="p">US$ 878</b>
-					</span>
-				</span>
-			</div>
-		</div>
-	</div>
+            {% for s in similar_package %}
 
-
-	<div class="trips-block">
-		<div class="trip-img-holder">
-			<div class="image-holder">
-				<a href="20-days-ebc-3-high-passes-trek-3908.html">
-					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAACYCAQAAAC7BR/5AAABBElEQVR42u3SMQEAAAgDIJfc6BrA1xMykOmCI2IgBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGiIEYiIEYiIEYiIEYiIEYiIEYiAFiIAZiIAZiIAZiIAZiIAZiIAaIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmIghhiIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGYoAYiIEYiIEYiIEYiIEYiIEYiAFiIAZi8GcBdcDjaadxyKIAAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/20-days-ebc-3-high-passes-trek-tour-2-3908_1577090014.JPG" alt="20 Days EBC 3 High Passes Trek" width="373" height="212">
-				</a>
-			</div>
-							<span class="info-title best-seller">Best Seller</span>
-								</div>
-		<div class="text-details">
-            <div class="txt-d">
-			<h2>
-				<a href="20-days-ebc-3-high-passes-trek-3908.html">20 Days EBC 3 High Passes Trek</a>
-			</h2>
-						<!--Star Rating-->
-			<div class="rating-deals-div">
-    <span class="of-reviews">
-        <span>
-        	<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>         </span>
-        <i> of <span>33</span> reviews</i>
-    </span>
-</div>
-    </div>
-			<div class="bottom-details">
-				<span class="b-info"><i>days</i><b>20</b></span>
-				<span class="b-info pr">
-					<span>
-						<i>
-															<span class="icon-eco7 instant"></span>
-														<span>
-								From
-															</span>
-						</i>
-						<b class="p">US$ 1,336</b>
-					</span>
-				</span>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="trips-block">
-		<div class="trip-img-holder">
-			<div class="image-holder">
-				<a href="everest-base-camp-trek-143.html">
-					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAACYCAQAAAC7BR/5AAABBElEQVR42u3SMQEAAAgDIJfc6BrA1xMykOmCI2IgBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGiIEYiIEYiIEYiIEYiIEYiIEYiAFiIAZiIAZiIAZiIAZiIAZiIAaIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmIghhiIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGYoAYiIEYiIEYiIEYiIEYiIEYiAFiIAZi8GcBdcDjaadxyKIAAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/everest-base-camp-trek-tour-2-143_1581999005.JPG" alt="Everest Base Camp Trek" width="373" height="212">
-				</a>
-			</div>
-							<span class="info-title best-seller">Best Seller</span>
-								</div>
-		<div class="text-details">
-            <div class="txt-d">
-			<h2>
-				<a href="everest-base-camp-trek-143.html">Everest Base Camp Trek</a>
-			</h2>
-						<!--Star Rating-->
-			<div class="rating-deals-div">
-    <span class="of-reviews">
-        <span>
-        	<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>         </span>
-        <i> of <span>220</span> reviews</i>
-    </span>
-</div>
-    </div>
-			<div class="bottom-details">
-				<span class="b-info"><i>days</i><b>12</b></span>
-				<span class="b-info pr">
-					<span>
-						<i>
-															<span class="icon-eco7 instant"></span>
-														<span>
-								From
-															</span>
-						</i>
-						<b class="p">US$ 1,133</b>
-					</span>
-				</span>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="trips-block">
-		<div class="trip-img-holder">
-			<div class="image-holder">
-				<a href="everest-base-camp-kalapathar-trek-79.html">
-					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAACYCAQAAAC7BR/5AAABBElEQVR42u3SMQEAAAgDIJfc6BrA1xMykOmCI2IgBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGiIEYiIEYiIEYiIEYiIEYiIEYiAFiIAZiIAZiIAZiIAZiIAZiIAaIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmIghhiIgRiIgRiIgRiIgRiIgRiIgRggBmIgBmIgBmIgBmIgBmIgBmKAGIiBGIiBGIiBGIiBGIiBGIgBYiAGYiAGYiAGYiAGYiAGYiAGYoAYiIEYiIEYiIEYiIEYiIEYiAFiIAZi8GcBdcDjaadxyKIAAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/everest-base-camp-kalapathar-trek-tour-2-79_1582439967.JPG" alt="Everest Base Camp/ Kalapathar Trek " width="373" height="212">
-				</a>
-			</div>
-							<span class="info-title best-seller">Best Seller</span>
-								</div>
-		<div class="text-details">
-            <div class="txt-d">
-			<h2>
-				<a href="everest-base-camp-kalapathar-trek-79.html">Everest Base Camp/ Kalapathar Trek </a>
-			</h2>
-						<!--Star Rating-->
-			<div class="rating-deals-div">
-    <span class="of-reviews">
-        <span>
-        	<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>         </span>
-        <i> of <span>100</span> reviews</i>
-    </span>
-</div>
-    </div>
-			<div class="bottom-details">
-				<span class="b-info"><i>days</i><b>12</b></span>
-				<span class="b-info pr">
-					<span>
-						<i>
-															<span class="icon-eco7 instant"></span>
-														<span>
-								From
-															</span>
-						</i>
-						<b class="p">US$ 1,150</b>
-					</span>
-				</span>
-			</div>
-		</div>
-	</div>
+            <div class="trips-block">
+                <div class="trip-img-holder">
+                    <div class="image-holder">
+                        <a href="{{ s.get_absolute_url }}">
+                            <img src="{{media_url}}{{ s.image }}" alt="16 Days Manaslu Circuit Trekking" width="373" height="212">
+                        </a>
+                    </div>
+                                    <span class="info-title best-seller">Best Seller</span>
+                                        </div>
+                <div class="text-details">
+                    <div class="txt-d">
+                    <h2>
+                        <a href="{{ s.get_absolute_url }}">{{ s.package_title }}</a>
+                    </h2>
+                                <!--Star Rating-->
+                
+            </div>
+                    <div class="bottom-details">
+                        <span class="b-info"><i>days</i><b>{{ s.days }}</b></span>
+                        <span class="b-info pr">
+                            <span>
+                                <i>
+                                                                    <span class="icon-eco7 instant"></span>
+                                                                <span>
+                                        From
+                                                                    </span>
+                                </i>
+                                <b class="p">US$ {{ s.price }}</b>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        
+        {% endfor %}
 
         </div>
     </div>

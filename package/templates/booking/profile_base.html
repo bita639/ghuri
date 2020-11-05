@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from www.bookmundi.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 18 Oct 2020 21:39:47 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
     	<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -71,14 +70,11 @@
         <div class="nav-wrap" id="slide-nav">
     <nav id="nav">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about-us.html">About Us</a></li>
-            <li><a href="deals.html">Travel Deals</a></li>
-            <li><a href="t.html">Travel Guides</a></li>
-            <li><a href="forums.html">Travel Forum</a></li>
-            <li><a href="blog/index.html" target="_blank" rel="noopener">Travel Blog</a></li>
-            <li><a href="become-partner.html">Become Partner</a></li>
-            <li><a href="contact-us.html">Contact Us</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="/blog" target="_blank" rel="noopener">Travel Blog</a></li>
+            <li><a href="{% url 'agency_register' %}">Become Partner</a></li>
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
         </ul>
     </nav>
 </div>
@@ -148,7 +144,7 @@
                         
            
                             <li class="dest-dd destination-dd">
-                    <a href="#"  >My Tours</a>
+                    <a href="{% url 'booking_details' %}"  >My Tours</a>
                     
                 </li>
                             
@@ -211,24 +207,9 @@
         </aside>
         <aside class="press-logos">
             <div class="container">
-                <strong class="bottom-title">AS SEEN IN:</strong>
-                <ul class="logos-bottom">
-                    <li class="la">
-                        <img class="img-responsive" src="../d3hne3c382ip58.cloudfront.net/resources/home/press/logos/tech.co.png" alt="Tech.co">
-                    </li>
-                    <li class="lb">
-                        <img class="img-responsive" src="../d3hne3c382ip58.cloudfront.net/resources/home/press/logos/travolution.png" alt="Travolution">
-                    </li>
-                    <li class="lc">
-                        <img class="img-responsive" src="../d3hne3c382ip58.cloudfront.net/resources/home/press/logos/forbes.png" alt="Forbes">
-                    </li>
-                    <li class="ld">
-                        <img class="img-responsive" src="../d3hne3c382ip58.cloudfront.net/resources/home/press/logos/independent.png" alt="Independent">
-                    </li>
-                    <li class="le">
-                        <img class="img-responsive" src="../d3hne3c382ip58.cloudfront.net/resources/home/press/logos/entrepreneur.png" alt="Entrepreneur">
-                    </li>
-                </ul>
+                <div id="mbl-footer-right">
+                     <p>© Ghuri Travel.com 2020 - Elmegade 22, 7700 Dhaka, Bangladesh All Rights Reserved.</p>
+                </div> 
             </div>
 
         </aside>

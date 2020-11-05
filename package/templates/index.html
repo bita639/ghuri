@@ -29,13 +29,14 @@
 				<div class="main-search animate__animated" id="top-search">
 					<!-- add 'animate__shakeX' class to shake when nothing is selected -->
 					<div class="loc">
-						<span class="icon-pin"></span><label for="where-going">LOCATION</label>
-						<input type="text" id="where-going" class="form-control" placeholder="Where are you going?" autocomplete="off">
-						<div class="suggestions" id="suggestion-div">							
-						</div>
+						<form action="{% url 'login_view_package' %}" method="get">
+							<span class="icon-pin"></span><label for="where-going">LOCATION</label>
+							<input name="city" type="text" class="form-control" placeholder="Where are you going?" autocomplete="off">
+							<input type="submit" value="Search" class="submit" />
+						</form>
 					</div>
 					
-					<button class="btn search-btn" type="button" id="search-top-btn"><span class="icon-search"></span>Search<i class="spinner-circle"></i></button>
+				
 				</div>
 			</div>
 			<!-- default home banner ends -->

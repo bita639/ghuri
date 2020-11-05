@@ -10,7 +10,7 @@
         <!-- End Visual Website Optimizer Asynchronous Code -->
         	<meta charset="utf-8">
 
-<title>Everest Base Camp Trek by Himalayan Leisure, Inc. | Bookmundi</title>
+<title>{{package.package_title}}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 <script data-pagespeed-no-defer>var bmGlobalVars={};bmGlobalVars.GOOGLE_KEY='AIzaSyCW17YRmTig9TuRDkUVts8GuBKGThS7pxQ';bmGlobalVars.GOOGLE_ID='337747701635-kf5c6l94tc0cert7j42m9jipl2nb2itp.apps.googleusercontent.com';bmGlobalVars.cloudfrontPath='#';var baseUrl='#';var user_is='';var debug=false;var yii_test=false;var mychannel=''?'channel_0':false;var product_channel=false;var isMobile=0;</script>
 <meta name="Keywords" content="Everest Base Camp Trek, Trekking Tours, Everest Base Camp Trek 2020/2021">
@@ -86,14 +86,11 @@
         <div class="nav-wrap" id="slide-nav">
     <nav id="nav">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#/deals">Travel Deals</a></li>
-            <li><a href="#/t">Travel Guides</a></li>
-            <li><a href="#/forums">Travel Forum</a></li>
-            <li><a href="#/blog" target="_blank" rel="noopener">Travel Blog</a></li>
-            <li><a href="#/become-partner">Become Partner</a></li>
-            <li><a href="#/contact-us">Contact Us</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="/blog" target="_blank" rel="noopener">Travel Blog</a></li>
+            <li><a href="{% url 'agency_register' %}">Become Partner</a></li>
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
         </ul>
     </nav>
 </div>
@@ -124,7 +121,7 @@
                                             
                                
                                                 <li class="dest-dd destination-dd">
-                                        <a href="#"  >My Tours</a>
+                                        <a href="{% url 'booking_details' %}"  >My Tours</a>
                                         
                                     </li>
                                                 
@@ -272,8 +269,8 @@
         
         <!-- footer begins -->
         <div id="mbl-footer-right">
-        <h3>dfhskdfhskdj</h3>
-    </div>        
+             <p>© Ghuri Travel.com 2020 - Elmegade 22, 7700 Dhaka, Bangladesh All Rights Reserved.</p>
+        </div>      
 </div>
 
 </div>

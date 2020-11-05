@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#33a05a">
 <meta name="google-site-verification" content="XQrn6i3TIZ-JBrGl-uU4PLq8zxjWWZN55PZHvT6yKqA">
-<title>Thousands of tours and holidays around the world - Bookmundi</title>
+<title>Ghuri</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 <script data-pagespeed-no-defer>var bmGlobalVars={};bmGlobalVars.GOOGLE_KEY='AIzaSyCW17YRmTig9TuRDkUVts8GuBKGThS7pxQ';bmGlobalVars.GOOGLE_ID='337747701635-kf5c6l94tc0cert7j42m9jipl2nb2itp.apps.googleusercontent.com';bmGlobalVars.cloudfrontPath='index.html';var baseUrl='index.html';var user_is='';var debug=false;var yii_test=false;var mychannel=''?'channel_0':false;var product_channel=false;var isMobile=0;</script>
 <meta name="Keywords" content="Holidays, Trips, Book activities, Book trips">
@@ -71,14 +71,11 @@
         <div class="nav-wrap" id="slide-nav">
     <nav id="nav">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about-us.html">About Us</a></li>
-            <li><a href="deals.html">Travel Deals</a></li>
-            <li><a href="t.html">Travel Guides</a></li>
-            <li><a href="forums.html">Travel Forum</a></li>
-            <li><a href="blog/index.html" target="_blank" rel="noopener">Travel Blog</a></li>
-            <li><a href="become-partner.html">Become Partner</a></li>
-            <li><a href="contact-us.html">Contact Us</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="/blog" target="_blank" rel="noopener">Travel Blog</a></li>
+            <li><a href="{% url 'agency_register' %}">Become Partner</a></li>
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
         </ul>
     </nav>
 </div>
@@ -148,7 +145,7 @@
                         
            
                             <li class="dest-dd destination-dd">
-                    <a href="#"  >My Tours</a>
+                    <a href="{% url 'booking_details' %}"  >My Tours</a>
                     
                 </li>
                             
@@ -209,31 +206,12 @@
                 </div>
             </div>
         </aside>
-        <aside class="press-logos">
-            <div class="container">
-                <strong class="bottom-title">AS SEEN IN:</strong>
-                <ul class="logos-bottom">
-                    <li class="la">
-                        <img class="img-responsive" src="../d3hne3c382ip58.cloudfront.net/resources/home/press/logos/tech.co.png" alt="Tech.co">
-                    </li>
-                    <li class="lb">
-                        <img class="img-responsive" src="../d3hne3c382ip58.cloudfront.net/resources/home/press/logos/travolution.png" alt="Travolution">
-                    </li>
-                    <li class="lc">
-                        <img class="img-responsive" src="../d3hne3c382ip58.cloudfront.net/resources/home/press/logos/forbes.png" alt="Forbes">
-                    </li>
-                    <li class="ld">
-                        <img class="img-responsive" src="../d3hne3c382ip58.cloudfront.net/resources/home/press/logos/independent.png" alt="Independent">
-                    </li>
-                    <li class="le">
-                        <img class="img-responsive" src="../d3hne3c382ip58.cloudfront.net/resources/home/press/logos/entrepreneur.png" alt="Entrepreneur">
-                    </li>
-                </ul>
-            </div>
-
-        </aside>
+       
         <!-- footer begins -->
-        <div id="mbl-footer-right"></div>        </div>
+        <div id="mbl-footer-right">
+            <p>© Ghuri Travel.com 2020 - Elmegade 22, 7700 Dhaka, Bangladesh All Rights Reserved.</p>
+       </div>      
+    </div>
 	</div>
 	<script src="{% static 'js/home_profile.js' %}"></script>
 <script>function initBmTracker(){(function(d,script){script=d.createElement('script');script.type='text/javascript';script.async=true;script.onload=function(){var serverdata={"user_id":"hVExjv","details":{"continent":null,"action":"pageview","page":"home","country":null,"destination":null,"destination_id":null,"activity":null,"activity_id":null,"tour_type":null,"date":null,"duration_day":null,"duration":null,"age_range":null,"geo_location":null,"geo_country":"Bangladesh","geo_continent":"Asia","user_ip":"103.109.57.169","user_time":"21:39","user_month":"10","user_year":"2020","product_title":null,"product_id":null}};Tracker.start(serverdata);};script.src='../d3hne3c382ip58.cloudfront.net/resources/js/tracker/1.0.0/tracker.js';script.onerror='';d.getElementsByTagName('head')[0].appendChild(script);}(document));}</script>

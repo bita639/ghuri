@@ -1,0 +1,17 @@
+
+{% for post in similar_posts %}
+<div class="block-21 mb-4 d-flex">
+    <a class="blog-img mr-4" style="background-image: url({{media_url}}{{post.photo}});"></a>
+    <div class="text">
+        
+      <h3 class="heading"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+      <div class="meta">
+        <div><a href="#"><span class="icon-calendar"></span> {{ post.publish }}</a></div>
+        <div><a href="#"><span class="icon-person"></span> {{ post.author }}</a></div>
+        <div><a href="#"><span class="icon-chat"></span> {{ post.comments }}</a></div>
+      </div>
+    </div>
+  </div>
+  {% empty %}  
+  <p>There are no similar posts yet.</p> 
+  {% endfor %}

@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form method="get">
+        {{filtered_persons.form.as_p}}
+        <input type="submit" value="Press">
+    </form>
+
+    {% for person in person_page_obj %}
+        <h2>
+            {{person.package_title}}
+            <br>
+            {{person.booking_type}}
+            <br>
+            {{person.tour_type}}
+            <br>
+            {{person.guide_method}}
+            <br>
+            {{person.city_name}}
+            <br>
+            {{person.country}}
+            <br>
+            {{person.accomodation}}
+        </h2>
+    {% endfor %}
+
+    <div>
+        <span class="step-links">
+            {% if person_page_obj.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{person_page_obj.previous_page_number}}">Previous</a>
+            {% endif %}
+            <span class="current">
+                page {{person_page_obj.number}} of {{person_page_obj.paginator.num_pages}}
+            </span>
+            {% if person_page_obj.has_next %}
+                <a href="?page={{person_page_obj.next_page_number}}">Next </a>
+                <a href="?page={{person_page_obj.paginator.num_pages}}">&raquo; Last</a>
+            {% endif %}
+        </span>
+    </div>
+
+
+</body>
+</html>

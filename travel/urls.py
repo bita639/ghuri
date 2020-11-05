@@ -10,18 +10,25 @@ from django.conf.urls.static import static
 
 from accounts import views
 from package import packageviews
-from TestApp import Testviews
+
+
 
 
 
 urlpatterns = [
+    path('blog', include('blog.urls'),name='blog'),
+    path('search', include('search.urls'),name='search'),
     path('sadmin/', admin.site.urls),
 
-    path('test/', Testviews.add_new_value, name='add_new_value'),
+ 
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login_view'),
     path('logout/', views.logout_view, name='logout_view'),
     path('', views.home, name='home'),
+
+    path('contact-us', packageviews.contact, name='contact'),
+    path('about-us', packageviews.about, name='about'),
+    
 
     # path('map', packageviews.showthis, name='showthis'), 
     # path('test1', packageviews.view_single_package, name='view_package'),
@@ -37,7 +44,7 @@ urlpatterns = [
     
     path('user/package/<int:package_id>/<int:year>/<int:month>/<int:day>/<slug:package>/',packageviews.login_package_detail,name='login_package_detail'),
     path('user/package/booking/<int:package_id>/',packageviews.booking_now,name='booking_now'),
-    
+    path('user/package/mytrip',packageviews.booking_details,name='booking_details'),
    
     #-------------------App URL
     #path('accounts/', include('django.contrib.auth.urls')),

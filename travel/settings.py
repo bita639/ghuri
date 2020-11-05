@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+from pathlib import Path
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -42,14 +43,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'crispy_forms',
-    
+    'search',
     'accounts',
     'package',
-    'TestApp',
-    'solving',
+    'blog',
+    'taggit',
+    'bootstrap_datepicker_plus',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,6 +80,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blog.context_processors.show_latest_posts',
+                'blog.context_processors.get_most_commented_posts',
+                'blog.context_processors.search',
             ],
         },
     },
@@ -125,6 +134,16 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = '1000310@daffodil.ac'
+EMAIL_HOST_PASSWORD = 'jannat@14311'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 
 
 # Static files (CSS, JavaScript, Images)

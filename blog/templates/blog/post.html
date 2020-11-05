@@ -1,0 +1,70 @@
+
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+<h1 class="mb-3">{{ post.title }}</h1>
+		            <p>
+		              <img src="{{media_url}}{{post.photo}}" alt="" class="img-fluid">
+		            </p>
+					<p> {{ post.body|linebreaks }}</p>
+					
+		            <div class="tag-widget post-tag-container mb-5 mt-5">
+		              <div class="tagcloud">
+						 
+		                <a href="{% url 'blog:post_share' post.id %}" class="tag-cloud-link"><img src="{% static 'blog/images/share1.png' %}" alt="share logo" width="35" height="35">&nbsp;&nbsp;&nbsp;Share this Post</a>
+		               
+		              </div>
+		            </div>
+		            
+		            <div class="about-author d-flex p-4 bg-light">
+		              
+		              <div class="desc">
+		                <h3>Post Author :{{ post.author }}</h3>
+		                
+		              </div>
+		            </div>
+
+
+		            <div class="pt-5 mt-5">
+						{% with comments.count as total_comments %}
+					  <h3 class="mb-5 font-weight-bold">  {{ total_comments }} comment{{ total_comments|pluralize}}</h3>
+						{% endwith %}
+		              <ul class="comment-list">
+						{% for comment in comments %}
+		                <li class="comment">
+		                  <div class="vcard bio">
+		                    <img src="blog/images/person_1.jpg" alt="">
+		                  </div>
+		                  <div class="comment-body">
+		                    <h3>Commented {{ forloop.counter }} by {{ comment.name }}</h3>
+		                    <div class="meta">  {{ comment.created }}</div>
+		                    <p>{{ comment.body|linebreaks }}</p>
+		                    <p><a href="#" class="reply">Reply</a></p>
+						  </div>
+						{% empty %}
+							<p>There are no comments yet.</p>
+						{% endfor %}
+						</li>
+						
+					</ul>
+		                  
+		         
+
+
+		              <!-- END comment-list -->
+		              
+		              <div class="comment-form-wrap pt-5">
+						{% if new_comment %}
+						<h3 class="mb-5">Your comment has been added.</h3>
+						{% else %}
+		                <h3 class="mb-5">Leave a comment</h3>
+		                <form action="." method= "post" class="p-3 p-md-5 bg-light">
+
+							{{ comment_form.as_p }}    
+							{% csrf_token %}    
+							<p><input type="submit" value="Add comment"></p>
+						</form>
+						{% endif %}
+		              </div>
+		            </div>
+{% endblock %}

@@ -3,20 +3,28 @@ from accounts.models import MyUser
 from django.utils import timezone
 from django.urls import reverse
 from multiselectfield import MultiSelectField
+from taggit.managers import TaggableManager
 # Create your models here.
 
+class PublishedManager (models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager,self).get_queryset().filter(status='published')
 
 class Package(models.Model):
+    tags = TaggableManager()
+    objects =models.Manager()
+    published= PublishedManager()
+    STATUS_CHOICES = (
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+    )
+
     b_type = (
         ('Instant Booking', 'Instant Booking'),
     )
     guide_type = (
         ('Live Guide/Instructor', 'Live Guide/Instructor'),
         ('Self guided', 'Self guided'),
-    )
-    approval = (
-        ('Approve', 'Approve'),
-        ('Reject', 'Reject'),
     )
     t_type = (
         ('Private', 'Private'),
@@ -79,16 +87,16 @@ class Package(models.Model):
     end_point = models.CharField(max_length=50)
     age_requirement = models.CharField(max_length=50)
     price = models.IntegerField()
+    payable = models.IntegerField()
     special_offer = models.BooleanField(blank=True, null=True, default=False)
     discount_price = models.IntegerField()
     guide_method = models.CharField(max_length=30, blank=True, null=True, choices=guide_type)
     days = models.IntegerField(blank=True, null=True)
-    tags = models.TextField(blank=True, null=True)
     highlights = models.TextField(blank=True, null=True)
     what_included = models.TextField(blank=True, null=True)
     what_excluded = models.TextField(blank=True, null=True)
     good_to_know = models.TextField(blank=True, null=True)
-    approve = models.CharField(max_length=30, blank=True, null=True, choices=approval)
+    status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='draf')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     toppings = MultiSelectField(max_length=10,choices=TOPPING_CHOICES)
@@ -217,19 +225,26 @@ class Review(models.Model):
         return 'comment by {} on {}'. format(self.name, self.package_id)
 
 class Booking(models.Model):
+    BOOKING_STATUS_CHOICES = (
+        ('Pending', 'Pending'),
+        ('Confirmed', 'Confirmed'),
+    )
     package = models.OneToOneField('Package', on_delete = models.CASCADE, related_name ='booking_package')
     user_id = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='booking_user')
     full_name = models.CharField(max_length=50)
-    select_date = models.DateTimeField(auto_now_add=True)
+    select_date = models.DateTimeField()
     participants = models.IntegerField(blank=True, null=True)
-    duration = models.IntegerField(blank=True, null=True)
-    tour_type = models.CharField(max_length=50)
-    what_included = models.TextField()
+    booking_status = models.CharField(max_length=30, blank=True, null=True, 
+    choices=BOOKING_STATUS_CHOICES, default='Pending')
+
+    class Meta:
+        ordering= ('package',)
+    
 
 class Payment(models.Model):
-    booking = models.OneToOneField('Booking', on_delete = models.CASCADE, related_name ='booking_payment')
+    booking_id = models.OneToOneField('Booking', on_delete = models.CASCADE, related_name ='booking_payment')
     card_number = models.IntegerField(blank=True, null=True)
-    expiry_date = models.DateTimeField(auto_now_add=True)
+    expiry_date = models.DateTimeField()
     card_holder_name = models.CharField(max_length=50)
     cvv = models.IntegerField(blank=True, null=True)
-    
+

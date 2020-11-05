@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MapLocation, Package, Itinerary, Image, Review
+from .models import MapLocation, Package, Itinerary, Image, Review, Booking
 from accounts.models import MyUser, Agency, Admin, Client
 from django.core import serializers
 import json
@@ -13,41 +13,19 @@ from django.shortcuts import get_list_or_404, get_object_or_404, Http404
 from django.views import View
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView
-from .forms import PackageForm, LocationFormSet, ImageFormSet, ImageForm, ReviewForm
-from django.db.models import F
+from .forms import PackageForm, LocationFormSet, ImageFormSet, ImageForm, ReviewForm, BookingForm, PaymentForm
+from django.db.models import F, Q
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
+from django.views.generic import TemplateView, ListView
+from django.shortcuts import render, redirect
+
 # Create your views here.
 
 
-# def showthis(request,):
-#     # all_objects= MapLocation.objects.all()
-#     # all_objects = MapLocation.objects.filter(package_id=1)
 
-#     # json_res = json.dumps(MapLocation.objects.filter(package_id=1),only('latitude','longitude'))
-#     json_res = serializers.serialize('json', MapLocation.objects.filter(
-#         package_id=1), fields=('latitude', 'longitude', 'locattion_name'))
-
-#     # dump = json.dumps(json_res)
-
-#     context = {'all_objects': json_res}
-
-#     return render(request, 'package.html', context)
-
-    #  dataDictionary = {}
-    # counter = 1
-    # for i in all_objects:
-    #     print(i.locattion_name)
-    #     dataDictionary[counter]={"location_name":i.locattion_name,"latitude":i.latitude,"longitude":i.longitude}
-    #     counter+=1
-    #     print(counter)
-    # print(dataDictionary)
-    # print(len(dataDictionary))
-
-
-# def packageList(request):
-#     return render(request, 'POST.html')
 
 
 class PackageCreateView(LoginRequiredMixin, CreateView):
@@ -108,20 +86,29 @@ class PackageCreateView(LoginRequiredMixin, CreateView):
                                   location_form=location_form,
                                   image_form=image_form))
 
+def contact(request):
+    return render(request, "contact/contact-us.html")
+
+def about(request):
+    return render(request, "about/about-us.html")
+
+
+
 def view_package(request):
     # package = Package.objects.select_related('agency_idx').annotate(agency_name=
     #         F('myuser__user_id')).values('user_id', 'full_name')
-    query = request.GET.get('country')
-    package = Package.objects.filter(country=query)
+    query = request.GET.get('city')
+    package = Package.objects.filter(city_name=query)
 
     # print(package)
 
     
-    for x in package:
-        json_ress = serializers.serialize('json',MapLocation.objects.filter(package_id = x), fields=('latitude', 'longitude', 'locattion_name'))
+    # for x in package:
+    #     json_ress = serializers.serialize('json',MapLocation.objects.filter(package_id = x), fields=('latitude', 'longitude', 'locattion_name'))
     
     
-    json_res =json_ress
+    # json_res =json_ress
+    
     paginator = Paginator(package, 6)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
@@ -133,7 +120,7 @@ def view_package(request):
         posts = paginator.page(paginator.num_pages)
     
  
-    return render(request, "POST.html", {"package": package,'posts':posts, 'all_objects':json_res, 'page':page, 'media_url':settings.MEDIA_URL})
+    return render(request, "POST.html", {"package": package,'posts':posts, 'page':page, 'media_url':settings.MEDIA_URL})
 
 
 
@@ -144,6 +131,11 @@ def package_detail(request, year, month, day, package,package_id):
     agency = Agency.objects.filter(user_id=package.agency_id)
 
     reviews = package.reviews.filter(active=True)
+
+    package_tags_ids = package.tags.values_list('id', flat=True)
+    similar_package = Package.published.filter(tags__in=package_tags_ids).exclude(id=package.id)
+    similar_package = similar_package.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
+   
 
     new_review = None
     review_form = ReviewForm(data=request.POST)
@@ -159,9 +151,10 @@ def package_detail(request, year, month, day, package,package_id):
 
     json_res = serializers.serialize('json', MapLocation.objects.filter(
         package_id=package_id), fields=('latitude', 'longitude', 'locattion_name'))
+    print(json_res)
 
         
-    return render(request,'package.html',{'package': package, 'reviews':reviews, 'review_form':review_form, 'all_objects': json_res, 'agency':agency, 'image':image, 'media_url':settings.MEDIA_URL})
+    return render(request,'package.html',{'package': package, 'reviews':reviews, 'review_form':review_form, 'all_objects': json_res, 'agency':agency, 'image':image, 'similar_package':similar_package, 'media_url':settings.MEDIA_URL})
 
 
 
@@ -169,17 +162,13 @@ def package_detail(request, year, month, day, package,package_id):
 def login_view_package(request):
     # package = Package.objects.select_related('agency_idx').annotate(agency_name=
     #         F('myuser__user_id')).values('user_id', 'full_name')
-    query = request.GET.get('country')
-    package = Package.objects.filter(country=query)
+    query = request.GET.get('city')
+    package = Package.objects.filter(city_name=query)
 
     # print(package)
 
     
-    for x in package:
-        json_ress = serializers.serialize('json',MapLocation.objects.filter(package_id = x), fields=('latitude', 'longitude', 'locattion_name'))
     
-    
-    json_res =json_ress
     paginator = Paginator(package, 6)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
@@ -193,8 +182,7 @@ def login_view_package(request):
     context = {
         'query':query,
         'package': package,
-        'posts':posts, 
-        'all_objects':json_res, 
+        'posts':posts,  
         'page':page, 
         'media_url':settings.MEDIA_URL}
     
@@ -212,6 +200,12 @@ def login_package_detail(request, year, month, day, package,package_id):
 
     reviews = package.reviews.filter(active=True)
 
+    package_tags_ids = package.tags.values_list('id', flat=True)
+    similar_package = Package.published.filter(tags__in=package_tags_ids).exclude(id=package.id)
+    similar_package = similar_package.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
+   
+
+
     new_review = None
     review_form = ReviewForm(data=request.POST)
     if request.method == 'POST':
@@ -228,141 +222,72 @@ def login_package_detail(request, year, month, day, package,package_id):
         package_id=package_id), fields=('latitude', 'longitude', 'locattion_name'))
 
         
-    return render(request,'profile_package.html',{'package': package, 'reviews':reviews, 'review_form':review_form, 'all_objects': json_res, 'agency':agency, 'image':image, 'media_url':settings.MEDIA_URL})
+    return render(request,'profile_package.html',{'package': package, 'reviews':reviews,'similar_package':similar_package, 'review_form':review_form, 'all_objects': json_res, 'agency':agency, 'image':image, 'media_url':settings.MEDIA_URL})
 
-
-def booking_now(request, package_id):
+@login_required
+def booking_now(request, package_id, *args, **kwargs):
     
     package = get_object_or_404(Package, id=package_id)
-    current_user = request.user
-    print(current_user.user_id)
+    instance = Package.objects.get(id=package_id)
     
-    
-    # new_review = None
-    # review_form = ReviewForm(data=request.POST)
-    # if request.method == 'POST':
-    #     if review_form.is_valid():
-    #         new_review = review_form.save(commit=False)
-    #         new_review.package = package
-    #         new_review.save()
-    #     else:
-    #         review_form =ReviewForm()
+    user_id = request.user
+    new_booking = None
+    new_payment = None
+    if request.method == 'POST':
+        booking_form = BookingForm(request.POST)
+        payment_form = PaymentForm(request.POST)
+        if booking_form.is_valid() and payment_form.is_valid():
+            new_booking = booking_form.save(commit=False)
+            new_booking.user_id = request.user
+            new_booking.package = instance
+            new_booking.save()
+
+            new_payment = payment_form.save(commit=False)
+            new_payment.booking_id = new_booking
+            new_payment.save()
+
             
+            
+            
+            return redirect('booking_details')
 
-    # if request.method == 'POST':
-    #     form = EmailPostForm(request.POST)
-    #     if form.is_valid():
-    #         cd = form.cleaned_data
-    #         post_url = request.build_absolute_uri(post.get_absolute_url())
-    #         subject ='{} ({}) recomends you reading " {}"'. format(cd['name'], cd['email'], post.title)
-    #         message = 'Read "{}" at {}\n\n{}\'s comments:{}'.format(post.title, post_url, cd['name'], cd['comments'])
-    #         send_mail(subject, message, '1000310@daffodil.ac', [cd['to']])
- 
-    #         sent = True
-    # else:
-    #     form = EmailPostForm()
+    else:
+        booking_form = BookingForm() 
+        payment_form = PaymentForm()
 
-    return render(request, 'booking/booking.html',{'package':package})
+    context = {
+        'package':package,
+        'booking_form': booking_form,
+        'payment_form': payment_form,
+        'media_url':settings.MEDIA_URL,
+        
+    }
+    return render(request, 'booking/payment.html',context)
+
+
+@login_required
+def booking_details(request):
+    instance = request.user
+    booking = Booking.objects.filter(user_id=instance)
+    print(booking)
 
     
 
-# def package_booking(request, package_id):
-#     package = get_object_or_404(Package, id=package_id)
-#     sent = False
+    context = {
+        'booking':booking,
+    }
 
-#     if request.method == 'POST':
-#         form = EmailPostForm(request.POST)
-#         if form.is_valid():
-#             cd = form.cleaned_data
-#             post_url = request.build_absolute_uri(post.get_absolute_url())
-#             subject ='{} ({}) recomends you reading " {}"'. format(cd['name'], cd['email'], post.title)
-#             message = 'Read "{}" at {}\n\n{}\'s comments:{}'.format(post.title, post_url, cd['name'], cd['comments'])
-#             send_mail(subject, message, '1000310@daffodil.ac', [cd['to']])
- 
-#             sent = True
-#     else:
-#         form = EmailPostForm()
-#     return render(request, 'blog/share.html', {'post':post, 'form':form, 'sent':sent})
+    return render(request, 'booking/my_trip.html',context)
 
-# def view_single_package(request):
-#     # package = Package.objects.select_related('agency_idx').annotate(agency_name=
-#     #         F('myuser__user_id')).values('user_id', 'full_name')
-#     id = 11
-#     package = Package.objects.filter(id=id).first()
-#     location = Location.objects.filter(package_id=package.id).first()
-#     print(package.package_title)
-#     print(location)
-#     return render(request, "test1.html", {"package": package,})
-    
+def get_blog_queryset(query=None):
+    queryset = []
+    queries = query.split(" ")
+    for q in queries:
+        package = Package.objects.filter(
+            Q(package_title__icontrains) 
+        ).distinct()
 
-
-# class PackageCreateView(LoginRequiredMixin,View):
-#     def get(self, request, *args, **kwargs):
-#         current_user = get_object_or_404(MyUser, user_id=request.user.user_id) #request.user.user_id
-
-
-#         AgencyPackageInlineFormSet = inlineformset_factory(MyUser, Package, fields=('booking_type','package_title', 'start_point','end_point','age_requirement','price','special_offer','discount_price','days','tags','highlights','what_included','what_excluded','good_to_know',), can_delete=False, extra=1)
-#         formset = AgencyPackageInlineFormSet(instance=current_user)
-
-#         return render(request,"add_package.html", {"formset":formset})
-
-#     def post(self, request, *args, **kwargs):
-#         current_user = get_object_or_404(MyUser, user_id=request.user.user_id) #request.user.user_id
-
-
-#         AgencyPackageInlineFormSet = inlineformset_factory(MyUser, Package, fields=('booking_type','package_title', 'start_point','end_point','age_requirement','price','special_offer','discount_price','days','tags','highlights','what_included','what_excluded','good_to_know',), can_delete=False, extra=1)
-#         formset = AgencyPackageInlineFormSet(request.POST)
-
-#         if formset.is_valid():
-#             x = formset.save(commit=False)
-#             y = AgencyPackageInlineFormSet(request.POST, request.FILES, instance=x)
-
-#             if y.is_valid():
-#                 x.save()
-#                 y.save()
-
-#             return HttpResponseRedirect("/partner/add")
-#         else:
-#             pass
-
-
-# class CreatePackage(LoginRequiredMixin,View):
-#     model = Package
-#     fields = ['booking_type', 'package_title', 'start_point','end_point','age_requirement','price','special_offer','discount_price','days','tags','highlights','what_included','what_excluded','good_to_know']
-
-#     def get_context_data(self, **kwargs):
-#         data = super(CreatePackage, self).get_context_data(**kwargs)
-#         if self.request.POST:
-#             data['familymembers'] = FamilyMemberFormSet(self.request.POST)
-#         else:
-#             data['familymembers'] = FamilyMemberFormSet()
-#         return data
-
-#     def get(request):
-#         # current_user = get_object_or_404(MyUser, user_id=request.user.user_id) #request.user.user_id
-
-#         packageInlineFormSet = formset_factory(
-#             Package, fields=('booking_type', 'package_title', 'start_point','end_point','age_requirement','price','special_offer','discount_price','days','tags','highlights','what_included','what_excluded','good_to_know',),can_delete=False,extra=0)
-#         formset = packageInlineFormSet()
-
-#         return render(request,"add_package.html", formset)
-
-    # def post(self, request, *args, **kwargs):
-
-    #     current_user = get_object_or_404(MyUser, user_id=request.user.user_id)
-    #     AgencyInlineFormSet = inlineformset_factory(
-    #         MyUser, Agency, fields=('website', 'address', 'country',), can_delete=False, extra=0)
-    #     formset = AgencyInlineFormSet(request.POST)
-    #     myuser_form = MyUserForm(request.POST, instance=current_user)
-
-    #     if myuser_form.is_valid():
-    #         x = myuser_form.save(commit=False)
-    #         y = AgencyInlineFormSet(request.POST, request.FILES, instance=x)
-
-    #         if y.is_valid():
-    #             x.save()
-    #             y.save()
-
-    #         return HttpResponseRedirect("/partner/profile")
-    #     else:
-    #         pass
+        for p in package:
+            queryset.append(package)
+        
+        return list(set(queryset))
