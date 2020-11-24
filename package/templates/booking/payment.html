@@ -173,11 +173,7 @@ window.location.reload();}else{alert('Action cannot be completed. Please contact
     <div class="checkout-rating">
 			<!--Star Rating-->
 			<div class="star-rating-holder">
-    <div class="star-rating">
-    	<i data-alt="1" class="star-on-png" title=""></i> <i data-alt="2" class="star-on-png" title=""></i> <i data-alt="3" class="star-on-png" title=""></i> <i data-alt="4" class="star-on-png" title=""></i> <i data-alt="5" class="star-on-png" title=""></i>     </div>
-</div>    <div class="rating-text">
-    <b> Excellent</b> (317    Reviews)
-    </div>
+       
 </div>
     <dl class="checkout-list dl-horizontal">
                 
@@ -486,11 +482,8 @@ Remaining balnce is payable online before the tour start date, or upon arrival. 
             <div class="checkout-rating">
 			<!--Star Rating-->
 			<div class="star-rating-holder">
-    <div class="star-rating">
-    	<i data-alt="1" class="star-on-png" title=""></i> <i data-alt="2" class="star-on-png" title=""></i> <i data-alt="3" class="star-on-png" title=""></i> <i data-alt="4" class="star-on-png" title=""></i> <i data-alt="5" class="star-on-png" title=""></i>     </div>
-</div>    <div class="rating-text">
-    <b> Excellent</b> (317    Reviews)
-    </div>
+    
+</div>    
 </div>
                 <dl class="checkout-list dl-horizontal">
                     <dt>Start Point</dt> <dd>{{package.start_point}}</dd>
@@ -511,7 +504,7 @@ Remaining balnce is payable online before the tour start date, or upon arrival. 
                             </li>
                             <li class="extra price final-price dep">
 <span class="title">Deposit Payable Now: </span>
-<span class="value">US$ 197</span></li>                                                                                                                                        </ul>
+<span class="value">US$ {{package.payable}}</span></li>                                                                                                                                        </ul>
                     </div>
                 </div>
             </div>

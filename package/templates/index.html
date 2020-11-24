@@ -16,7 +16,7 @@
 	<div class="intro-banner">
 	<div class="video-holder">
 		<div class="video">
-		<video id="bookmundi-video" preload="auto" width="1920" height="1080" playsinline autoplay muted loop poster="../d3hne3c382ip58.cloudfront.net/resources/home/videos/fallbackvideo.jpg"><source src="https://d3hne3c382ip58.cloudfront.net/resources/home/videos/bookmundivideo.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+		<video id="bookmundi-video" preload="auto" width="1920" height="1080" playsinline autoplay muted loop poster="../d3hne3c382ip58.cloudfront.net/resources/home/videos/fallbackvideo.jpg"><source src="{% static 'video/video.mp4' %}" type="video/mp4">Your browser does not support the video tag.</video>
 		</div>
 	</div>
 	<button id="video-button" onclick="playPause()" class="hidden-xs"><span class="icon-pause play-pause"></span><span class="sr-only">Video Paused. Click to Play</span></button>
@@ -42,32 +42,8 @@
 			<!-- default home banner ends -->
 
 			<!-- customize trip banner begins -->
-			<div class="intro-frame b animate__animated" id="customize-home">
-				<h1>Customize your trip with an Expert Trip Designer</h1>
-				<p>Book your trip when it is perfectly designed and customized, just for you.</p>
-				<div class="main-search animate__animated">
-					<div class="loc">
-						<span class="icon-check-mark-button"></span><label for="where-customizing">CUSTOMIZE YOUR TRIP</label>
-						<input type="text" id="where-customizing" class="form-control" placeholder="Search country" autocomplete="off">
-
-						<div class="suggestions" id="top-customize-div">
-							<ul id="top-customize-trip-expert-ul">
-							</ul>
-						</div>
-						</div>
-						<button id="top-expert-submit-btn" class="btn search-btn" type="button"><span class="icon-search"></span>Search<i class="spinner-circle"></i></button>
-						<i class="err-text" id="err-customize1" style="display: none">Please enter the country for which you would like a customized tour.</i>
-					</div>				
-				<!-- customize trip banner ends -->
-			</div>
-			<ul class="intro-tabs">
-				<li class="active">
-					<a href="javascript:void(0)" id="atours-trigger">All Tours</a>
-				</li>
-				<li>
-					<a href="javascript:void(0)" id="ctours-trigger">Customized Tours</a>
-				</li>
-			</ul>	
+			
+		
 		</div>
 		
 	</div>	
@@ -627,445 +603,12 @@
     </section>	<!-- top destinations ends -->
 	<!-- top deals begins -->
 	<!-- ashok, saman -->
-    <section class="section bg-gray">
-		<div class="container">
-			<div class="section-heading center">
-				<div class="left-heading">
-					<h2><span>Top Deals</span> Worldwide</h2>
-					<p>The best tours and trip deals, globally.</p>
-				</div>
-			</div>
-			<ul class="deals-list">
-								<li>
-					<a href="europe/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/europe.jpg" alt="Europe Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>53%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>Europe</h3>
-							<span class="t-count">550+ Tours</span>
-						</div>
-					</a>
-				</li>
-								<li>
-					<a href="asia/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/asia.jpg" alt="Asia Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>53%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>Asia</h3>
-							<span class="t-count">250+ Tours</span>
-						</div>
-					</a>
-				</li>
-								<li>
-					<a href="north-america/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/north-america.jpg" alt="North America Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>19%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>North America</h3>
-							<span class="t-count">150+ Tours</span>
-						</div>
-					</a>
-				</li>
-								<li>
-					<a href="south-america/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/south-america.jpg" alt="South America Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>19%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>South America</h3>
-							<span class="t-count">150+ Tours</span>
-						</div>
-					</a>
-				</li>
-								<li>
-					<a href="africa/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/africa.jpg" alt="Africa Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>19%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>Africa</h3>
-							<span class="t-count">200+ Tours</span>
-						</div>
-					</a>
-				</li>
-								<li>
-					<a href="oceania/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/oceania.jpg" alt="Oceania Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>19%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>Oceania</h3>
-							<span class="t-count">50+ Tours</span>
-						</div>
-					</a>
-				</li>
-							</ul>
-			<div class="more-tours-link t"><a href="deals.html">See all travel deals</a></div>
-		</div>
-	</section>	<!-- top deals ends -->
+   	<!-- top deals ends -->
 
 	<!-- featured trips begins -->
 	<!-- saroj, saman -->
 
-	<section class="section gray" id="featured-trips">
-		<div class="container">
-			<div class="section-heading">
-				<div class="left-heading">
-					<h2><span>Featured</span> Trips</h2>
-					<p>Popular tours and trip packages. View them by travel style.</p>
-				</div>
-				<div class="select-heading">
-					<div class="select-holder" id="featured-trips-dropdown"><select id="slim-select" tabindex="-1" style="display: none;" data-ssid="ss-38698"><option value="">BY TRAVEL STYLE</option><option value="1805">4x4, quad and ATV trips</option><option value="882">Active and outdoor</option><option value="2080">Adriatic Cruise</option><option value="190">Adventure</option><option value="1795">Adventure and sport</option><option value="1819">Air tours, road trips and transfers</option><option value="2081">Alaska cruise tours</option><option value="1707">Amusement, theme or water parks</option><option value="1712">Art and architecture</option><option value="2070">Bamboo forest</option><option value="1095">Beach</option><option value="1820">Beach, romance, getaways and relaxation</option><option value="1283">Beaches</option><option value="383">Beer and drinks tasting</option><option value="188">Bicycle tours</option><option value="241">Bird watching</option><option value="1817">Boat tours, water sports and marine wildlife</option><option value="338">Bungee and swing jumping</option><option value="246">Bus tours</option><option value="748">Camping</option><option value="355">Canyoning</option><option value="2012">Casinos and gambling</option><option value="1491">Caves</option><option value="2072">Cherry Blossom</option><option value="800">Chill out</option><option value="1971">Christmas markets</option><option value="232">City sightseeing</option><option value="1706">Classes and workshops</option><option value="2">Climbing</option><option value="1813">Coffee and tea tours</option><option value="371">Concerts and shows</option><option value="140">Cooking classes</option><option value="1497">Countryside and village visits</option><option value="364">Cruise</option><option value="1505">Cultural, religious and historic sites</option><option value="1506">Culture shows and excursions</option><option value="2082">Danube river cruise</option><option value="2074">Day of the Dead Festival</option><option value="139">Desert safaris</option><option value="1285">Deserts and canyons</option><option value="1227">Dog sledding</option><option value="2066">Dune Bashing</option><option value="80">Eco tours</option><option value="633">Escape game and scavenger hunts</option><option value="2068">Expedition tours</option><option value="671">Explorer</option><option value="670">Family</option><option value="1715">Farm and plantation visits</option><option value="1477">Festivals and events</option><option value="346">Fishing</option><option value="1298">Flight tours</option><option value="231">Food tours</option><option value="233">Food, wine, events and nightlife</option><option value="678">Getaways and short breaks</option><option value="1492">Geysers</option><option value="1489">Glaciers</option><option value="1027">Golfing</option><option value="1188">Gorilla and chimpanzee tracking</option><option value="1808">Ground transfers</option><option value="296">Helicopter Tours</option><option value="113">Hiking</option><option value="2071">Holi</option><option value="655">Honeymoon</option><option value="1826">Hop-on hop-off bus tours</option><option value="64">Horseback riding</option><option value="733">Hot air balloon rides</option><option value="1495">Hot springs</option><option value="2083">Indian Ocean Cruise</option><option value="224">Kayaking and canoeing</option><option value="1471">La Tomatina</option><option value="1816">Lagoons</option><option value="1736">Local boat rides</option><option value="401">Local culture</option><option value="1981">Luxury</option><option value="1210">Marine wildlife</option><option value="1823">Meditation</option><option value="1201">Motorcycle tours</option><option value="164">Mountain biking</option><option value="757">Mountain flights</option><option value="1286">Mountains</option><option value="1806">Movie or television tours</option><option value="1821">Mud bathing</option><option value="607">Museum and gallery visits</option><option value="1287">National parks</option><option value="1499">Natural landmarks sightseeing</option><option value="1482">Nature and bush walks</option><option value="1148">Northern lights tours</option><option value="2077">Off the beaten path</option><option value="1473">Oktoberfest</option><option value="2084">Olympics</option><option value="2078">Overland Journeys</option><option value="1917">Paragliding</option><option value="1714">Party and nightlife</option><option value="237">Photography tours</option><option value="675">Polar expeditions and cruise</option><option value="75">Pub and bar crawl</option><option value="804">Rafting</option><option value="1501">Rainforest and jungle visits</option><option value="1811">Rappelling</option><option value="149">Rickshaw, cycle or local transport tours</option><option value="2075">Rio Carnival</option><option value="2063">River canal tour</option><option value="2028">River cruise</option><option value="1456">Road trips</option><option value="654">Romantic</option><option value="54">Running</option><option value="8">Safari</option><option value="151">Sailing, yachting and motor boating</option><option value="2069">Samurai experience.</option><option value="1726">Sandboarding</option><option value="1462">Scooter and electric bike tours</option><option value="152">Scuba diving</option><option value="56">Segway tours</option><option value="1708">Self-drive or vehicle rental</option><option value="1716">Shark cage diving</option><option value="1772">Shopping and markets</option><option value="236">Sightseeing Tours</option><option value="1818">Sightseeing, attractions, culture and history</option><option value="1467">Skiing and Snowboarding</option><option value="585">Snorkeling</option><option value="1856">Snowmobiling</option><option value="1222">Snowshoeing</option><option value="2067">Solo</option><option value="2079">South Pacific Cruise</option><option value="165">Spas</option><option value="1822">Special interests and hobbies</option><option value="898">Spiritual or religious tours</option><option value="1704">Sport tours, venues or tickets</option><option value="2073">St Patricks Day</option><option value="292">Standup paddleboarding</option><option value="1081">Surfing, kitesurfing etc.</option><option value="1450">Train tours</option><option value="1">Trekking</option><option value="2062">Tubing</option><option value="752">Volcanoes</option><option value="1796">Volunteering</option><option value="69">Walking tours</option><option value="1504">War sites</option><option value="1490">Waterfalls</option><option value="1498">Whale watching</option><option value="645">Wildlife</option><option value="10">Wildlife safaris and game drives</option><option value="1814">Wildlife, landscapes and nature</option><option value="13">Wine tasting tours</option><option value="1053">Winter adventures</option><option value="1202">Yoga</option><option value="1118">Zip lining</option><option value="1705">Zoos and aquariums</option></select><div style="" class="ss-38698 ss-main"><div class="ss-single-selected"><span class="placeholder">BY TRAVEL STYLE</span><span class="ss-deselect ss-hide">x</span><span class="ss-arrow"><span class="arrow-down"></span></span></div><div class="ss-content"><div class="ss-search"><input type="search" placeholder="Search" tabindex="0" aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off"></div><div class="ss-list"><div class="ss-option ss-disabled ss-option-selected" data-id="36204903">BY TRAVEL STYLE</div><div class="ss-option" data-id="75262734">4x4, quad and ATV trips</div><div class="ss-option" data-id="93503567">Active and outdoor</div><div class="ss-option" data-id="90317015">Adriatic Cruise</div><div class="ss-option" data-id="70637774">Adventure</div><div class="ss-option" data-id="42338382">Adventure and sport</div><div class="ss-option" data-id="85007670">Air tours, road trips and transfers</div><div class="ss-option" data-id="25487475">Alaska cruise tours</div><div class="ss-option" data-id="68669515">Amusement, theme or water parks</div><div class="ss-option" data-id="461644">Art and architecture</div><div class="ss-option" data-id="80739702">Bamboo forest</div><div class="ss-option" data-id="27412999">Beach</div><div class="ss-option" data-id="82199140">Beach, romance, getaways and relaxation</div><div class="ss-option" data-id="59886528">Beaches</div><div class="ss-option" data-id="20477088">Beer and drinks tasting</div><div class="ss-option" data-id="78365327">Bicycle tours</div><div class="ss-option" data-id="4294678">Bird watching</div><div class="ss-option" data-id="9641507">Boat tours, water sports and marine wildlife</div><div class="ss-option" data-id="78172892">Bungee and swing jumping</div><div class="ss-option" data-id="46303776">Bus tours</div><div class="ss-option" data-id="17002374">Camping</div><div class="ss-option" data-id="40023161">Canyoning</div><div class="ss-option" data-id="69791929">Casinos and gambling</div><div class="ss-option" data-id="68726056">Caves</div><div class="ss-option" data-id="64556876">Cherry Blossom</div><div class="ss-option" data-id="24727153">Chill out</div><div class="ss-option" data-id="85040838">Christmas markets</div><div class="ss-option" data-id="70482156">City sightseeing</div><div class="ss-option" data-id="41084388">Classes and workshops</div><div class="ss-option" data-id="57582715">Climbing</div><div class="ss-option" data-id="48622056">Coffee and tea tours</div><div class="ss-option" data-id="67168385">Concerts and shows</div><div class="ss-option" data-id="42208606">Cooking classes</div><div class="ss-option" data-id="29589053">Countryside and village visits</div><div class="ss-option" data-id="45745035">Cruise</div><div class="ss-option" data-id="85436121">Cultural, religious and historic sites</div><div class="ss-option" data-id="14731719">Culture shows and excursions</div><div class="ss-option" data-id="73576327">Danube river cruise</div><div class="ss-option" data-id="87877200">Day of the Dead Festival</div><div class="ss-option" data-id="73322147">Desert safaris</div><div class="ss-option" data-id="49800617">Deserts and canyons</div><div class="ss-option" data-id="24198308">Dog sledding</div><div class="ss-option" data-id="17816858">Dune Bashing</div><div class="ss-option" data-id="14367870">Eco tours</div><div class="ss-option" data-id="39679477">Escape game and scavenger hunts</div><div class="ss-option" data-id="81138330">Expedition tours</div><div class="ss-option" data-id="69380951">Explorer</div><div class="ss-option" data-id="27738201">Family</div><div class="ss-option" data-id="64386590">Farm and plantation visits</div><div class="ss-option" data-id="32850837">Festivals and events</div><div class="ss-option" data-id="23019627">Fishing</div><div class="ss-option" data-id="88598426">Flight tours</div><div class="ss-option" data-id="99920327">Food tours</div><div class="ss-option" data-id="39622172">Food, wine, events and nightlife</div><div class="ss-option" data-id="4500263">Getaways and short breaks</div><div class="ss-option" data-id="91500610">Geysers</div><div class="ss-option" data-id="47048458">Glaciers</div><div class="ss-option" data-id="10041503">Golfing</div><div class="ss-option" data-id="88014768">Gorilla and chimpanzee tracking</div><div class="ss-option" data-id="66404120">Ground transfers</div><div class="ss-option" data-id="45423097">Helicopter Tours</div><div class="ss-option" data-id="37590831">Hiking</div><div class="ss-option" data-id="35480428">Holi</div><div class="ss-option" data-id="32332696">Honeymoon</div><div class="ss-option" data-id="945283">Hop-on hop-off bus tours</div><div class="ss-option" data-id="48241744">Horseback riding</div><div class="ss-option" data-id="36067551">Hot air balloon rides</div><div class="ss-option" data-id="23431203">Hot springs</div><div class="ss-option" data-id="33311697">Indian Ocean Cruise</div><div class="ss-option" data-id="96060428">Kayaking and canoeing</div><div class="ss-option" data-id="85443574">La Tomatina</div><div class="ss-option" data-id="32649871">Lagoons</div><div class="ss-option" data-id="78470097">Local boat rides</div><div class="ss-option" data-id="11427071">Local culture</div><div class="ss-option" data-id="41743001">Luxury</div><div class="ss-option" data-id="99583311">Marine wildlife</div><div class="ss-option" data-id="83773366">Meditation</div><div class="ss-option" data-id="47840707">Motorcycle tours</div><div class="ss-option" data-id="31464867">Mountain biking</div><div class="ss-option" data-id="75780774">Mountain flights</div><div class="ss-option" data-id="52624060">Mountains</div><div class="ss-option" data-id="63918903">Movie or television tours</div><div class="ss-option" data-id="24919352">Mud bathing</div><div class="ss-option" data-id="85509995">Museum and gallery visits</div><div class="ss-option" data-id="38767032">National parks</div><div class="ss-option" data-id="71781906">Natural landmarks sightseeing</div><div class="ss-option" data-id="98675623">Nature and bush walks</div><div class="ss-option" data-id="54421400">Northern lights tours</div><div class="ss-option" data-id="26663219">Off the beaten path</div><div class="ss-option" data-id="77975648">Oktoberfest</div><div class="ss-option" data-id="49514380">Olympics</div><div class="ss-option" data-id="28052918">Overland Journeys</div><div class="ss-option" data-id="3594350">Paragliding</div><div class="ss-option" data-id="16928041">Party and nightlife</div><div class="ss-option" data-id="13138160">Photography tours</div><div class="ss-option" data-id="97008530">Polar expeditions and cruise</div><div class="ss-option" data-id="61639827">Pub and bar crawl</div><div class="ss-option" data-id="8276411">Rafting</div><div class="ss-option" data-id="986267">Rainforest and jungle visits</div><div class="ss-option" data-id="21361872">Rappelling</div><div class="ss-option" data-id="3270381">Rickshaw, cycle or local transport tours</div><div class="ss-option" data-id="58471063">Rio Carnival</div><div class="ss-option" data-id="7565809">River canal tour</div><div class="ss-option" data-id="3851151">River cruise</div><div class="ss-option" data-id="75576090">Road trips</div><div class="ss-option" data-id="73650262">Romantic</div><div class="ss-option" data-id="98104309">Running</div><div class="ss-option" data-id="39737379">Safari</div><div class="ss-option" data-id="41522370">Sailing, yachting and motor boating</div><div class="ss-option" data-id="98548915">Samurai experience.</div><div class="ss-option" data-id="65443065">Sandboarding</div><div class="ss-option" data-id="12894491">Scooter and electric bike tours</div><div class="ss-option" data-id="23010965">Scuba diving</div><div class="ss-option" data-id="97938479">Segway tours</div><div class="ss-option" data-id="40900624">Self-drive or vehicle rental</div><div class="ss-option" data-id="65274832">Shark cage diving</div><div class="ss-option" data-id="43161037">Shopping and markets</div><div class="ss-option" data-id="67813973">Sightseeing Tours</div><div class="ss-option" data-id="253230">Sightseeing, attractions, culture and history</div><div class="ss-option" data-id="94982354">Skiing and Snowboarding</div><div class="ss-option" data-id="45335862">Snorkeling</div><div class="ss-option" data-id="5036356">Snowmobiling</div><div class="ss-option" data-id="34245392">Snowshoeing</div><div class="ss-option" data-id="6251112">Solo</div><div class="ss-option" data-id="88060025">South Pacific Cruise</div><div class="ss-option" data-id="25316068">Spas</div><div class="ss-option" data-id="6648123">Special interests and hobbies</div><div class="ss-option" data-id="96797560">Spiritual or religious tours</div><div class="ss-option" data-id="89270374">Sport tours, venues or tickets</div><div class="ss-option" data-id="7825012">St Patricks Day</div><div class="ss-option" data-id="35642959">Standup paddleboarding</div><div class="ss-option" data-id="84418476">Surfing, kitesurfing etc.</div><div class="ss-option" data-id="61418548">Train tours</div><div class="ss-option" data-id="68346734">Trekking</div><div class="ss-option" data-id="29643811">Tubing</div><div class="ss-option" data-id="27878318">Volcanoes</div><div class="ss-option" data-id="84002678">Volunteering</div><div class="ss-option" data-id="14728003">Walking tours</div><div class="ss-option" data-id="88819287">War sites</div><div class="ss-option" data-id="29403750">Waterfalls</div><div class="ss-option" data-id="3251116">Whale watching</div><div class="ss-option" data-id="57371672">Wildlife</div><div class="ss-option" data-id="14750084">Wildlife safaris and game drives</div><div class="ss-option" data-id="89640012">Wildlife, landscapes and nature</div><div class="ss-option" data-id="74010567">Wine tasting tours</div><div class="ss-option" data-id="63739682">Winter adventures</div><div class="ss-option" data-id="76633834">Yoga</div><div class="ss-option" data-id="28166764">Zip lining</div><div class="ss-option" data-id="46663117">Zoos and aquariums</div></div></div></div></div>
-				</div>
-			</div>
-			<div class="trips-carousel slider-container" id="f-trips-carousel">
-				<span class="spinner-circle"></span>
-				<div class="tns-outer" id="tripsSlider-ow"><div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span class="current">7 to 10</span>  of 13</div><div id="tripsSlider-mw" class="tns-ovh"><div class="tns-inner" id="tripsSlider-iw"><div class="tns-outer" id="tripsSlider-ow"><div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span class="current">1 to 4</span>  of 13</div><div id="tripsSlider-mw" class="tns-ovh"><div class="tns-inner" id="tripsSlider-iw"><div class="rewind  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal" id="tripsSlider" style="transform: translate3d(-46.1538%, 0px, 0px);"><div class="item tns-item" id="tripsSlider-item0" aria-hidden="true" tabindex="-1">
-		<div class="img-holder">
-			<a href="#m/lisbon/lonely-planet-experiences-historic-and-trendy-lisbon-walking-tour-23399">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/lonely-planet-experiences-historic-and-trendy-lisbon-walking-tour-tour-2-23399_1555300766.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Lisbon, Portugal</span>
-				<h3 class="h3-title"><a href="#m/lisbon/lonely-planet-experiences-historic-and-trendy-lisbon-walking-tour-23399">Lonely Planet Experiences: Historic &amp; Trendy Lisbon Walking Tour</a></h3>
-				<div class="t-rating">
-							</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>2.5 hours</span>
-				<span class="t-price">
-				<i>
-									From
-								</i>
-				<b class="p">US$ 41</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item" id="tripsSlider-item1" aria-hidden="true" tabindex="-1">
-		<div class="img-holder">
-			<a href="#m/lisbon/full-day-sintra-palaces-tour-from-lisbon-23043">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/full-day-sintra-palaces-tour-from-lisbon-tour-2-23043_1577366279.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Lisbon, Portugal</span>
-				<h3 class="h3-title"><a href="#m/lisbon/full-day-sintra-palaces-tour-from-lisbon-23043">Full-Day Sintra Palaces Tour From Lisbon</a></h3>
-				<div class="t-rating">
-							</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>8 hours</span>
-				<span class="t-price">
-				<i>
-									From
-								</i>
-				<b class="p">US$ 100</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item" id="tripsSlider-item2" aria-hidden="true" tabindex="-1">
-		<div class="img-holder">
-			<a href="#m/seoul/discover-jeju-island-in-3-days-20522">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/discover-jeju-island-in-3-days-tour-2-20522_1578526109.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Seoul, South Korea</span>
-				<h3 class="h3-title"><a href="#m/seoul/discover-jeju-island-in-3-days-20522">Discover Jeju Island in 3 Days</a></h3>
-				<div class="t-rating">
-							</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>3 days</span>
-				<span class="t-price">
-				<i>
-									From
-								</i>
-				<b class="p">US$ 730</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item" id="tripsSlider-item3" aria-hidden="true" tabindex="-1">
-		<div class="img-holder">
-			<a href="#m/reykjavik/land-of-the-northern-lights-5-days-16027">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/land-of-the-northern-lights-5-days-tour-2-16027_1553148000.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Reykjavik, Iceland</span>
-				<h3 class="h3-title"><a href="#m/reykjavik/land-of-the-northern-lights-5-days-16027">Land of the Northern Lights - 5 days</a></h3>
-				<div class="t-rating">
-							<!--Star Rating-->
-				<div class="rating-deals-div">
-		<span class="of-reviews">
-			<span>
-				<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-off" title=""></i>         </span>
-			<i> of <span>2</span> reviews</i>
-		</span>
-	</div>
-				</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>5 days</span>
-				<span class="t-price">
-				<i>
-									From
-					<span class="crossed-price"><span>US$ 1,095</span></span>            </i>
-				<b class="p">US$ 1,040</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item" id="tripsSlider-item4" aria-hidden="true" tabindex="-1">
-		<div class="img-holder">
-			<a href="#m/seoul/dmz-and-royal-palace-tour-11472">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/dmz-and-royal-palace-tour-tour-2-11472_1519364616.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Seoul, South Korea</span>
-				<h3 class="h3-title"><a href="#m/seoul/dmz-and-royal-palace-tour-11472">DMZ &amp; Royal Palace Tour</a></h3>
-				<div class="t-rating">
-							</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>9 hours</span>
-				<span class="t-price">
-				<i>
-									From
-								</i>
-				<b class="p">US$ 92</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item" id="tripsSlider-item5" aria-hidden="true" tabindex="-1">
-		<div class="img-holder">
-			<a href="#m/kathmandu/trisuli-river-rafting-kathmandu-to-pokhara-11623">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/trisuli-river-rafting-kathmandu-to-pokhara-tour-2-11623_1517218084.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Kathmandu, Nepal</span>
-				<h3 class="h3-title"><a href="#m/kathmandu/trisuli-river-rafting-kathmandu-to-pokhara-11623">Trisuli River Rafting - Kathmandu to Pokhara</a></h3>
-				<div class="t-rating">
-							<!--Star Rating-->
-				<div class="rating-deals-div">
-		<span class="of-reviews">
-			<span>
-				<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>         </span>
-			<i> of <span>1</span> review</i>
-		</span>
-	</div>
-				</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>1 days</span>
-				<span class="t-price">
-				<i>
-									From
-								</i>
-				<b class="p">US$ 57</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item tns-slide-active" id="tripsSlider-item6">
-		<div class="img-holder">
-			<a href="#m/fethiye/sail-turkey-19583">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/sail-turkey-tour-2-19583_1553148007.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Fethiye, Turkey</span>
-				<h3 class="h3-title"><a href="#m/fethiye/sail-turkey-19583">Sail Turkey</a></h3>
-				<div class="t-rating">
-							</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>8 days</span>
-				<span class="t-price">
-				<i>
-									From
-					<span class="crossed-price"><span>US$ 1,256</span></span>            </i>
-				<b class="p">US$ 597</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item tns-slide-active" id="tripsSlider-item7">
-		<div class="img-holder">
-			<a href="#m/reykjavik/4-day-northern-lights-adventure-10298">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/4-day-northern-lights-adventure-tour-2-10298_1596106688.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Reykjavik, Iceland</span>
-				<h3 class="h3-title"><a href="#m/reykjavik/4-day-northern-lights-adventure-10298">4-Day Northern Lights Adventure</a></h3>
-				<div class="t-rating">
-							<!--Star Rating-->
-				<div class="rating-deals-div">
-		<span class="of-reviews">
-			<span>
-				<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>         </span>
-			<i> of <span>3</span> reviews</i>
-		</span>
-	</div>
-				</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>4 days</span>
-				<span class="t-price">
-				<i>
-									From
-								</i>
-				<b class="p">US$ 1,199</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item tns-slide-active" id="tripsSlider-item8">
-		<div class="img-holder">
-			<a href="#m/lisbon/food-and-wine-walk-900">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/food-and-wine-walk-tour-2-900_1551372058.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Lisbon, Portugal</span>
-				<h3 class="h3-title"><a href="#m/lisbon/food-and-wine-walk-900">Food and Wine Walk</a></h3>
-				<div class="t-rating">
-							</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>3 hours</span>
-				<span class="t-price">
-				<i>
-									From
-								</i>
-				<b class="p">US$ 53</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item tns-slide-active" id="tripsSlider-item9">
-		<div class="img-holder">
-			<a href="#m/cusco/inca-quarry-trek-to-machu-picchu-3d-2n-13712">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/inca-quarry-trek-to-machu-picchu-3d-2n-tour-2-13712_1553147998.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Cusco, Peru</span>
-				<h3 class="h3-title"><a href="#m/cusco/inca-quarry-trek-to-machu-picchu-3d-2n-13712">Inca Quarry Trek to Machu Picchu 3D/2N</a></h3>
-				<div class="t-rating">
-							</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>3 days</span>
-				<span class="t-price">
-				<i>
-									From
-					<span class="crossed-price"><span>US$ 780</span></span>            </i>
-				<b class="p">US$ 741</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item" id="tripsSlider-item10" aria-hidden="true" tabindex="-1">
-		<div class="img-holder">
-			<a href="#m/kathmandu/everest-base-camp-trek-3841">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/everest-base-camp-trek-tour-2-3841_1580274861.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Kathmandu, Nepal</span>
-				<h3 class="h3-title"><a href="#m/kathmandu/everest-base-camp-trek-3841">Everest Base Camp Trek</a></h3>
-				<div class="t-rating">
-							<!--Star Rating-->
-				<div class="rating-deals-div">
-		<span class="of-reviews">
-			<span>
-				<i data-alt="1" class="icon-star-on" title=""></i> <i data-alt="2" class="icon-star-on" title=""></i> <i data-alt="3" class="icon-star-on" title=""></i> <i data-alt="4" class="icon-star-on" title=""></i> <i data-alt="5" class="icon-star-on" title=""></i>         </span>
-			<i> of <span>317</span> reviews</i>
-		</span>
-	</div>
-				</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>12 days</span>
-				<span class="t-price">
-				<i>
-					<span class="inst" data-tooltip="Your tour will be instantly confirmed when you book."><span class="icon-eco7"></span></span>                From
-								</i>
-				<b class="p">US$ 1,020</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item" id="tripsSlider-item11" aria-hidden="true" tabindex="-1">
-		<div class="img-holder">
-			<a href="#m/lisbon/fatima-experience-611">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/fatima-experience-tour-2-611_0.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Lisbon, Portugal</span>
-				<h3 class="h3-title"><a href="#m/lisbon/fatima-experience-611">Fátima Experience</a></h3>
-				<div class="t-rating">
-							</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>5 hours</span>
-				<span class="t-price">
-				<i>
-					<span class="inst" data-tooltip="Your tour will be instantly confirmed when you book."><span class="icon-eco7"></span></span>                From
-								</i>
-				<b class="p">US$ 53</b>            </span>
-			</div>
-		</div>
-	</div><div class="item tns-item" id="tripsSlider-item12" aria-hidden="true" tabindex="-1">
-		<div class="img-holder">
-			<a href="#m/istanbul/essential-turkey-24620">
-				<img src="https://d3hne3c382ip58.cloudfront.net/resized/373x212/essential-turkey-tour-2-24620_1560911234.JPG" data-src="" class="img-responsive force_lazy" width="270">
-			</a>
-		</div>
-		<div class="t-details">
-			<div class="t-t-details">
-				<span class="t-loc"><span class="icon-pin"></span> Istanbul, Turkey</span>
-				<h3 class="h3-title"><a href="#m/istanbul/essential-turkey-24620">Essential Turkey</a></h3>
-				<div class="t-rating">
-							</div>
-			</div>
-			<div class="t-b-details">
-				<span class="t-dur"><span class="icon-clock-circular-outline"></span>9 days</span>
-				<span class="t-price">
-				<i>
-									From
-					<span class="crossed-price"><span>US$ 1,721</span></span>            </i>
-				<b class="p">US$ 817</b>            </span>
-			</div>
-		</div>
-	</div></div></div></div></div></div></div></div>			
-				<a href="javascript:void(0)" class="btn-prev" id="trips-slider-prev"><span class="sr">Previous</span><i class="icon-arrowhead7"></i></a>
-				<a href="javascript:void(0)" class="btn-next" id="trips-slider-next"><span class="sr">Next</span><i class="icon-arrow487"></i></a>
-			</div>
-			<div id="more-tours-link"></div>
-		</div>
-	</section>
+	
 
 	<!-- featured trips ends -->
 
@@ -1081,16 +624,11 @@
 			</div>
 			<div class="main-search planner-search animate__animated">
 				<div class="loc">
-					<label for="customize-trip-expert">CUSTOMIZE YOUR TRIP</label>
-					<input type="text" id="customize-trip-expert" class="form-control" placeholder="Which country do you want to visit?" autocomplete="off">
-					<div class="suggestions" id="bottom-customize-div">
-						<ul id="customize-trip-expert-ul">
-						</ul>
-					</div>
+					<form action="/user/custom/trip">
+						<input type="submit" value="START CUSTOMIZING TRIP" />
+					</form>
 				</div>
-				<button id="expert-submit-btn" class="btn search-btn" type="button"><span class="icon-search"></span>Search<i class="spinner-circle"></i></button>
-				<i class="err-text" id="err-customize2" style="display: none">Please enter the country for which you would like a customized tour.</i>
-			</div>
+				</div>
 			<!-- expert slider begins -->
 			<div class="expert-carousel slider-container">
 				<div class="rewind" id="expertSlider">
@@ -1152,9 +690,7 @@
 			<div class="recom-experts">
 				<span class="t-count">Our travel experts are recommended by:</span>
 				<ul class="recom-logo">
-					<li class="a">
-						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/press/bbc.png" alt="BBC" class="img-responsive">
-					</li>
+					
 					<li class="b">
 						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/press/independent2.png" alt="Independent" class="img-responsive">
 					</li>
@@ -1173,60 +709,26 @@
 		<div class="container">
 			<div class="section-heading">
 				<div class="left-heading">
-					<h2><span>Latest</span> Travel Guides</h2>
-					<p>View our travel guides giving you travel insights, ideas, and tips across the world.</p>
+					<h2><span>Latest</span> Travel Blogs</h2>
+					<p>View our travel guides giving you travel insights, ideas, and tips across the Bangladesh.</p>
 				</div>
-				<div class="select-heading">
-					<div class="select-holder">
-						<select id="travel-guide-continent" class="form-control">
-							<option value="">BY CONTINENT</option>
-							<option value="europe">Europe</option>
-							<option value="asia">Asia</option>
-							<option value="north america">North America</option>
-							<option value="south america">South America</option>
-							<option value="africa">Africa</option>
-							<option value="oceania">Oceania</option>
-							<option value="polar">Polar</option>
-						</select>
-						<i class="icon-down"></i>
-					</div>
-				</div>
+				
 			</div>
 			<div class="travel-guides">
-							<div class="col">
-					<div class="img-holder">
-						<a href="t/top-8-countries-that-are-reopening-for-travel.html" target="_blank" rel="noopener">
-							<img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAE4AAADcCAYAAADeBJdVAAABJ0lEQVR42u3QQREAAAQAMDLpn0YGfxk83W0Rlt1TwVmKEydOnDjEiRMnThzixIkTJ06DOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixIkTJ06cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHHixIkTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ06cOHHixIkThzhx4sSJQ5w4ceLEIU6cOHGIEyfumwUdnIWD29GMoAAAAABJRU5ErkJggg==" data-src="https://d3hne3c382ip58.cloudfront.net/files/uploads/bookmundi/resized/cmsfeatured/travel-again-1595411011-785X440.jpg" alt="Excited traveler jumps in the air as the world reopens for travel again">
-						</a>
-					</div>
-					<div class="guide-details">
-													<span class="t-loc"><span class="icon-pin"></span> Spain</span>
-												<h3 class="h3-title"><a href="t/top-8-countries-that-are-reopening-for-travel.html" target="_blank" rel="noopener">Top 8 Countries that are Reopening for Travel</a></h3>
-						<span class="t-loc">Jul 22, 2020</span>
-					</div>
-				</div>
-								<div class="col">
-					<div class="img-holder">
-						<a href="t/5-ways-to-be-more-sustainable-whilst-travelling.html" target="_blank" rel="noopener">
-							<img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAE4AAADcCAYAAADeBJdVAAABJ0lEQVR42u3QQREAAAQAMDLpn0YGfxk83W0Rlt1TwVmKEydOnDjEiRMnThzixIkTJ06DOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixIkTJ06cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHHixIkTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ06cOHHixIkThzhx4sSJQ5w4ceLEIU6cOHGIEyfumwUdnIWD29GMoAAAAABJRU5ErkJggg==" data-src="https://d3hne3c382ip58.cloudfront.net/files/uploads/bookmundi/resized/cmsfeatured/sustainable-travel-1594797279-785X440.jpg" alt="Sign board encouraging sustainable travel">
-						</a>
-					</div>
-					<div class="guide-details">
-												<h3 class="h3-title"><a href="t/5-ways-to-be-more-sustainable-whilst-travelling.html" target="_blank" rel="noopener">5 Ways to be more Sustainable Whilst Traveling</a></h3>
-						<span class="t-loc">Jul 15, 2020</span>
-					</div>
-				</div>
-								<div class="col">
-					<div class="img-holder">
-						<a href="t/8-signs-its-time-for-an-adventure.html" target="_blank" rel="noopener">
-							<img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAE4AAADcCAYAAADeBJdVAAABJ0lEQVR42u3QQREAAAQAMDLpn0YGfxk83W0Rlt1TwVmKEydOnDjEiRMnThzixIkTJ06DOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixIkTJ06cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHHixIkTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ06cOHHixIkThzhx4sSJQ5w4ceLEIU6cOHGIEyfumwUdnIWD29GMoAAAAABJRU5ErkJggg==" data-src="https://d3hne3c382ip58.cloudfront.net/files/uploads/bookmundi/resized/cmsfeatured/time-to-travel-1594292505-785X440.jpg" alt="A traveler enjoys the view of Vietnam">
-						</a>
-					</div>
-					<div class="guide-details">
-												<h3 class="h3-title"><a href="t/8-signs-its-time-for-an-adventure.html" target="_blank" rel="noopener">Are You Ready for a Holiday? 8 Signs it's Time for an Adventure!</a></h3>
-						<span class="t-loc">Jul 09, 2020</span>
-					</div>
-				</div>
+				{% for blog in blog_post %}
+				<div class="col">
+		<div class="img-holder">
+			<a href="{{ blog.get_absolute_url }}" target="_blank" rel="noopener">
+				<img src="{{media_url}}{{blog.photo}}" alt="Excited traveler jumps in the air as the world reopens for travel again">
+			</a>
+		</div>
+		<div class="guide-details">
+									
+									<h3 class="h3-title"><a href="{{ blog.get_absolute_url }}" target="_blank" rel="noopener">{{blog.title}}</a></h3>
+			<span class="t-loc">{{blog.created}}</span>
+		</div>
+	</div>
+	 {% endfor %}			
 							</div>
 		</div>
 	</div>

@@ -39,7 +39,6 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
-	user_id = models.UUIDField(primary_key=True, default = uuid.uuid4, editable = False)
 	username = models.CharField(
 					max_length=15,
 					validators = [
@@ -89,7 +88,6 @@ class Admin(models.Model):
         ('admin', 'admin'),
         ('editor', 'editor'),
 		)
-	admin_id = models.AutoField(primary_key=True)
 	user = models.OneToOneField(MyUser, on_delete=models.CASCADE,related_name='admin')
 	name = models.CharField(max_length=200, null=True)
 	role = models.CharField(max_length=200, blank=True, null=True, choices=ROLE)
@@ -101,7 +99,6 @@ class Admin(models.Model):
 
 
 class Client(models.Model):
-	client_id = models.AutoField(primary_key=True)
 	user_id = models.OneToOneField(MyUser, on_delete=models.CASCADE,related_name='client')
 	name = models.CharField(max_length=200, null=True)
 	photo = models.FileField(upload_to="profileImage", default='profileImage/blank.png', blank=True, null=True)
@@ -127,7 +124,6 @@ class Client(models.Model):
 
 
 class Agency(models.Model):
-    agency_id = models.AutoField(primary_key=True)
     user_id = models.OneToOneField(MyUser, on_delete=models.CASCADE, blank=True, null=True,related_name='agency')
     name = models.CharField(max_length=200, null=True)
     website = models.URLField(max_length=250, blank=True, null=True)

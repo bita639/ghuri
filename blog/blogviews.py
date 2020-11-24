@@ -3,10 +3,14 @@ from .models import Post, Comment
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
-from .forms import EmailPostForm, CommentForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import EmailPostForm, CommentForm, BlogPostCreateForm
 from django.core.mail import send_mail
 from taggit.models import Tag
 from django.db.models import Count
+from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 # class PostListView(ListView):    
 #     queryset = Post.published.all()    
@@ -82,3 +86,48 @@ def similar_post(request, year, month, day, post):
 
     return render(request, 'blog/similar.html', {'post':post, 'similar_posts':similar_posts, 'media_url':settings.MEDIA_URL})
     
+def AgencyBlogPostCreate(request, *args, **kwargs):
+    agency_blog_create_form = BlogPostCreateForm(request.POST, request.FILES)
+    if agency_blog_create_form.is_valid():
+        instance = agency_blog_create_form.save(commit=False)
+        instance.author = request.user
+        instance.save()
+        return redirect('partner_blog_post')
+
+    return render(request, 'blog/agency/add_all_agency_blog_post.html', {
+        'agency_blog_create_form':agency_blog_create_form
+    })
+
+class AgencyBlogPost(LoginRequiredMixin, ListView): 
+  
+    model = Post
+    context_object_name = 'agency_all_blog' 
+    template_name = 'blog/agency/view_all_agency_blog_post.html'
+
+    def get_queryset(self):
+        agency = self.request.user
+        agency_all_blog = Post.objects.filter(author=agency)
+        return agency_all_blog
+
+class AgenyBlogPostUpdateView(UpdateView): 
+    # specify the model you want to use 
+    model = Post
+    form_class = BlogPostCreateForm
+    template_name = "blog/agency/edit_all_agency_blog_post.html"
+  
+    success_url = reverse_lazy("partner_blog_post")
+
+# def AgenyBlogPostDeleteView(request, pk, template_name='blog/agency/delete_all_agency_blog_post.html'):
+#     agency_post_delete = get_object_or_404(Post, pk=pk)
+#     if request.method=='POST':
+#         agency_post_delete.delete()
+#         return redirect('partner_blog_post')
+#     return render(request, template_name, {'object':agency_post_delete})
+
+class AgenyBlogPostDeleteView(DeleteView): 
+    # specify the model you want to use 
+    model = Post
+    form_class = BlogPostCreateForm
+    template_name = "blog/agency/delete_all_agency_blog_post.html"
+  
+    success_url = reverse_lazy("partner_blog_post")

@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#33a05a">
 <meta name="google-site-verification" content="XQrn6i3TIZ-JBrGl-uU4PLq8zxjWWZN55PZHvT6yKqA">
-<title>10 Best Nepal Tours & Trips</title>
+<title>{{query}} Tours & Trips</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 <script data-pagespeed-no-defer>var bmGlobalVars={};bmGlobalVars.GOOGLE_KEY='AIzaSyCW17YRmTig9TuRDkUVts8GuBKGThS7pxQ';bmGlobalVars.GOOGLE_ID='337747701635-kf5c6l94tc0cert7j42m9jipl2nb2itp.apps.googleusercontent.com';bmGlobalVars.cloudfrontPath='https://www.bookmundi.com/';var baseUrl='https://www.bookmundi.com/';var user_is='';var debug=false;var yii_test=false;var mychannel=''?'channel_0':false;var product_channel=false;var isMobile=0;</script>
 <meta name="Keywords" content="Nepal Tours, Nepal Trips, Vacation Packages in Nepal, Holiday packages in Nepal, Top Nepal Tours and Trips, Holidays in Nepal">
@@ -60,7 +60,7 @@
     <div class="header-left">
         <div class="logo">
             <a href="{% url 'home' %}">
-                <span class="icon-logo"></span>
+                
                 <strong>Ghuri Travel</strong>
             </a>
 		</div>
@@ -79,10 +79,10 @@
                     
                                 
                                         <li id="link-register-header">
-                    <a href="javascript:void(0)" id="desktop-register-button">Signup</a>
+                    <a href="{% url 'register' %}" >Signup</a>
                 </li>
                 <li id="mbl-non-login-header">
-                    <a href="javascript:void(0)" id="desktop-login-button">Login</a>
+                    <a href="{% url 'login_view' %}" >Login</a>
                 </li>
                     </ul>
         <div class="menu-wrapper" id="menu-opener">
@@ -112,13 +112,13 @@
                 <div class="tours-main-col">
                                         <div class="heading-frame">
                 <div class="heading-top">
+
+                    <div class="h-top">
+                        <h1><a href="#" id="top-trigger">{{query}} Tours and Trips 2020/2021</a></h1>
+                                
+                    </div>
          
-            <div id="top-details" class="top-details-b">
-                <p>Nepal, the heart of the Himalayas, boasts plenty of amazing tours. Visit Sherpa villages while trekking the <a title="Everest Base Camp trek" href="https://www.bookmundi.com/everest-base-camp-trek/d5-bm" target="_blank" rel="noopener">Everest Base Camp trek</a>. Experience Boudhanath Stupa and Pashupatinath temple on a sightseeing tour in <a title="Kathmandu tours" href="https://www.bookmundi.com/kathmandu/d112-bm" target="_blank" rel="noopener">Kathmandu</a>, Nepal&rsquo;s capital and cultural hub. Or, enjoy more nature and see rhinos, tigers and elephants on a jungle safari in <a title="Chitwan National Park Tours" href="https://www.bookmundi.com/chitwan-national-park/d865-bm" target="_blank" rel="noopener">Chitwan National Park</a>.
-</p>
-                <ul class="top-lists">
-                   <li><a target="_blank" rel="noopener noreferrer" href="https://www.bookmundi.com/t/nepal">Nepal Travel Guide</a></li><li><a target="_blank" rel="noopener noreferrer" href="https://www.bookmundi.com/t/best-time-to-visit-nepal">Best Time to Visit Nepal</a></li>               </ul>
-           </div>
+            
        </div>
        <script>var topTrigger=document.getElementById("top-trigger"),topDetails=document.getElementById("top-details"),topFlag=false;topTrigger.addEventListener("click",function(){if(!topFlag){topTrigger.classList.add('active');topDetails.style.display="block";topFlag=true;}else{topTrigger.classList.remove('active');topDetails.style.display="none";topFlag=false;}});</script>
     <div class="heading-btm">
@@ -441,8 +441,9 @@
      
         <!-- footer begins -->
         <div id="mbl-footer-right">
-			
-		</div>        </div>
+            <p>© Ghuri Travel.com 2020 - Elmegade 22, 7700 Dhaka, Bangladesh All Rights Reserved.</p>
+       </div>      
+    </div>
 	</div>
 	
 

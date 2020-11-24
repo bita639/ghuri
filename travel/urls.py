@@ -10,6 +10,7 @@ from django.conf.urls.static import static
 
 from accounts import views
 from package import packageviews
+from blog import blogviews
 
 
 
@@ -45,6 +46,8 @@ urlpatterns = [
     path('user/package/<int:package_id>/<int:year>/<int:month>/<int:day>/<slug:package>/',packageviews.login_package_detail,name='login_package_detail'),
     path('user/package/booking/<int:package_id>/',packageviews.booking_now,name='booking_now'),
     path('user/package/mytrip',packageviews.booking_details,name='booking_details'),
+
+    path('user/custom/trip/', packageviews.trip_customize, name='custom'),
    
     #-------------------App URL
     #path('accounts/', include('django.contrib.auth.urls')),
@@ -56,20 +59,20 @@ urlpatterns = [
     path('admin/add/', views.add_new_admin, name='adminregister'),
     path('admin/profile/', views.AdminProfileView.as_view(), name='admin_profile'),
     path('admin/admin/', views.AllAdminView.as_view(), name='all_admin_list'),
-    path('admin/admin/delete/<uuid:pk>/', views.AdminDelete, name='admin_delete'),
-    path('admin/admin/edit/<uuid:pk>/', views.AdminEditView.as_view(), name='admin_edit'),
+    path('admin/admin/delete/<pk>/', views.AdminDelete, name='admin_delete'),
+    path('admin/admin/edit/<pk>/', views.AdminEditView.as_view(), name='admin_edit'),
 
     path('admin/agency/', views.AllAgencyView.as_view(), name='all_agency_list'),
-    path('admin/agency/delete/<uuid:pk>/', views.AgencyDelete, name='agency_delete'),
-    path('admin/agency/edit/<uuid:pk>/', views.AdminEditAgencyView.as_view(), name='agency_edit'),
-    path('admin/agency/view/<uuid:pk>/', views.AdminViewAgencyView.as_view(), name='agency_view'),
+    path('admin/agency/delete/<pk>/', views.AgencyDelete, name='agency_delete'),
+    path('admin/agency/edit/<pk>/', views.AdminEditAgencyView.as_view(), name='agency_edit'),
+    path('admin/agency/view/<pk>/', views.AdminViewAgencyView.as_view(), name='agency_view'),
     path('admin/agency/add', views.AdminAgencyAdd, name='admin_agency_add'),
     
 
     path('admin/user/', views.AllUserView.as_view(), name='all_user_list'),
     path('admin/user/add/', views.admin_user_register, name='admin_user_register'),
-    path('admin/user/edit/<uuid:pk>/', views.UserProfileEditForm.as_view(), name='edit'),
-    path('admin/user/delete/<uuid:pk>/', views.UserDelete, name='user_delete'),
+    path('admin/user/edit/<pk>/', views.UserProfileEditForm.as_view(), name='edit'),
+    path('admin/user/delete/<pk>/', views.UserDelete, name='user_delete'),
     # path('admin/user/example/', UserProfileEditForm.as_view(), name='example'),
     
 
@@ -81,11 +84,32 @@ urlpatterns = [
     path('user/', views.user_dashboard, name='user_dashboard'),
     path('user/profile/', views.UserProfile.as_view(), name='user_profile'),
     path('user/password/', views.change_password, name='change_password'),
+    path('user/payment/', packageviews.PaymentView.as_view(), name='payment_method'),
+    path('user/payment/add', packageviews.Agency_Payment_Method, name='add_payment_method'),
+    path('user/payment/delete/<int:pk>/', packageviews.Agency_Payment_Method_delete, name='agency_payment_delete'),
+    path('user/payment/update/<int:pk>/', packageviews.AgenyPaymentUpdateView.as_view(), name='agency_payment_update'),
 
     #-------------------Agency Dashboard Area
     path('partner/', views.agency_dashboard, name='agency_dashboard'),
     path('partner/profile', views.AgencyProfileView.as_view(), name='agency_profile'),
+
+    path('partner/blog/post', blogviews.AgencyBlogPost.as_view(), name='partner_blog_post'),
+    path('partner/blog/post/add/', blogviews.AgencyBlogPostCreate, name='partner_blog_post_add'),
+    path('partner/blog/post/edit/<int:pk>/', blogviews.AgenyBlogPostUpdateView.as_view(), name='partner_blog_post_edit'),
+    path('partner/blog/post/delete/<int:pk>/', blogviews.AgenyBlogPostDeleteView.as_view(), name='partner_blog_post_delete'),
+
+    path('package/list/', packageviews.PackageView.as_view(), name='package_list'),
+    path('package/delete/<id>/', packageviews.PackageDelete, name='package_delete'),
+    path('package/edit/<int:pk>/', packageviews.PackageUpdateView.as_view(), name='package_edit'),
+
+
+    path('package/booking/list/', packageviews.BookingView.as_view(), name='booking_list'),
+    path('package/booking/pending/', packageviews.PendingBooking.as_view(), name='pending_booking'),
+    path('package/booking/update/<int:pk>/', packageviews.PackageBookingUpdateView.as_view(), name='update_booking'),
+    path('package/custom/', packageviews.custom_trip_list, name='custom_booking'), 
+    path('package/custom/package/update/<int:pk>/', packageviews.CustomTripUpdateView.as_view(), name='update_custom_bookiing'),
     
+    # path('package/booking/update/<pk>/', packageviews.BookingUpdateView.as_view(),name='booking_update'),  
     
     path('agency/register/', views.agencyregister, name='agency_register'),
 

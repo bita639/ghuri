@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import MyUser
+from accounts.models import MyUser, Agency
 from django.utils import timezone
 from django.urls import reverse
 from multiselectfield import MultiSelectField
@@ -99,7 +99,7 @@ class Package(models.Model):
     status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='draf')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    toppings = MultiSelectField(max_length=10,choices=TOPPING_CHOICES)
+    activities = MultiSelectField(max_length=10,choices=TOPPING_CHOICES)
     accomodation = MultiSelectField(max_length=10,choices=ACCOMODATION_CHOICES)
     transport = MultiSelectField(max_length=10,choices=TRANSPORT_CHOICES)
     
@@ -248,3 +248,93 @@ class Payment(models.Model):
     card_holder_name = models.CharField(max_length=50)
     cvv = models.IntegerField(blank=True, null=True)
 
+
+class Customize_Tour(models.Model):
+    DESTINATION_CHOICES = (
+        ('Dhaka', 'Dhaka'),
+        ('Chittagong', 'Chittagong'),
+        ('Coxsbazar', 'Coxsbazar'),
+        ('Saint_martin', 'Saint martin'),
+        ('Bandarban', 'Bandarban'),
+        ('Rangamati', 'Rangamati'),
+        ('Khagrachori', 'Khagrachori'),
+        ('Kuakata', 'Kuakata'),
+        ('Sundarban', 'Sundarban'),
+        ('Jessore', 'Jessore'),
+        ('Barishal', 'Barishal'),
+    )
+
+    ACTIVITY_CHOICES = (
+        ('Trekking', 'Trekking'),
+        ('Adventure', 'Adventure'),
+        ('Climbing', 'Climbing'),
+        ('Hiking', 'Hiking'),
+        ('sightseeing', 'sightseeing'),
+        ('bikeride', 'bikeride'),
+    )
+
+    AGE_CHOICES = (
+        ('a', '18-35 yrs'),
+        ('b', '36-50 yrs'),
+        ('c', '51-64 yrs'),
+        ('d', '65+ yrs'),
+    )
+
+    TOUR_TYPE_CHOICES = (
+        ('e', 'Custom-made trip with guide and/or driver'),
+        ('f', 'Custom-made trip without guide and driver'),
+        ('g', 'Group Tour'),
+        ('h', 'Cruise Tour'),
+    )
+
+    ACCOMODATION_TYPE_CHOICES = (
+        ('basic', 'Basic (Equivalent of 2* hotels.)'),
+        ('comfortable', 'Comfortable (Equivalent of 3* hotels.)'),
+        ('luxury', 'Luxury (Equivalent of 4* hotels and above. )'),
+    )
+
+    PLANNING_CHOICES = (
+        ('x', 'I need more information before I can start trip planning'),
+        ('y', 'I am ready to start trip planning'),
+        ('z', "I've done my homework and almost ready to book"),
+    )
+    TRIP_STATUS_CHOICES = (
+        ('accepted', 'accepted'),
+        ('rejected', 'rejected'),
+        ('pending', 'pending'),
+    )
+    user_id = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='customize_user')
+    number_of_people = models.IntegerField()
+    travel_date = models.DateField()
+    destination = MultiSelectField(max_length=200,choices=DESTINATION_CHOICES)
+    activities = MultiSelectField(max_length=200,choices=ACTIVITY_CHOICES)
+
+    age_group = models.CharField(max_length=200,choices=AGE_CHOICES)
+    tour_type = models.CharField(max_length=200,choices=TOUR_TYPE_CHOICES)
+    accomodation_type = models.CharField(max_length=200,choices=ACCOMODATION_TYPE_CHOICES)
+    budget = models.IntegerField()
+    planning_stage = models.CharField(max_length=200,choices=PLANNING_CHOICES)
+    trip_title = models.CharField(max_length=100)
+    trip_details = models.CharField(max_length=200)
+    status = models.CharField(max_length=200,choices=TRIP_STATUS_CHOICES, default='pending')
+    def __str__(self):
+        return self.trip_title
+    
+class Customize_Tour_Agency(models.Model):
+    tour = models.ForeignKey(Customize_Tour, on_delete=models.CASCADE, related_name='c_tour_id')
+    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, related_name='c_agency_id')
+
+class Agency_payment(models.Model):
+    agency = models.OneToOneField(MyUser, on_delete=models.CASCADE, related_name='Agency_payment_id')
+    bank_name = models.CharField(max_length=100)
+    account_name = models.CharField(max_length=100)
+    account_number = models.IntegerField()
+    swift_code = models.IntegerField()
+
+class Contact(models.Model):
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    refference = models.IntegerField(blank=True, null=True)
+    trip_link = models.TextField(blank=True, null=True)
+    subject = models.CharField(max_length=100)
+    message = models.TextField(blank=True, null=True)

@@ -64,7 +64,8 @@
 
 <script data-ad-client="ca-pub-2765305747254982" async src="{% static 'pagead2.googlesyndication.com/pagead/js/f.txt' %}"></script>
     <script data-ad-client="" async src="{% static 'd3hne3c382ip58.cloudfront.net/resources/js/client.min.js' %}"></script>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/home_profile.css' %}" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home_profile.css' %}" media="screen"/>
+    {{ form.media }}
 </head>
 <body>
     <div id="wrapper">
@@ -76,6 +77,7 @@
             <li><a href="/blog" target="_blank" rel="noopener">Travel Blog</a></li>
             <li><a href="{% url 'agency_register' %}">Become Partner</a></li>
             <li><a href="{% url 'contact' %}">Contact Us</a></li>
+            <li><a href="{% url 'custom' %}">Trip Customize</a></li>
         </ul>
     </nav>
 </div>
@@ -123,7 +125,7 @@
     <div class="header-left">
         <div class="logo">
             <a href="{% url 'user_dashboard' %}">
-                <span class="icon-logo"></span>
+                
                 <strong>Ghuri Travel</strong>
             </a>
         </div>

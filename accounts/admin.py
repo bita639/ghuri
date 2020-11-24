@@ -11,7 +11,7 @@ from .models import MyUser, Admin, Client, Agency
 class UserAdmin(BaseUserAdmin):
 	add_form = UserCreationForm
 
-	list_display = ('user_id','username', 'email', 'mobile_no', 'is_admin', 'user_type')
+	list_display = ('username', 'email', 'mobile_no', 'is_admin', 'user_type')
 	list_filter = ('is_admin',)
 
 	fieldsets = (
@@ -26,7 +26,7 @@ class UserAdmin(BaseUserAdmin):
 
 
 class AdminAdmin(admin.ModelAdmin):
-	list_display = ['admin_id','user', 'name', 'role', 'photo']
+	list_display = ['user', 'name', 'role', 'photo']
 
 	class Meta:
 		model = Admin

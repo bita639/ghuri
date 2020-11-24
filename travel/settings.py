@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'blog',
     'taggit',
     'bootstrap_datepicker_plus',
+    'django_static_jquery3',
+    'django_yearmonth_widget',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

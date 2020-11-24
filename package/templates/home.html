@@ -114,7 +114,7 @@
             <header id="header">
 				<div class="logo">
 					<a href="#">
-						<span class="icon-logo"></span>
+						
 						<strong>Ghuri Travel</strong>
 					</a>
 				</div>
@@ -151,7 +151,7 @@
 	<div class="intro-banner">
 	<div class="video-holder">
 		<div class="video">
-		<video id="bookmundi-video" preload="auto" width="1920" height="1080" playsinline autoplay muted loop poster="../d3hne3c382ip58.cloudfront.net/resources/home/videos/fallbackvideo.jpg"><source src="https://d3hne3c382ip58.cloudfront.net/resources/home/videos/bookmundivideo.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+		<video id="bookmundi-video" preload="auto" width="1920" height="1080" playsinline autoplay muted loop poster="../d3hne3c382ip58.cloudfront.net/resources/home/videos/fallbackvideo.jpg"><source src="{% static 'video/video.mp4' %}" type="video/mp4">Your browser does not support the video tag.</video>
 		</div>
 	</div>
 	<button id="video-button" onclick="playPause()" class="hidden-xs"><span class="icon-pause play-pause"></span><span class="sr-only">Video Paused. Click to Play</span></button>
@@ -178,32 +178,8 @@
 			<!-- default home banner ends -->
 
 			<!-- customize trip banner begins -->
-			<div class="intro-frame b animate__animated" id="customize-home">
-				<h1>Customize your trip with an Expert Trip Designer</h1>
-				<p>Book your trip when it is perfectly designed and customized, just for you.</p>
-				<div class="main-search animate__animated">
-					<div class="loc">
-						<span class="icon-check-mark-button"></span><label for="where-customizing">CUSTOMIZE YOUR TRIP</label>
-						<input type="text" id="where-customizing" class="form-control" placeholder="Search country" autocomplete="off">
-
-						<div class="suggestions" id="top-customize-div">
-							<ul id="top-customize-trip-expert-ul">
-							</ul>
-						</div>
-						</div>
-						<button id="top-expert-submit-btn" class="btn search-btn" type="button"><span class="icon-search"></span>Search<i class="spinner-circle"></i></button>
-						<i class="err-text" id="err-customize1" style="display: none">Please enter the country for which you would like a customized tour.</i>
-					</div>				
-				<!-- customize trip banner ends -->
-			</div>
-			<ul class="intro-tabs">
-				<li class="active">
-					<a href="javascript:void(0)" id="atours-trigger">All Tours</a>
-				</li>
-				<li>
-					<a href="javascript:void(0)" id="ctours-trigger">Customized Tours</a>
-				</li>
-			</ul>	
+		
+			
 		</div>
 		
 	</div>	
@@ -286,15 +262,7 @@
 						<b>CUSTOMERS <span><i class="icon-heart-shape-silhouette"></i> US</span></b>
 					</strong>
 					<p>4.9 stars of more than 25,000 trip ratings.</p>
-					<a class="reviews-icon" href="https://www.reviews.io/company-reviews/store/bookmundi" target="_blank" rel="noopener">
-						<span class="stars-block">
-							<span class="icon-star-on"></span>
-							<span class="icon-star-on"></span>
-							<span class="icon-star-on"></span>
-							<span class="icon-star-on"></span>
-							<span class="icon-star-on"></span>
-						</span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALMAAAA8CAYAAAAt8ov+AAAAhElEQVR42u3SAQEAAAQAIDb5f8cBB/ygNpQ9XQEHpMzIDDKDzCAzMoPMIDPIDDIjM8gMMoPMyAwyg8wgM8iMzCAzyAwyIzPIDDKDzCAzMoPMIDPIjMwgM8gMMoPMyAwyg8wgMzKDzCAzyAwyIzPIDDKDzMgMMoPMIDPIjMwgM8gMMvPVAqfwsPV5PrXpAAAAAElFTkSuQmCC" data-src="https://www.bookmundi.com/images/home/reviewsio.png" alt="Reviews.io badge" width="135" height="46" class="img-responsive">
-					</a>
+				
 				</div>
 			</div>
 		</div>
@@ -444,103 +412,7 @@
     </section>	<!-- top destinations ends -->
 	<!-- top deals begins -->
 	<!-- ashok, saman -->
-    <section class="section bg-gray">
-		<div class="container">
-			<div class="section-heading center">
-				<div class="left-heading">
-					<h2><span>Top Deals</span> Worldwide</h2>
-					<p>The best tours and trip deals, globally.</p>
-				</div>
-			</div>
-			<ul class="deals-list">
-								<li>
-					<a href="europe/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/europe.jpg" alt="Europe Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>53%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>Europe</h3>
-							<span class="t-count">550+ Tours</span>
-						</div>
-					</a>
-				</li>
-								<li>
-					<a href="asia/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/asia.jpg" alt="Asia Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>53%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>Asia</h3>
-							<span class="t-count">250+ Tours</span>
-						</div>
-					</a>
-				</li>
-								<li>
-					<a href="north-america/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/north-america.jpg" alt="North America Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>19%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>North America</h3>
-							<span class="t-count">150+ Tours</span>
-						</div>
-					</a>
-				</li>
-								<li>
-					<a href="south-america/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/south-america.jpg" alt="South America Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>19%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>South America</h3>
-							<span class="t-count">150+ Tours</span>
-						</div>
-					</a>
-				</li>
-								<li>
-					<a href="africa/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/africa.jpg" alt="Africa Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>19%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>Africa</h3>
-							<span class="t-count">200+ Tours</span>
-						</div>
-					</a>
-				</li>
-								<li>
-					<a href="oceania/travel-deals.html">
-						<span class="img-holder">
-							<img src="data:image/gif;base64, iVBORw0KGgoAAAANSUhEUgAAALIAAACqCAYAAAAJDxWeAAABQUlEQVR42u3SQREAAAQAMJIr6CmQpwzutgzL6a6A51JkRAaRQWQQGZFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlERmQQGUQGkRFZZEQGkUFkEBmRQWQQGURGZBAZRAaRERlEBpFBZEQGkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZkUFkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZREZkEBlEBpERWWREBpFBZBAZkUFkEBlERmQQGUQGkREZRAaRQWREBpFBZBAZREZkEBlEBpERGUQGkUFkRAaRQWQQGZFBZBAZRAaRERlEBpFBZEQGkUFkEBmRQWQQGURGZBAZRAaREVlkRAaRQWQ4C3oy8Mh4te5EAAAAAElFTkSuQmCC" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/continents/oceania.jpg" alt="Oceania Deals" width="178" height="170" class="img-responsive">
-							<span class="dis-circle">
-								<i>UPTO</i>19%<i>OFF</i>
-							</span>
-						</span>
-						<div class="t-title">
-							<h3>Oceania</h3>
-							<span class="t-count">50+ Tours</span>
-						</div>
-					</a>
-				</li>
-							</ul>
-			<div class="more-tours-link t"><a href="deals.html">See all travel deals</a></div>
-		</div>
-	</section>	<!-- top deals ends -->
+  	<!-- top deals ends -->
 
 	<!-- featured trips begins -->
 	<!-- saroj, saman -->
@@ -559,15 +431,11 @@
 			</div>
 			<div class="main-search planner-search animate__animated">
 				<div class="loc">
-					<label for="customize-trip-expert">CUSTOMIZE YOUR TRIP</label>
-					<input type="text" id="customize-trip-expert" class="form-control" placeholder="Which country do you want to visit?" autocomplete="off">
-					<div class="suggestions" id="bottom-customize-div">
-						<ul id="customize-trip-expert-ul">
-						</ul>
-					</div>
+					<form action="/login">
+						<input type="submit" value="CUSTOMIZE YOUR TRIP" />
+					</form>
 				</div>
-				<button id="expert-submit-btn" class="btn search-btn" type="button"><span class="icon-search"></span>Search<i class="spinner-circle"></i></button>
-				<i class="err-text" id="err-customize2" style="display: none">Please enter the country for which you would like a customized tour.</i>
+				
 			</div>
 			<!-- expert slider begins -->
 			<div class="expert-carousel slider-container">
@@ -630,9 +498,7 @@
 			<div class="recom-experts">
 				<span class="t-count">Our travel experts are recommended by:</span>
 				<ul class="recom-logo">
-					<li class="a">
-						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/press/bbc.png" alt="BBC" class="img-responsive">
-					</li>
+					
 					<li class="b">
 						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/press/independent2.png" alt="Independent" class="img-responsive">
 					</li>
@@ -651,60 +517,28 @@
 		<div class="container">
 			<div class="section-heading">
 				<div class="left-heading">
-					<h2><span>Latest</span> Travel Guides</h2>
-					<p>View our travel guides giving you travel insights, ideas, and tips across the world.</p>
+					<h2><span>Latest</span> Travel Blogs</h2>
+					<p>View our travel guides giving you travel insights, ideas, and tips across the Bangladesh.</p>
 				</div>
-				<div class="select-heading">
-					<div class="select-holder">
-						<select id="travel-guide-continent" class="form-control">
-							<option value="">BY CONTINENT</option>
-							<option value="europe">Europe</option>
-							<option value="asia">Asia</option>
-							<option value="north america">North America</option>
-							<option value="south america">South America</option>
-							<option value="africa">Africa</option>
-							<option value="oceania">Oceania</option>
-							<option value="polar">Polar</option>
-						</select>
-						<i class="icon-down"></i>
-					</div>
-				</div>
+				
 			</div>
 			<div class="travel-guides">
+
+				{% for blog in blog_post %}
 							<div class="col">
 					<div class="img-holder">
-						<a href="t/top-8-countries-that-are-reopening-for-travel.html" target="_blank" rel="noopener">
-							<img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAE4AAADcCAYAAADeBJdVAAABJ0lEQVR42u3QQREAAAQAMDLpn0YGfxk83W0Rlt1TwVmKEydOnDjEiRMnThzixIkTJ06DOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixIkTJ06cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHHixIkTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ06cOHHixIkThzhx4sSJQ5w4ceLEIU6cOHGIEyfumwUdnIWD29GMoAAAAABJRU5ErkJggg==" data-src="https://d3hne3c382ip58.cloudfront.net/files/uploads/bookmundi/resized/cmsfeatured/travel-again-1595411011-785X440.jpg" alt="Excited traveler jumps in the air as the world reopens for travel again">
+						<a href="{{ blog.get_absolute_url }}" target="_blank" rel="noopener">
+							<img src="{{media_url}}{{blog.photo}}" alt="Excited traveler jumps in the air as the world reopens for travel again">
 						</a>
 					</div>
 					<div class="guide-details">
-													<span class="t-loc"><span class="icon-pin"></span> Spain</span>
-												<h3 class="h3-title"><a href="t/top-8-countries-that-are-reopening-for-travel.html" target="_blank" rel="noopener">Top 8 Countries that are Reopening for Travel</a></h3>
-						<span class="t-loc">Jul 22, 2020</span>
+												
+												<h3 class="h3-title"><a href="{{ blog.get_absolute_url }}" target="_blank" rel="noopener">{{blog.title}}</a></h3>
+						<span class="t-loc">{{blog.created}}</span>
 					</div>
 				</div>
-								<div class="col">
-					<div class="img-holder">
-						<a href="t/5-ways-to-be-more-sustainable-whilst-travelling.html" target="_blank" rel="noopener">
-							<img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAE4AAADcCAYAAADeBJdVAAABJ0lEQVR42u3QQREAAAQAMDLpn0YGfxk83W0Rlt1TwVmKEydOnDjEiRMnThzixIkTJ06DOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixIkTJ06cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHHixIkTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ06cOHHixIkThzhx4sSJQ5w4ceLEIU6cOHGIEyfumwUdnIWD29GMoAAAAABJRU5ErkJggg==" data-src="https://d3hne3c382ip58.cloudfront.net/files/uploads/bookmundi/resized/cmsfeatured/sustainable-travel-1594797279-785X440.jpg" alt="Sign board encouraging sustainable travel">
-						</a>
-					</div>
-					<div class="guide-details">
-												<h3 class="h3-title"><a href="t/5-ways-to-be-more-sustainable-whilst-travelling.html" target="_blank" rel="noopener">5 Ways to be more Sustainable Whilst Traveling</a></h3>
-						<span class="t-loc">Jul 15, 2020</span>
-					</div>
-				</div>
-								<div class="col">
-					<div class="img-holder">
-						<a href="t/8-signs-its-time-for-an-adventure.html" target="_blank" rel="noopener">
-							<img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAE4AAADcCAYAAADeBJdVAAABJ0lEQVR42u3QQREAAAQAMDLpn0YGfxk83W0Rlt1TwVmKEydOnDjEiRMnThzixIkTJ06DOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixIkTJ06cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHGIEydOnDjEiRMnThzixIkThzhx4sSJQ5w4ceLEIU6cOHHixIkTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ04c4sSJEycOceLEiROHOHHixCFOnDhx4hAnTpw4cYgTJ06cOHHixIkThzhx4sSJQ5w4ceLEIU6cOHGIEyfumwUdnIWD29GMoAAAAABJRU5ErkJggg==" data-src="https://d3hne3c382ip58.cloudfront.net/files/uploads/bookmundi/resized/cmsfeatured/time-to-travel-1594292505-785X440.jpg" alt="A traveler enjoys the view of Vietnam">
-						</a>
-					</div>
-					<div class="guide-details">
-												<h3 class="h3-title"><a href="t/8-signs-its-time-for-an-adventure.html" target="_blank" rel="noopener">Are You Ready for a Holiday? 8 Signs it's Time for an Adventure!</a></h3>
-						<span class="t-loc">Jul 09, 2020</span>
-					</div>
-				</div>
+				 {% endfor %}		
+								
 							</div>
 		</div>
 	</div>
@@ -920,43 +754,36 @@
                         <a href="info/data-policy.html" target="_blank" rel="noopener">Data Policy</a>.
                         </label>
                         <span></span>
-                        </div>
+						</div>
+						{% if messages %}
+						
+							{% for message in messages %}
+							<h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
+							{% endfor %}
+						
+						{% endif %}
                     <div class="signup-input">
-                        <input type="email" class="form-control" placeholder="Enter your email address" id="subs_email_input">
-                        <span class="icon-envelope32"></span>
-                        <button type="submit" class="btn btn-subscribe" id="mbl-subscribers-submit">Subscribe</button>
-                    </div>
+                        <form  method="POST" action='.'>
+							{% csrf_token %}
+							{{ sub_form.as_p }}
+							<button class="btn btn-primary" type="submit" name="Registration">Submit</button>
+							</form>
+							
+					</div>
+					
+
                     <span class="em-status" id="error_sub_msg" style="display: none">Please enter a valid email address.</span>
                         <span class="em-status success" id="after_sub_msg" style="display: none">Thank you for subscribing.</span>
                     </div>
                 </div>
             </div>
         </aside>
-        <aside class="press-logos">
-            <div class="container">
-                <strong class="bottom-title">AS SEEN IN:</strong>
-                <ul class="logos-bottom">
-                    <li class="la">
-                        <img class="img-responsive" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/press/logos/tech.co.png" alt="Tech.co">
-                    </li>
-                    <li class="lb">
-                        <img class="img-responsive" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/press/logos/travolution.png" alt="Travolution">
-                    </li>
-                    <li class="lc">
-                        <img class="img-responsive" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/press/logos/forbes.png" alt="Forbes">
-                    </li>
-                    <li class="ld">
-                        <img class="img-responsive" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://d3hne3c382ip58.cloudfront.net/resources/home/press/logos/independent.png" alt="Independent">
-                    </li>
-                    <li class="le">
-                        <img class="img-responsive" src="#" data-src="#" alt="Entrepreneur">
-                    </li>
-                </ul>
-            </div>
-
-        </aside>
+       
         <!-- footer begins -->
-        <div id="mbl-footer-right"></div>        </div>
+		<div id="mbl-footer-right">
+            <p>© Ghuri Travel.com 2020 - Elmegade 22, 7700 Dhaka, Bangladesh All Rights Reserved.</p>
+       </div>    
+	 </div>
     </div>
 	<script src="{% static 'js/home_profile.js' %}"></script>
 	<script>function initBmTracker(){(function(d,script){script=d.createElement('script');script.type='text/javascript';script.async=true;script.onload=function(){var serverdata={"user_id":"ZqsPJp","details":{"continent":null,"action":"pageview","page":"home","country":null,"destination":null,"destination_id":null,"activity":null,"activity_id":null,"tour_type":null,"date":null,"duration_day":null,"duration":null,"age_range":null,"geo_location":null,"geo_country":"Bangladesh","geo_continent":"Asia","user_ip":"103.109.57.169","user_time":"22:48","user_month":"10","user_year":"2020","product_title":null,"product_id":null}};Tracker.start(serverdata);};script.src='../d3hne3c382ip58.cloudfront.net/resources/js/tracker/1.0.0/tracker.js';script.onerror='';d.getElementsByTagName('head')[0].appendChild(script);}(document));}</script>

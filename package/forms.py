@@ -6,9 +6,12 @@ from django import forms
 from django_countries.data import COUNTRIES
 User = get_user_model()
 from django.forms import ModelForm
-from .models import Package, Itinerary,Booking, Days, MapLocation, Activities, Meals, Event, Accomodation, Image, Review, Payment
+from .models import Subscription, Agency_payment, Customize_Tour, Package, Itinerary,Booking, Days, MapLocation, Activities, Meals, Event, Accomodation, Image, Review, Payment
 from accounts.models import MyUser
-
+from datetime import datetime
+from django_yearmonth_widget.widgets import DjangoYearMonthWidget
+from package.widgets import MonthYearWidget
+from django.forms import formset_factory
 
 class ItineraryForm(forms.ModelForm):
     class Meta:
@@ -65,7 +68,8 @@ class BookingForm(forms.ModelForm):
 		label='Select Travel Date',
 		required=True,
 		widget=forms.DateTimeInput(
-			attrs={'class': 'form-control datetimepicker-input', 'type':'date'}
+			format=('%Y-%m-%d'),
+			attrs={'class': 'form-control', 'min': datetime.today().strftime('%Y-%m-%d'), 'type':'date'}
 		)
 	)
 
@@ -101,14 +105,11 @@ class PaymentForm(forms.ModelForm):
             )
 	)
     
-    expiry_date = forms.DateField(
-		label='Expire Date',
-		required=True,
-		widget=forms.DateInput(
-            format=('%m/%Y'),
-			attrs={'class': 'form-control datetimepicker-input', 'type':'date'}
-		)
-	)
+    # expiry_date = forms.DateField(
+	# 	label='Expire Date',
+	# 	required=True,		
+	# )
+    expiry_date = forms.CharField(widget=MonthYearWidget(attrs={"class": "select"}))
 
     cvv = forms.IntegerField(
 		label='CVV',
@@ -122,6 +123,127 @@ class PaymentForm(forms.ModelForm):
         model = Payment
         fields = ('card_number','card_holder_name','expiry_date','cvv',)
         
+# class BookingAcceptForm(forms.ModelForm):
+#     BOOKING_CHOICES =( 
+#         ("Pending", "Pending"), 
+#         ("Confirmed", "Confirmed"),  
+#     ) 
+#     booking_status = forms.ChoiceField(choices = BOOKING_CHOICES)
+
+#     class Meta:
+#         model = Booking
+#         fields = ('booking_status')
+
+
+class CustomTripForm(forms.ModelForm):
+    # number_of_people = forms.CharField(
+	# 	label='How many people are travelling?',
+    #         max_length=100,
+    #         required=True,
+    #         widget=forms.Number(
+    #             attrs={'class': 'form-control', 'type': 'text',
+    #                    'placeholder': 'Type your Full Name as card'}
+    #         )
+	# )
+
+    number_of_people = forms.IntegerField(
+		label='How many people are travelling?',
+		required=True,
+		widget=forms.NumberInput(
+			attrs={'class': 'form-control', 'type': 'number', 'placeholder': '3'}
+		)
+	)
+    travel_date = forms.DateField(
+		label='When will you be travelling?',
+		required=True,
+		widget=forms.DateTimeInput(
+			format=('%Y-%m-%d'),
+			attrs={'class': 'form-control', 'min': datetime.today().strftime('%Y-%m-%d'), 'type':'date'}
+		)
+	)
+
+    
+
+    class Meta:
+        model = Customize_Tour
+        exclude = ('user_id','status', )
+
+
+class SubscribeForm(forms.ModelForm):
+    subscription_mail = forms.EmailField(
+		label='Email Address',
+            max_length=300,
+            required=True,
+            widget=forms.TextInput(
+                attrs={'class': 'form-control', 'type': 'email', 'placeholder':'Example@example.com'}
+            )
+	)
+    class Meta:
+        model = Subscription
+        fields = ['subscription_mail',]
+
+class Agency_Payment_Form(forms.ModelForm):
+    bank_name = forms.CharField(
+		label='Bank Name',
+            max_length=300,
+            required=True,
+            widget=forms.TextInput(
+                attrs={'class': 'form-control', 'type': 'text', 'placeholder':'Example: Standard Chatatered Bank'}
+            )
+	)
+
+    account_name = forms.CharField(
+		label='Bank Name',
+            max_length=300,
+            required=True,
+            widget=forms.TextInput(
+                attrs={'class': 'form-control', 'type': 'text', 'placeholder':'Example: Smith John'}
+            )
+	)
+
+    account_number = forms.IntegerField(
+		label='Account Number',
+		required=True,
+		widget=forms.NumberInput(
+			attrs={'class': 'form-control', 'type': 'number', 'placeholder': '34567895434567'}
+		)
+	)
+
+    swift_code = forms.IntegerField(
+		label='Bank Routing Number',
+		required=True,
+		widget=forms.NumberInput(
+			attrs={'class': 'form-control', 'type': 'number', 'placeholder': '4567898'}
+		)
+	)
+    class Meta:
+        model = Agency_payment
+        fields = ['bank_name','account_name', 'account_number','swift_code',]
+
+
+class BookingAcceptForm(forms.ModelForm):
+    # booking_status = forms.CharField(
+	# 	label='Do you want to Accept this Booking ?',
+    #         max_length=300,
+    #         required=True,
+    #         widget=forms.Select(
+    #             attrs={'class': 'form-control'}
+    #         )
+	# )
+    class Meta:
+        model = Booking
+        fields = ['booking_status',]
+        widgets = {
+          'booking_status': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+
+class Custom_Trip_Update_Form(forms.ModelForm):
+    
+    class Meta:
+        model = Customize_Tour
+        fields = ['status',]
 
 
 

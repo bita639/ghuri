@@ -1,0 +1,2 @@
+python manage.py migrate --run-syncdb
+Error Name: django.db.utils.OperationalError: no such table: accounts_user

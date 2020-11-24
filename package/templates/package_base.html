@@ -99,8 +99,8 @@
             <header id="header">
     <div class="header-left">
         <div class="logo">
-            <a href="#/">
-                <span class="icon-logo"></span>
+            <a href="{% url 'home' %}">
+                
                 <strong>Ghuri Travel</strong>
             </a>
         </div>
@@ -229,14 +229,22 @@
                         </label>
                         <span></span>
                         </div>
-                    <div class="signup-input">
-                        <input type="email" class="form-control" placeholder="Enter your email address" id="subs_email_input">
-                        <span class="icon-envelope32"></span>
-                        <button type="submit" class="btn btn-subscribe" id="mbl-subscribers-submit">Subscribe</button>
-                    </div>
-                    <span class="em-status" id="error_sub_msg" style="display: none">Please enter a valid email address.</span>
-                        <span class="em-status success" id="after_sub_msg" style="display: none">Thank you for subscribing.</span>
-                    </div>
+                        {% if messages %}
+						
+							{% for message in messages %}
+							<h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
+							{% endfor %}
+						
+						{% endif %}
+                        <div class="signup-input">
+                            <form  method="POST" action='.'>
+                                {% csrf_token %}
+                                {{ sub_form.as_p }}
+                                <button class="btn btn-primary" type="submit" name="Registration">Submit</button>
+                            </form>
+							
+					    </div>
+                   </div>
                 </div>
             </div>
         </aside>

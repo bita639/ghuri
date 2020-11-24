@@ -60,7 +60,7 @@
     <div class="header-left">
         <div class="logo">
             <a href="{% url 'home' %}">
-                <span class="icon-logo"></span>
+                
                 <strong>Ghuri Travel</strong>
             </a>
 		</div>
@@ -79,10 +79,10 @@
                     
                                 
                                         <li id="link-register-header">
-                    <a href="javascript:void(0)" id="desktop-register-button">Signup</a>
+                    <a href="/register">Signup</a>
                 </li>
                 <li id="mbl-non-login-header">
-                    <a href="javascript:void(0)" id="desktop-login-button">Login</a>
+                    <a href="/login">Login</a>
                 </li>
                     </ul>
         <div class="menu-wrapper" id="menu-opener">
@@ -369,7 +369,7 @@
 	<div>
 		<form method="get">
             {{filtered_persons.form.as_p}}
-            <input type="submit" value="Press">
+            <input type="submit" value="Search">
         </form>
 		
 	</div>

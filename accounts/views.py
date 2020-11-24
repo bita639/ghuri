@@ -9,6 +9,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext as _
+from package.forms import SubscribeForm
 
 from django.utils.decorators import method_decorator
 from django.urls import reverse
@@ -25,10 +26,19 @@ from django.forms.models import inlineformset_factory
 from package.models import Package
 # Create your views here.
 from .forms import UserCreationForm, UserProfileForm_MyUser, UserProfileForm_Clients, UserLoginForm, AgencyCreationForm, MyUserForm, AgencyForm, AdminCreationForm
+from blog.models import Post
+from django.conf import settings
 
 User = get_user_model()
 
 def register(request, *args, **kwargs):
+    sub_form = SubscribeForm(request.POST or None)
+    if sub_form.is_valid():
+        instance = sub_form.save(commit=False)
+        instance.save()
+        messages.success(request, 'Thank you for your subscription.')
+        return redirect("/register")
+
     form = UserCreationForm(request.POST or None)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -36,7 +46,8 @@ def register(request, *args, **kwargs):
         instance.save()
         return HttpResponseRedirect("/login")
     context = {
-		'form': form
+		'form': form,
+        'sub_form':sub_form,
 	}
 
     return render(request, "accounts/user_register.html", context)
@@ -50,7 +61,7 @@ def agencyregister(request, *args, **kwargs):
         instance.save()
         return HttpResponseRedirect("/login")
     context = {
-        'form': form
+        'form': form,
     }
     return render(request, "agency/agency_register.html", context)
 
@@ -83,6 +94,13 @@ def add_new_admin(request, *args, **kwargs):
 
 
 def login_view(request, *args, **kwargs):
+    sub_form = SubscribeForm(request.POST or None)
+    if sub_form.is_valid():
+        instance = sub_form.save(commit=False)
+        instance.save()
+        messages.success(request, 'Thank you for your subscription.')
+        return redirect("/login")
+
     form = UserLoginForm(request.POST or None)
     if form.is_valid():
         user_obj = form.cleaned_data.get('user_obj')
@@ -99,17 +117,25 @@ def login_view(request, *args, **kwargs):
         if user_obj.user_type == 'admin':
             return HttpResponseRedirect("/admin")
         
-    return render(request, "accounts/login.html", {"form": form})
+    return render(request, "accounts/login.html", {"form": form, 'sub_form':sub_form})
 
 
 def logout_view(request):
     logout(request)
     return redirect("login_view")
 
-def home(request):
+def home(request, *args, **kwargs):
+    sub_form = SubscribeForm(request.POST or None)
+    if sub_form.is_valid():
+        instance = sub_form.save(commit=False)
+        instance.save()
+        messages.success(request, 'Thank you for your subscription.')
+        return redirect("/")
+    
     count = User.objects.count()
+    blog_post = Post.objects.all().order_by('-id')[:3]
     return render(request, 'home.html', {
-        'count': count
+        'count': count, 'blog_post': blog_post,'sub_form': sub_form, 'media_url':settings.MEDIA_URL
     })
 
 
@@ -148,17 +174,23 @@ def admin_dashboard(request):
 
 @login_required
 def agency_dashboard(request):
+    
     return render(request, 'agency/agency_dashboard.html')
 
 
 @login_required
 def user_dashboard(request):
+    count = User.objects.count()
+    blog_post = Post.objects.all().order_by('-id')[:3]
     nepal = Package.objects.filter(country='Nepal').count()
     bd = Package.objects.filter(country='Bangladesh').count()
 
     context = {
         'nepal':nepal,
         'bd':bd,
+        'blog_post':blog_post,
+        'media_url':settings.MEDIA_URL,
+
     }
     
     return render(request, 'index.html', context)
@@ -171,7 +203,7 @@ def secret_page(request):
 
 class AgencyProfileView(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
-        current_user = get_object_or_404(MyUser, user_id=request.user.user_id) #request.user.user_id
+        current_user = get_object_or_404(MyUser, id=request.user.id) #request.user.user_id
 
         myuser_form = MyUserForm(instance=current_user)
         AgencyInlineFormSet = inlineformset_factory(
@@ -185,7 +217,7 @@ class AgencyProfileView(LoginRequiredMixin,View):
 
     def post(self, request, *args, **kwargs):
         
-        current_user = get_object_or_404(MyUser, user_id=request.user.user_id)
+        current_user = get_object_or_404(MyUser, id=request.user.id)
         AgencyInlineFormSet = inlineformset_factory(
             MyUser, Agency, fields=('photo','website', 'address', 'country',), can_delete=False, extra=0)
         formset = AgencyInlineFormSet(request.POST)
@@ -207,7 +239,7 @@ class AgencyProfileView(LoginRequiredMixin,View):
 
 class AdminProfileView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        current_user = get_object_or_404(MyUser, user_id=request.user.user_id) #request.user.user_id
+        current_user = get_object_or_404(MyUser, id=request.user.id) #request.user.user_id
 
         myuser_form = MyUserForm(instance=current_user)
         AgencyInlineFormSet = inlineformset_factory(
@@ -220,7 +252,7 @@ class AdminProfileView(LoginRequiredMixin, View):
         })
 
     def post(self, request, *args, **kwargs):
-        current_user = get_object_or_404(MyUser, user_id=request.user.user_id)
+        current_user = get_object_or_404(MyUser, id=request.user.id)
         AgencyInlineFormSet = inlineformset_factory(
             MyUser, Admin, fields=('role', 'photo',), can_delete=False, extra=0)
         formset = AgencyInlineFormSet(request.POST)
@@ -265,7 +297,7 @@ def AgencyDelete(request, pk, template_name='admin/agency_delete.html'):
 class AdminEditAgencyView(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('pk')
-        current_user = get_object_or_404(MyUser, user_id=user_id) #request.user.user_id
+        current_user = get_object_or_404(MyUser, id=user_id) #request.user.user_id
 
         myuser_form = MyUserForm(instance=current_user)
         AgencyInlineFormSet = inlineformset_factory(MyUser, Agency, fields=('photo', 'website', 'address', 'country',), can_delete=False, extra=0)
@@ -279,7 +311,7 @@ class AdminEditAgencyView(LoginRequiredMixin,View):
 
     def post(self, request, *args, **kwargs):
         user_id = kwargs.get('pk')
-        current_user = get_object_or_404(MyUser, user_id=user_id)
+        current_user = get_object_or_404(MyUser, id=user_id)
 
         myuser_form = MyUserForm(request.POST, instance=current_user)
         AgencyInlineFormSet = inlineformset_factory(MyUser, Agency, fields=('photo','website', 'address', 'country',), can_delete=False, extra=0)
@@ -331,7 +363,7 @@ def AdminDelete(request, pk, template_name='admin/admin_delete.html'):
 class AdminEditView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('pk')
-        current_user = get_object_or_404(MyUser, user_id=user_id) #request.user.user_id
+        current_user = get_object_or_404(MyUser, id=user_id) #request.user.user_id
 
         myuser_form = MyUserForm(instance=current_user)
         AdminInlineFormSet = inlineformset_factory(
@@ -346,7 +378,7 @@ class AdminEditView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         user_id = kwargs.get('pk')
-        current_user = get_object_or_404(MyUser, user_id=user_id)
+        current_user = get_object_or_404(MyUser, id=user_id)
         AdminInlineFormSet = inlineformset_factory(
             MyUser, Admin, fields=('role', 'photo',), can_delete=False, extra=0)
         formset = AdminInlineFormSet(request.POST)
@@ -367,7 +399,7 @@ class AdminEditView(LoginRequiredMixin, View):
 
 class AllUserView(LoginRequiredMixin, ListView):
     model = Client
-    context_object_name = 'all_user' # fuck eita bana vul chilo
+    context_object_name = 'all_user' 
     template_name = 'admin/view_all_user.html'
 
     def get_queryset(self):
@@ -378,7 +410,7 @@ class AllUserView(LoginRequiredMixin, ListView):
 class AdminEditUserView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('pk')
-        current_user = get_object_or_404(MyUser, user_id=user_id) #request.user.user_id
+        current_user = get_object_or_404(MyUser, id=user_id) #request.user.user_id
 
         myuser_form = MyUserForm(instance=current_user)
         UserInlineFormSet = inlineformset_factory(
@@ -394,7 +426,7 @@ class AdminEditUserView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         user_id = kwargs.get('pk')
-        current_user = get_object_or_404(MyUser, user_id=user_id) #request.user.user_id
+        current_user = get_object_or_404(MyUser, id=user_id) #request.user.user_id
 
         myuser_form = MyUserForm(instance=current_user)
         UserInlineFormSet = inlineformset_factory(
@@ -419,7 +451,7 @@ class AdminEditUserView(LoginRequiredMixin, View):
 class UserProfileEditForm(UpdateView):
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('pk')
-        current_user = get_object_or_404(MyUser, user_id=user_id)
+        current_user = get_object_or_404(MyUser, id=user_id)
         UserProfileFormMyUser = UserProfileForm_MyUser(instance=current_user)
         UserProfileFormClients = UserProfileForm_Clients(instance=current_user.client)
         print(current_user.client)
@@ -432,7 +464,7 @@ class UserProfileEditForm(UpdateView):
     
     def post(self, request, *args, **kwargs):
         user_id = kwargs.get('pk')
-        current_user = get_object_or_404(MyUser, user_id=user_id)
+        current_user = get_object_or_404(MyUser, id=user_id)
         UserProfileFormMyUser = UserProfileForm_MyUser(request.POST, instance=current_user)
         
         UserProfileFormClients = UserProfileForm_Clients(request.POST, request.FILES, instance=current_user.client)
@@ -469,7 +501,7 @@ def admin_user_register(request, *args, **kwargs):
 
 class UserProfile(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        current_user = get_object_or_404(MyUser, user_id=request.user.user_id)
+        current_user = get_object_or_404(MyUser, id=request.user.id)
         UserProfileFormMyUser = UserProfileForm_MyUser(instance=current_user)
         UserProfileFormClients = UserProfileForm_Clients(instance=current_user.client)
         context = {
@@ -481,7 +513,7 @@ class UserProfile(LoginRequiredMixin, View):
         return render(request, 'user/user_profile.html',context)
     
     def post(self, request, *args, **kwargs):
-        current_user = get_object_or_404(MyUser, user_id=request.user.user_id)
+        current_user = get_object_or_404(MyUser, id=request.user.id)
         UserProfileFormMyUser = UserProfileForm_MyUser(request.POST, instance=current_user)
         
         UserProfileFormClients = UserProfileForm_Clients(request.POST, request.FILES, instance=current_user.client)

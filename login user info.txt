@@ -5,3 +5,6 @@ admin 	        admin@admin.com             jannat@14311      admin
 letsgo1	        letsgo@gmail.com            jannat@14311      partner
 
 paul007	         paul@gmail.com		    jannat@14311      user
+
+from blog.models import Post
+Post.objects.all().order_by('-id')[:10]

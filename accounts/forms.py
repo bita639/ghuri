@@ -5,7 +5,9 @@ from .models import MyUser, Agency, Client, Admin
 from django.forms import inlineformset_factory
 from django import forms
 from django_countries.data import COUNTRIES
+from datetime import datetime
 User = get_user_model()
+
 
 class UserCreationForm(forms.ModelForm):
 	password1 = forms.CharField(label='Password', widget=forms.PasswordInput(
@@ -366,7 +368,8 @@ class UserProfileForm_Clients(forms.ModelForm):
 		label='Date of Birth',
 		required=False,
 		widget=forms.DateTimeInput(
-			attrs={'class': 'form-control datetimepicker-input', 'type':'date'}
+			format=('%Y-%m-%d'),
+			attrs={'class': 'form-control', 'type':'date'}
 		)
 	)
 	nationality = forms.ChoiceField(
@@ -425,14 +428,16 @@ class UserProfileForm_Clients(forms.ModelForm):
 		label='Issue Date',
 		required=False,
 		widget=forms.DateTimeInput(
-			attrs={'class': 'form-control', 'type': 'date'}
+			format=('%Y-%m-%d'),
+			attrs={'class': 'form-control', 'type':'date'}
 		)
 	)
 	expiry_date = forms.DateField(
 		label='Expiry Date',
 		required=False,
 		widget=forms.DateTimeInput(
-			attrs={'class': 'form-control', 'type': 'date'}
+			format=('%Y-%m-%d'),
+			attrs={'class': 'form-control', 'type':'date'}
 		)
 	)
 	height = forms.IntegerField(
