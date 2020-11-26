@@ -1,0 +1,50 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<!-- DataTales Example -->
+<h4 style="text-align: center;">All Custom Booking Trip History</h4> 
+<!-- <span><a href="{% url 'PackageCreateView' %}" class="btn btn-primary">Add a New Package</a></span> -->
+<br><br>
+<table class="table" id="dataTable" width="100%" cellspacing="0">
+    <thead class="thead-dark" >
+                    <tr>
+                        <th scope="col">Customize Package</th>
+                        <th scope="col">Agency Name</th>
+                        <th scope="col">Assign</th>
+                        <th scope="col">Delete</th>
+                        
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th scope="col">Customize Package</th>
+                        <th scope="col">Agency Name</th>
+                        <th scope="col">Assign</th>
+                        <th scope="col">Delete</th>
+                        
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% if not assign_agency %}
+                        <tr><td colspan="6">No Data</td></tr>
+                    {% else %}
+                     {% for i in assign_agency %}
+
+                     <tr>
+                        <td>{{i.tour}}</td>
+                         <td>{{i.agency}}</td>
+                         
+                   
+                     </tr>
+                     {% endfor %}
+                     {% endif %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+ {% endblock %}
+    {% block js %}
+
+{% endblock %}

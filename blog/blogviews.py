@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import EmailPostForm, CommentForm, BlogPostCreateForm
+from .forms import EmailPostForm, CommentForm, BlogPostCreateForm, AdminBlogPostCreateForm
 from django.core.mail import send_mail
 from taggit.models import Tag
 from django.db.models import Count
@@ -131,3 +131,42 @@ class AgenyBlogPostDeleteView(DeleteView):
     template_name = "blog/agency/delete_all_agency_blog_post.html"
   
     success_url = reverse_lazy("partner_blog_post")
+
+
+def AdminAgencyBlogPostCreate(request, *args, **kwargs):
+    agency_blog_create_form = BlogPostCreateForm(request.POST, request.FILES)
+    if agency_blog_create_form.is_valid():
+        instance = agency_blog_create_form.save(commit=False)
+        instance.author = request.user
+        instance.save()
+        return redirect('admin_blog_post')
+
+    return render(request, 'blog/agency/admin/add_all_agency_blog_post.html', {
+        'agency_blog_create_form':agency_blog_create_form
+    })
+
+class AdminAgencyBlogPost(LoginRequiredMixin, ListView): 
+  
+    model = Post
+    context_object_name = 'admin_all_blog' 
+    template_name = 'blog/agency/admin/view_all_agency_blog_post.html'
+
+    def get_queryset(self):
+        admin_all_blog = Post.objects.all()
+        return admin_all_blog
+
+class AdminBlogPostDeleteView(DeleteView): 
+    # specify the model you want to use 
+    model = Post
+    form_class = BlogPostCreateForm
+    template_name = "blog/agency/admin/delete_all_agency_blog_post.html"
+  
+    success_url = reverse_lazy("admin_blog_post")
+
+class AdminBlogPostUpdateView(UpdateView): 
+    # specify the model you want to use 
+    model = Post
+    form_class = AdminBlogPostCreateForm
+    template_name = "blog/agency/admin/edit_all_agency_blog_post.html"
+  
+    success_url = reverse_lazy("admin_blog_post")

@@ -69,3 +69,50 @@ class BlogPostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('title','slug','body','photo',)
+
+class AdminBlogPostCreateForm(forms.ModelForm):
+
+    title = forms.CharField(
+		label='Post Name',
+            max_length=250,
+            required=True,
+            widget=forms.TextInput(
+                attrs={'class': 'form-control', 'type': 'text',
+                       'placeholder': 'Type a Blog Post Name'}
+            )
+	)
+
+    slug = forms.CharField(
+		label='Post URL',
+            max_length=250,
+            required=True,
+            widget=forms.TextInput(
+                attrs={'class': 'form-control', 'type': 'text',
+                       'placeholder': 'Make a Post SLug for URL'}
+            )
+	)
+
+    body = forms.CharField(
+		label='Post Body',
+            required=True,
+            widget=forms.Textarea(
+                attrs={'class': 'form-control', 'type': 'textarea',
+                       'placeholder': 'Post Details'}
+            )
+	)
+
+    photo = forms.ImageField(
+		label='Upload Post Photo',
+        required=False,
+		widget=forms.FileInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Post
+        fields = ('title','slug','body','photo','status',)
+
+
+# class Custom_Trip_Update_Form(forms.ModelForm):
+    
+#     class Meta:
+#         model = Customize_Tour
+#         fields = ['status',]

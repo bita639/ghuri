@@ -32,9 +32,7 @@ class PackageUpdateView(UpdateView):
     form_class = PackageForm
     success_url = reverse_lazy('package_list')
 
-    def get_success_url(self):
-        self.success_url = 'package/list/'
-        return self.success_url
+    
     def get_context_data(self, **kwargs):
         context = super(PackageUpdateView, self).get_context_data(**kwargs)
 
@@ -59,6 +57,7 @@ class PackageUpdateView(UpdateView):
         
         if (form.is_valid()  and location_form.is_valid() and image_form.is_valid()):
             return self.form_valid(form, location_form, image_form)
+            print("something wrong")
         else:
             return self.form_invalid(form, location_form, image_form)
 
@@ -626,5 +625,5 @@ class admin_assign_agency(ListView):
     template_name = 'booking/admin/assign_booking.html'
 
     def get_queryset(self):
-        assign_trip = Customize_Tour_Agency.objects.all()
-        return assign_trip
+        assign_agency = Customize_Tour_Agency.objects.all()
+        return assign_agency

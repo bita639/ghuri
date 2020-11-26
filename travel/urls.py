@@ -6,8 +6,6 @@ from django.views.generic import TemplateView
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
-
 from accounts import views
 from package import packageviews
 from blog import blogviews
@@ -84,7 +82,13 @@ urlpatterns = [
     path('admin/agency/payment/delete/<int:pk>/', packageviews.Admin_Agency_Payment_Method_delete, name='admin_agency_payment_delete'),
     path('admin/agency/payment/update/<int:pk>/', packageviews.AdminAgenyPaymentUpdateView.as_view(), name='admin_agency_payment_update'),
 
-    path('admin/package/custom/', packageviews.admin_custom_trip_list.as_view(), name='admin_custom_booking'), 
+    path('admin/package/custom/', packageviews.admin_custom_trip_list.as_view(), name='admin_custom_booking'),
+    path('admin/package/custom/assign', packageviews.admin_assign_agency.as_view(), name='admin_custom_booking_assign'),
+
+    path('admin/blog/post', blogviews.AdminAgencyBlogPost.as_view(), name='admin_blog_post'),
+    path('admin/blog/post/add/', blogviews.AdminAgencyBlogPostCreate, name='admin_blog_post_add'),
+    path('admin/blog/post/delete/<int:pk>/', blogviews.AdminBlogPostDeleteView.as_view(), name='admin_blog_post_delete'),
+    path('admin/blog/post/edit/<int:pk>/', blogviews.AdminBlogPostUpdateView.as_view(), name='admin_blog_post_edit'),
     # path('admin/user/example/', UserProfileEditForm.as_view(), name='example'),
     
 

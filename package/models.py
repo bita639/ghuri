@@ -321,7 +321,7 @@ class Customize_Tour(models.Model):
         return self.trip_title
     
 class Customize_Tour_Agency(models.Model):
-    tour = models.ForeignKey(Customize_Tour, on_delete=models.CASCADE, related_name='c_tour_id')
+    tour = models.OneToOneField(Customize_Tour, on_delete=models.CASCADE, related_name='c_tour_id')
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE, related_name='c_agency_id')
 
 class Agency_payment(models.Model):
