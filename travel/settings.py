@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'django_static_jquery3',
     'django_yearmonth_widget',
+    'django_extensions',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -159,3 +160,8 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join('static_cdn', 'static_root')
 MEDIA_ROOT = os.path.join('static_cdn', 'media_root')
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}

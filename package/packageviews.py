@@ -619,3 +619,12 @@ class admin_custom_trip_list(ListView):
         custom_trip = Customize_Tour.objects.all()
         print(custom_trip)
         return custom_trip
+
+class admin_assign_agency(ListView):
+    model = Customize_Tour_Agency
+    context_object_name = 'assign_agency' 
+    template_name = 'booking/admin/assign_booking.html'
+
+    def get_queryset(self):
+        assign_trip = Customize_Tour_Agency.objects.all()
+        return assign_trip
