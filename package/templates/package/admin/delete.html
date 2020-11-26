@@ -1,0 +1,15 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="alert alert-warning">
+            Are you sure you want to delete Admin {{object.package_title}} ?
+        </div>
+    </div>
+    <button type="submit" class="btn btn-danger">Submit</button>
+</form>
+
+{% endblock %}

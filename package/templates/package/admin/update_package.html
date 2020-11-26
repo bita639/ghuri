@@ -1,0 +1,80 @@
+{% extends 'admin/admin_base.html' %}
+
+{% load static %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div id="login">
+    <div class="container">
+       <div>
+        <h1>Create a New Package</h1>
+        <form action="." method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+           
+            <div>
+                <p>
+                    {{ tour_type_form }}
+                </p>
+                <p>
+                    {{ pl_form }}
+                </p>
+                <p>
+                    {{ form.as_p }}
+                <p>
+            </div>
+            <fieldset>
+                <legend>Add Locations</legend>
+                {{ location_form.management_form }}
+                {{ location_form.non_form_errors }}
+                {% for form in location_form %}
+                    {{ form.id }}
+                    <div class="inline {{ location_form.prefix }}">
+                        {{ form }}
+                    </div>
+                {% endfor %}
+            </fieldset>
+            <fieldset>
+                <legend>Add Images</legend>
+                {{ image_form.management_form }}
+                {{ image_form.non_form_errors }}
+                {% for form in image_form %}
+                    {{ form.id }}
+                    <div class="inline {{ image_form.prefix }}">
+                        {{ form }}
+
+
+                    </div>
+                {% endfor %}
+            </fieldset>
+            <input type="submit" value="Create New Package" class="submit" />
+        </form>
+    </div>
+
+    </div>
+    <br><br>
+</div>
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'js/form.js' %}"></script>
+    <script>
+
+
+    jQuery(document).ready(function($) {
+        $(".inline.{{ location_form.prefix }}").formset({
+            prefix: "{{ location_form.prefix }}",
+            addText: 'Add',
+            deleteText: 'Delete',
+        })
+        $(".inline.{{ image_form.prefix }}").formset({
+            prefix: "{{ image_form.prefix }}",
+            addText: 'Add',
+            deleteText: 'Delete',
+        })
+    });
+
+
+    </script>
+{% endblock script %}

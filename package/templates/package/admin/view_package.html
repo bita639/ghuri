@@ -1,0 +1,61 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<!-- DataTales Example -->
+<h4 style="text-align: center;">View Your All Package</h4> 
+
+<table class="table" id="dataTable" width="100%" cellspacing="0">
+    <thead class="thead-dark" >
+                    <tr>
+                        <th scope="col">Trip Name</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Payable</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                        <th scope="col">Details</th>
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+
+                        <th scope="col">Trip Name</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Payable</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                        <th scope="col">Details</th>
+
+                    </tr>
+                </tfoot>
+                <tbody>
+                     {% for i in all_package %}
+
+                     <tr>
+                        <td>{{i.package_title}}</td>
+                         <td>{{i.country}}</td>
+                         <td>{{i.city_name}}</td>
+                         <td>{{i.price}}</td>
+                         <td>{{i.status}}</td>
+                         <td>{{i.payable}}</td>
+                         <td><a href="{% url 'admin_package_edit' i.id %}">Edit</a></td>
+                         <td><a href="{% url 'admin_package_delete' i.id %}">Delete</a></td>
+                         <td><a href="{{ i.get_absolute_url }}">View</a></td>
+                     </tr>
+                     {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+ {% endblock %}
+    {% block js %}
+
+{% endblock %}

@@ -73,6 +73,18 @@ urlpatterns = [
     path('admin/user/add/', views.admin_user_register, name='admin_user_register'),
     path('admin/user/edit/<pk>/', views.UserProfileEditForm.as_view(), name='edit'),
     path('admin/user/delete/<pk>/', views.UserDelete, name='user_delete'),
+
+    path('admin/package/list/', packageviews.AdminPackageView.as_view(), name='admin_package_list'),
+    path('admin/package/delete/<id>/', packageviews.AdminPackageDelete, name='admin_package_delete'),
+    path('admin/package/edit/<int:pk>/', packageviews.AdminPackageUpdateView.as_view(), name='admin_package_edit'),
+
+    path('admin/package/booking/list/', packageviews.AdminBookingView.as_view(), name='admin_booking_list'),
+
+    path('admin/agency/payment/', packageviews.AdminPaymentView.as_view(), name='admin_payment_method'),
+    path('admin/agency/payment/delete/<int:pk>/', packageviews.Admin_Agency_Payment_Method_delete, name='admin_agency_payment_delete'),
+    path('admin/agency/payment/update/<int:pk>/', packageviews.AdminAgenyPaymentUpdateView.as_view(), name='admin_agency_payment_update'),
+
+    path('admin/package/custom/', packageviews.admin_custom_trip_list.as_view(), name='admin_custom_booking'), 
     # path('admin/user/example/', UserProfileEditForm.as_view(), name='example'),
     
 

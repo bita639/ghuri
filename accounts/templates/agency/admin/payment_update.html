@@ -1,0 +1,22 @@
+{% extends 'agency/agency_base.html' %}
+
+{% block content %}
+<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <h2 class="text-center text-black pt-5">Update Payment Method</h2>
+                   <form method="POST" action=''>
+                       {% csrf_token %}
+                       {{ form.as_p }}
+                       <button class="btn btn-primary" type="submit" name="Registration">Submit</button>
+                   </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <br><br>
+</div>
+{% endblock %}

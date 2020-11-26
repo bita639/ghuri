@@ -48,7 +48,6 @@ class PackageUpdateView(UpdateView):
             context['image_form'] = ImageFormSet(instance=self.object)
         return context
 
-
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form_class = self.get_form_class()
@@ -78,6 +77,7 @@ class PackageUpdateView(UpdateView):
                 img.save()
         image_form.save()
         return HttpResponseRedirect(self.get_success_url())
+        
 
     def form_invalid(self, form, location_form, image_form):
         return self.render_to_response(
@@ -495,3 +495,127 @@ class CustomTripUpdateView(UpdateView):
     template_name = "booking/edit_custom_booking.html"
   
     success_url = reverse_lazy("custom_booking")
+
+
+class AdminPackageView(LoginRequiredMixin, ListView):
+    model = Package
+    context_object_name = 'all_package' 
+    template_name = 'package/admin/view_package.html'
+
+    def get_queryset(self):
+       all_package = Package.objects.all()
+       return all_package
+
+def AdminPackageDelete(request, id, template_name='package/admin/delete.html'):
+    package = get_object_or_404(Package, id=id)
+    if request.method=='POST':
+        package.delete()
+        return redirect('admin_package_list')
+    return render(request, template_name, {'object':package})
+
+
+class AdminPackageUpdateView(UpdateView):
+    template_name = 'package/admin/update_package.html'
+    model = Package
+    form_class = PackageForm
+    success_url = reverse_lazy('admin_package_list')
+
+    def get_success_url(self):
+        self.success_url = 'admin/package/list/'
+        return self.success_url
+    def get_context_data(self, **kwargs):
+        context = super(AdminPackageUpdateView, self).get_context_data(**kwargs)
+
+        if self.request.POST:
+            context['form'] = PackageForm(self.request.POST, instance=self.object)
+            context['location_form'] = LocationFormSet(self.request.POST, instance=self.object)
+            context['image_form'] = ImageFormSet(self.request.POST, instance=self.object)
+        else:
+            context['form'] = PackageForm(instance=self.object)
+            context['location_form'] = LocationFormSet(instance=self.object)
+            context['image_form'] = ImageFormSet(instance=self.object)
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        
+        location_form = LocationFormSet(self.request.POST)
+        
+        image_form = ImageFormSet(self.request.POST, self.request.FILES)
+        
+        if (form.is_valid()  and location_form.is_valid() and image_form.is_valid()):
+            return self.form_valid(form, location_form, image_form)
+        else:
+            return self.form_invalid(form, location_form, image_form)
+
+    def form_valid(self, form, location_form, image_form):
+
+        self.object = form.save(commit=False)
+        # self.object.agency_id = self.request.user
+        self.object.save()
+
+        location_form.instance = self.object
+        location_form.save()
+        image_form.instance = self.object
+        media = image_form.save(commit=False)
+        for img in media:
+                img.product = self.object
+                img.save()
+        image_form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, location_form, image_form):
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  location_form=location_form,
+                                  image_form=image_form))
+
+class AdminBookingView(LoginRequiredMixin, ListView):
+    model = Booking
+    context_object_name = 'all_booking' 
+    template_name = 'booking/admin/view_all_booking.html'
+
+    def get_queryset(self):
+        package = Package.objects.all()
+        all_booking = []
+        for p in package:
+            all_booking.append(get_object_or_404(Booking, package=p.id))
+        return all_booking
+
+class AdminPaymentView(ListView):
+    model = Booking
+    context_object_name = 'payment_method' 
+    template_name = 'agency/admin/payment.html'
+
+    def get_queryset(self):
+        payment_method = Agency_payment.objects.all()
+        return payment_method
+
+def Admin_Agency_Payment_Method_delete(request, pk, template_name='agency/admin/payment_delete.html'):
+    agency_payment_delete = get_object_or_404(Agency_payment, pk=pk)
+    if request.method=='POST':
+        agency_payment_delete.delete()
+        return redirect('admin/agency/payment/')
+    return render(request, template_name, {'object':agency_payment_delete})
+
+class AdminAgenyPaymentUpdateView(UpdateView): 
+    # specify the model you want to use 
+    model = Agency_payment
+    form_class = Agency_Payment_Form
+    template_name = "agency/admin/payment_update.html"
+  
+    success_url = reverse_lazy("admin_payment_method")
+
+
+class admin_custom_trip_list(ListView):
+    model = Customize_Tour
+    context_object_name = 'custom_trip' 
+    template_name = 'booking/admin/custom_booking.html'
+
+    def get_queryset(self):
+        custom_trip = Customize_Tour.objects.all()
+        print(custom_trip)
+        return custom_trip
