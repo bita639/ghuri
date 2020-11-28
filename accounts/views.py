@@ -23,10 +23,11 @@ from django.views import View
 from django.forms import formset_factory
 from django.shortcuts import get_list_or_404, get_object_or_404, Http404
 from django.forms.models import inlineformset_factory
-from package.models import Package
+from package.models import Package, Customize_Tour, Review, Booking
+
 # Create your views here.
 from .forms import UserCreationForm, UserProfileForm_MyUser, UserProfileForm_Clients, UserLoginForm, AgencyCreationForm, MyUserForm, AgencyForm, AdminCreationForm
-from blog.models import Post
+from blog.models import Post, Comment
 from django.conf import settings
 
 User = get_user_model()
@@ -169,13 +170,44 @@ def profile(request, username):
     #               {'user' : user, 'snippets' : snippets } )
 @login_required
 def admin_dashboard(request):
-    return render(request, 'admin/admin_dashboard.html')
+    total_package = Package.objects.count()
+    total_user = Client.objects.count()
+    total_agency = Agency.objects.count()
+    total_blog = Post.objects.count()
+    total_custom_trip = Customize_Tour.objects.count()
+    total_review = Review.objects.count()
+    total_comment = Comment.objects.count()
+    total_booking = Booking.objects.count()
+
+    context ={
+        'total_package':total_package,
+        'total_user':total_user,
+        'total_agency':total_agency,
+        'total_blog':total_blog,
+        'total_custom_trip':total_custom_trip,
+        'total_review':total_review,
+        'total_comment':total_comment,
+        'total_booking':total_booking,
+    }
+    
+    print(total_package)
+    return render(request, 'admin/admin_dashboard.html', context)
 
 
 @login_required
 def agency_dashboard(request):
-    
-    return render(request, 'agency/agency_dashboard.html')
+    agency = request.user
+    total_package = Package.objects.filter(agency_id=agency).count()
+    total_booking = Booking.objects.filter(user_id=agency).count()
+    pending_booking = Booking.objects.filter(user_id=agency, booking_status='pending').count()
+
+    context ={
+        'total_package':total_package,
+        'pending_booking':pending_booking,
+        'total_booking':total_booking,
+        
+    }
+    return render(request, 'agency/agency_dashboard.html', context)
 
 
 @login_required

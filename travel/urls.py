@@ -119,7 +119,7 @@ urlpatterns = [
     path('package/edit/<int:pk>/', packageviews.PackageUpdateView.as_view(), name='package_edit'),
 
 
-    path('package/booking/list/', packageviews.BookingView.as_view(), name='booking_list'),
+    path('package/booking/list/', packageviews.AgencyBookingView.as_view(), name='agency_booking_list'),
     path('package/booking/pending/', packageviews.PendingBooking.as_view(), name='pending_booking'),
     path('package/booking/update/<int:pk>/', packageviews.PackageBookingUpdateView.as_view(), name='update_booking'),
     path('package/custom/', packageviews.custom_trip_list, name='custom_booking'), 

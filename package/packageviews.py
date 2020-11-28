@@ -13,7 +13,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404, Http404
 from django.views import View
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, UpdateView
-from .forms import BookingAcceptForm, Custom_Trip_Update_Form, SubscribeForm, Agency_Payment_Form, PackageForm, CustomTripForm, LocationFormSet, ImageFormSet, ImageForm, ReviewForm, BookingForm, PaymentForm
+from .forms import BookingAcceptForm, Approve_package_Form, Custom_Trip_Update_Form, SubscribeForm, Agency_Payment_Form, PackageForm, CustomTripForm, LocationFormSet, ImageFormSet, ImageForm, ReviewForm, BookingForm, PaymentForm
 from django.db.models import F, Q
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -166,7 +166,7 @@ def view_package(request):
     # package = Package.objects.select_related('agency_idx').annotate(agency_name=
     #         F('myuser__user_id')).values('user_id', 'full_name')
     query = request.GET.get('city')
-    package = Package.objects.filter(city_name=query)
+    package = Package.objects.filter(city_name=query, status='published')
 
     # print(package)
 
@@ -371,9 +371,9 @@ class PackageView(LoginRequiredMixin, ListView):
     template_name = 'package/view_package.html'
 
     def get_queryset(self):
-       all_package = Package.objects.select_related('agency_id').all()
-       print(all_package)
-       return all_package
+        agency = self.request.user
+        all_package = Package.objects.filter(agency_id=agency).all()
+        return all_package
 
 
 def PackageDelete(request, id, template_name='package/delete.html'):
@@ -384,7 +384,7 @@ def PackageDelete(request, id, template_name='package/delete.html'):
     return render(request, template_name, {'object':package})
 
 
-class BookingView(LoginRequiredMixin, ListView):
+class AgencyBookingView(LoginRequiredMixin, ListView):
     model = Booking
     context_object_name = 'all_booking' 
     template_name = 'booking/view_all_booking.html'
@@ -394,7 +394,7 @@ class BookingView(LoginRequiredMixin, ListView):
         package = Package.objects.filter(agency_id=agency)
         all_booking = []
         for p in package:
-            all_booking.append(get_object_or_404(Booking, package=p.id))
+            all_booking.append(Booking.objects.filter(package=p.id))
         return all_booking
 
 class PendingBooking(LoginRequiredMixin, ListView):
@@ -514,63 +514,10 @@ def AdminPackageDelete(request, id, template_name='package/admin/delete.html'):
 
 
 class AdminPackageUpdateView(UpdateView):
-    template_name = 'package/admin/update_package.html'
     model = Package
-    form_class = PackageForm
-    success_url = reverse_lazy('admin_package_list')
-
-    def get_success_url(self):
-        self.success_url = 'admin/package/list/'
-        return self.success_url
-    def get_context_data(self, **kwargs):
-        context = super(AdminPackageUpdateView, self).get_context_data(**kwargs)
-
-        if self.request.POST:
-            context['form'] = PackageForm(self.request.POST, instance=self.object)
-            context['location_form'] = LocationFormSet(self.request.POST, instance=self.object)
-            context['image_form'] = ImageFormSet(self.request.POST, instance=self.object)
-        else:
-            context['form'] = PackageForm(instance=self.object)
-            context['location_form'] = LocationFormSet(instance=self.object)
-            context['image_form'] = ImageFormSet(instance=self.object)
-        return context
-
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        
-        location_form = LocationFormSet(self.request.POST)
-        
-        image_form = ImageFormSet(self.request.POST, self.request.FILES)
-        
-        if (form.is_valid()  and location_form.is_valid() and image_form.is_valid()):
-            return self.form_valid(form, location_form, image_form)
-        else:
-            return self.form_invalid(form, location_form, image_form)
-
-    def form_valid(self, form, location_form, image_form):
-
-        self.object = form.save(commit=False)
-        # self.object.agency_id = self.request.user
-        self.object.save()
-
-        location_form.instance = self.object
-        location_form.save()
-        image_form.instance = self.object
-        media = image_form.save(commit=False)
-        for img in media:
-                img.product = self.object
-                img.save()
-        image_form.save()
-        return HttpResponseRedirect(self.get_success_url())
-
-    def form_invalid(self, form, location_form, image_form):
-        return self.render_to_response(
-            self.get_context_data(form=form,
-                                  location_form=location_form,
-                                  image_form=image_form))
+    form_class = Approve_package_Form
+    template_name = "package/admin/update_package.html"
+    success_url = reverse_lazy("admin_package_list")
 
 class AdminBookingView(LoginRequiredMixin, ListView):
     model = Booking
@@ -578,10 +525,7 @@ class AdminBookingView(LoginRequiredMixin, ListView):
     template_name = 'booking/admin/view_all_booking.html'
 
     def get_queryset(self):
-        package = Package.objects.all()
-        all_booking = []
-        for p in package:
-            all_booking.append(get_object_or_404(Booking, package=p.id))
+        all_booking = Booking.objects.all()
         return all_booking
 
 class AdminPaymentView(ListView):

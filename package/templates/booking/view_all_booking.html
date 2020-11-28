@@ -31,22 +31,23 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                     {% for i in all_booking %}
-
-                     <tr>
-                        <td>{{i.package}}</td>
-                         <td>{{i.full_name}}</td>
-                         <td>{{i.select_date}}</td>
-                         <td>{{i.participants}}</td>
-                         <td>{{i.booking_status}}</td>
-                        
-                         <!-- <td><a href="{% url 'package_edit' i.id %}">Edit</a></td>
-                         <td><a href="{% url 'package_delete' i.id %}">Delete</a></td>
-                         <td><a href="{{ i.get_absolute_url }}">View</a></td> -->
-                     </tr>
-                     {% endfor %}
-                    
-                </tbody>
+                    {% for pb in all_booking %}
+                       {% for i in pb %}
+                    <tr>
+                       <td>{{i.package}}</td>
+                        <td>{{i.full_name}}</td>
+                        <td>{{i.select_date}}</td>
+                        <td>{{i.participants}}</td>
+                        <td>{{i.booking_status}}</td>
+                        <!-- <td><a href="{% url 'update_booking' i.id %}">Accept Booking</a></td> -->
+                        <!-- <td><a href="{% url 'package_edit' i.id %}">Edit</a></td>
+                        <td><a href="{% url 'package_delete' i.id %}">Delete</a></td>
+                        <td><a href="{{ i.get_absolute_url }}">View</a></td> -->
+                    </tr>
+                    {% endfor %}
+                    {% endfor %}
+                   
+               </tbody>
             </table>
         </div>
     </div>

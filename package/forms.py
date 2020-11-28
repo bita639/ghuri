@@ -40,7 +40,7 @@ class MapForm(forms.ModelForm):
 class PackageForm(forms.ModelForm):
     class Meta:
         model = Package
-        exclude = ('status','agency_id','approve','publish', )
+        exclude = ('country','tags','status','agency_id','approve','publish', )
 
 
 class ImageForm(forms.ModelForm):
@@ -245,7 +245,11 @@ class Custom_Trip_Update_Form(forms.ModelForm):
         model = Customize_Tour
         fields = ['status',]
 
-
+class Approve_package_Form(forms.ModelForm):
+    
+    class Meta:
+        model = Package
+        fields = ['status',]
 
 LocationFormSet = inlineformset_factory(Package, MapLocation, form=MapForm, extra=1)
 ImageFormSet = inlineformset_factory(Package, Image, form=ImageForm, extra=1)
