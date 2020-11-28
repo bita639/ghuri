@@ -40,7 +40,7 @@ class MapForm(forms.ModelForm):
 class PackageForm(forms.ModelForm):
     class Meta:
         model = Package
-        exclude = ('country','tags','status','agency_id','approve','publish', )
+        exclude = ('tags','status','agency_id','approve','publish', )
 
 
 class ImageForm(forms.ModelForm):

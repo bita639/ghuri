@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -368,7 +369,7 @@
 	
 	<div>
 		<form method="get">
-            {{filtered_persons.form.as_p}}
+            {{filtered_persons.form|crispy}}
             <input type="submit" value="Search">
         </form>
 		

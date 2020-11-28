@@ -20,7 +20,7 @@
                     {{ pl_form }}
                 </p>
                 <p>
-                    {{ form.as_p }}
+                    {{ form|crispy }}
                 <p>
             </div>
             <fieldset>
@@ -30,7 +30,7 @@
                 {% for form in location_form %}
                     {{ form.id }}
                     <div class="inline {{ location_form.prefix }}">
-                        {{ form }}
+                        {{ form|crispy }}
                     </div>
                 {% endfor %}
             </fieldset>
@@ -41,7 +41,7 @@
                 {% for form in image_form %}
                     {{ form.id }}
                     <div class="inline {{ image_form.prefix }}">
-                        {{ form }}
+                        {{ form|crispy }}
 
 
                     </div>

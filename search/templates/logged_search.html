@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -383,7 +384,7 @@
 
 	<div>
 		<form method="get">
-            {{filtered_persons.form.as_p}}
+            {{filtered_persons.form|crispy}}
             <input type="submit" value="Search">
         </form>
 		
@@ -522,35 +523,9 @@
 <!-- Google Tag Manager -->
 <noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-K7K43Q" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager -->
-<script>function initAdmitad(){(function(d,script){script=d.createElement('script');script.type='text/javascript';script.async=true;script.onload=function(){var cookie_name='deduplication_cookie';var days_to_store=90;var deduplication_cookie_value='admitad';var channel_name='bmparams';getSourceParamFromUri=function(){var pattern=channel_name+'=([^&]+)';var re=new RegExp(pattern);return(re.exec(document.location.search)||[])[1]||'';};getSourceCookie=function(){var matches=document.cookie.match(new RegExp("(?:^|; )"+cookie_name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g,'\\$1')+"=([^;]*)"));return matches?decodeURIComponent(matches[1]):undefined;};setSourceCookie=function(){var param=getSourceParamFromUri();if(!param){return;}var period=days_to_store*60*60*24*1000;var expiresDate=new Date((period)+ +new Date);var cookieString=cookie_name+'='+param+'; path=/; expires='+expiresDate.toGMTString();document.cookie=cookieString;document.cookie=cookieString+'; domain=.'+location.host;};setSourceCookie();if(!getSourceCookie(cookie_name)){ADMITAD.Invoice.broker='na';}else if(getSourceCookie(cookie_name)!=deduplication_cookie_value){ADMITAD.Invoice.broker=getSourceCookie(cookie_name);}else{ADMITAD.Invoice.broker='adm';}if(!!cUserEmail){ADMITAD=window.ADMITAD||{};ADMITAD.Invoice=ADMITAD.Invoice||{};ADMITAD.Invoice.accountId=cUserEmail;}};script.src='www.artfut.com/static/tagtag.minb6d4.js?campaign_code=916a7b5a1e';script.onerror='var self = this;window.ADMITAD=window.ADMITAD||{},ADMITAD.Helpers=ADMITAD.Helpers||{},ADMITAD.Helpers.generateDomains=function(){for(var e=new Date,n=Math.floor(new Date(2020,e.getMonth(),e.getDate()).setUTCHours(0,0,0,0)/1e3),t=parseInt(1e12*(Math.sin(n)+1)).toString(30),i=["de"],o=[],a=0;a<i.length;++a)o.push({domain:t+"."+i[a],name:t});return o},ADMITAD.Helpers.findTodaysDomain=function(e){function n(){var o=new XMLHttpRequest,a=i[t].domain,D="https://"+a+"https://www.bookmundi.com/";o.open("HEAD",D,!0),o.onload=function(){setTimeout(e,0,i[t])},o.onerror=function(){++t<i.length?setTimeout(n,0):setTimeout(e,0,void 0)},o.send()}var t=0,i=ADMITAD.Helpers.generateDomains();n()},window.ADMITAD=window.ADMITAD||{},ADMITAD.Helpers.findTodaysDomain(function(e){if(window.ADMITAD.dynamic=e,window.ADMITAD.dynamic){var n=function(){return function(){return self.src?self:""}}(),t=n(),i=(/campaign_code=([^&]+)/.exec(t.src)||[])[1]||"";t.parentNode.removeChild(t);var o=document.getElementsByTagName("head")[0],a=document.createElement("script");a.src="https://www."+window.ADMITAD.dynamic.domain+"/static/"+window.ADMITAD.dynamic.name.slice(1)+window.ADMITAD.dynamic.name.slice(0,1)+".min.js?campaign_code="+i,o.appendChild(a)}});';d.getElementsByTagName('head')[0].appendChild(script);}(document));}</script>
-    <!-- Facebook Pixel Code -->
-    <script>function initFacebook(){!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','connect.facebook.net/en_US/fbevents.js');fbq('init','1277560508936549');fbq('track','PageView');}</script>
-        <noscript>
-            <img height="1" width="1" src="https://www.facebook.com/tr?id=1277560508936549&amp;ev=PageView%20%20%20%20%20%20%20%20%20%20%20%20&amp;noscript=1"/>
-        </noscript>
-<!-- End Facebook Pixel Code -->
-<script>(function(e1,e2){function ue(e){this.removeEventListener(e1,ue);this.removeEventListener(e2,ue);if(typeof initFacebook!=="undefined"){initAdmitad()}if(typeof initFacebook!=="undefined"){initFacebook();}window.dataLayer=window.dataLayer||[];window.dataLayer.push({'event':'MouseMove'});}window.addEventListener(e1,ue);window.addEventListener(e2,ue);})("mousemove","touchmove");if(typeof initGTM!=="undefined"){initGTM();}</script>
-        <div id="toast-container" class="toast-bottom-left" aria-live="polite" role="alert">    <div class="toast white price" data-noti-id="7" data-noti-views="0" dasta-noti-index="1" data-noti-trigger="5000" data-noti-display="10000" style="display:none">
-        <button data-noti-id="7" type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Great prices</div><div class="toast-message">
-            <p>Best price guaranteed - No booking fees</p>        </div>
-    </div> 
-    <div class="toast white tick" data-noti-id="8" data-noti-views="0" dasta-noti-index="2" data-noti-trigger="8000" data-noti-display="11000" style="display:none">
-        <button data-noti-id="8" type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">612 trips</div><div class="toast-message">
-            <p><span>Free cancellation on most trips</span></p>        </div>
-    </div> 
-</div>
-        <div id="toast-container" class="toast-bottom-left" aria-live="polite" role="alert">    <div class="toast white price" data-noti-id="7" data-noti-views="0" dasta-noti-index="1" data-noti-trigger="5000" data-noti-display="10000" style="display:none">
-        <button data-noti-id="7" type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Great prices</div><div class="toast-message">
-            <p>Best price guaranteed - No booking fees</p>        </div>
-    </div> 
-    <div class="toast white tick" data-noti-id="8" data-noti-views="0" dasta-noti-index="2" data-noti-trigger="8000" data-noti-display="11000" style="display:none">
-        <button data-noti-id="8" type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">612 trips</div><div class="toast-message">
-            <p><span>Free cancellation on most trips</span></p>        </div>
-    </div> 
+<script>function initAdmitad(){(function(d,script){script=d.createElement('script');script.type='text/javascript';script.async=true;script.onload=function(){var cookie_name='deduplication_cookie';var days_to_store=90;var deduplication_cookie_value='admitad';var channel_name='bmparams';getSourceParamFromUri=function(){var pattern=channel_name+'=([^&]+)';var re=new RegExp(pattern);return(re.exec(document.location.search)||[])[1]||'';};getSourceCookie=function(){var matches=document.cookie.match(new RegExp("(?:^|; )"+cookie_name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g,'\\$1')+"=([^;]*)"));return matches?decodeURIComponent(matches[1]):undefined;};setSourceCookie=function(){var param=getSourceParamFromUri();if(!param){return;}var period=days_to_store*60*60*24*1000;var expiresDate=new Date((period)+ +new Date);var cookieString=cookie_name+'='+param+'; path=/; expires='+expiresDate.toGMTString();document.cookie=cookieString;document.cookie=cookieString+'; domain=.'+location.host;};setSourceCookie();if(!getSourceCookie(cookie_name)){ADMITAD.Invoice.broker='na';}else if(getSourceCookie(cookie_name)!=deduplication_cookie_value){ADMITAD.Invoice.broker=getSourceCookie(cookie_name);}else{ADMITAD.Invoice.broker='adm';}if(!!cUserEmail){ADMITAD=window.ADMITAD||{};ADMITAD.Invoice=ADMITAD.Invoice||{};ADMITAD.Invoice.accountId=cUserEmail;}};script.src='www.artfut.com/static/tagtag.minb6d4.js?campaign_code=916a7b5a1e';script.onerror='var self = this;window.ADMITAD=window.ADMITAD||{},ADMITAD.Helpers=ADMITAD.Helpers||{},ADMITAD.Helpers.generateDomains=function(){for(var e=new Date,n=Math.floor(new Date(2020,e.getMonth(),e.getDate()).setUTCHours(0,0,0,0)/1e3),t=parseInt(1e12*(Math.sin(n)+1)).toString(30),i=["de"],o=[],a=0;a<i.length;++a)o.push({domain:t+"."+i[a],name:t});return o},ADMITAD.Helpers.findTodaysDomain=function(e){function n(){var o=new XMLHttpRequest,a=i[t].domain,D="https://"+a+"https://www.bookmundi.com/";o.open("HEAD",D,!0),o.onload=function(){setTimeout(e,0,i[t])},o.onerror=function(){++t<i.length?setTimeout(n,0):setTimeout(e,0,void 0)},o.send()}var t=0,i=ADMITAD.Helpers.generateDomains();n()},window.ADMITAD=window.ADMITAD||{},ADMITAD.Helpers.findTodaysDomain(function(e){if(window.ADMITAD.dynamic=e,window.ADMITAD.dynamic){var n=function(){return function(){return self.src?self:""}}(),t=n(),i=(/campaign_code=([^&]+)/.exec(t.src)||[])[1]||"";t.parentNode.removeChild(t);var o=document.getElementsByTagName("head")[0],a=document.createElement("script");a.src="https://www."+window.ADMITAD.dynamic.domain+"/static/"+window.ADMITAD.dynamic.name.slice(1)+window.ADMITAD.dynamic.name.slice(0,1)+".min.js?campaign_code="+i,o.appendChild(a)}});';d.getElementsByTagName('head')[0].appendChild(script);}(document));}</
+
+
 </div>
 </body>
 </html>

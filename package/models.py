@@ -37,11 +37,102 @@ class Package(models.Model):
     Adventure = 'b'
     Climbing = 'p'
     Hiking = 'm'
+    Mountains = 'c'
+    safari='gh'
+    Trekking='dd'
+    Climbing='sd'
+    Hiking='hu'
+    Mountain_biking='fg'
+    Active_and_outdoor='li'
+    Bicycle_tours='fd'
+    Bungee_and_swing_jumping='rt'
+    Zip_lining='yt'
+    Paragliding='yju'
+    Hot_air_balloon_rides='fr'
+    Canyoning='re'
+    Camping='ty'
+    Wildlife='yy'
+    Natural='cf'
+    National='dt'
+    Rainforest='lo'
+    Safari='fd'
+    Bird_watching='cx'
+    Natures='fe'
+    Sightseeing_Tours='oi'
+    City_sightseeing='lu'
+    Art_and_architecture='op'
+    Walking_tours='xa'
+    TLocal_culture='lq'
+    Museum_and_gallery_visits='rj'
+    Countryside_and_village_visits='se'
+    Shopping_and_markets='iuy'
+    Culture_shows_and_excursions='dhg'
+    Festivals_and_events='yjty'
+    Helicopter_Tours='trhs'
+    Mountain_flights='rjyuy'
+    Train_tours='tru'
+    Road_trips='kjh'
+    Overland_Journeys='trsu'
+    Rafting='tsru'
+    Sailing='sey'
+    Local_boat_rides='rju'
+    Cruise='str'
+    Spiritual='tyt'
+    Yoga='tr'
+    Meditation='yj'
+    Honeymoon='kiu'
+    Romantic='rst'
+    Food_tours='hff'
+    Cooking_classes='seg'
+    
     TOPPING_CHOICES = (
         (Trekking, 'Trekking'),
         (Adventure, 'Adventure'),
         (Climbing, 'Climbing'),
         (Hiking, 'Hiking'),
+        (Mountains, 'Mountains'),
+        (safari, 'safari'),
+        (Mountain_biking, 'Mountain biking'),
+        (Active_and_outdoor, 'Active and outdoor'),
+        (Bicycle_tours, 'Bicycle tours'),
+        (Bungee_and_swing_jumping, 'Bungee and swing jumping'),
+        # (Zip_lining, 'Zip lining'),
+        # (Paragliding, 'Paragliding'),
+        # # (Hot_air_balloon_rides, 'Hot air balloon rides'),
+        # (Canyoning, 'Canyoning'),
+        # (Camping, 'Camping'),
+        # # (Wildlife, 'Wildlife safaris and game drives'),
+        # # (Natural, 'Natural landmarks sightseeing'),
+        # (National, 'National parks'),
+        # # (Rainforest, 'Rainforest and jungle visits'),
+        # (Safari, 'Safari'),
+        # (Bird_watching, 'Bird watching'),
+        # (Natures, 'Nature and bush walks'),
+        # (Sightseeing_Tours, 'Sightseeing Tours'),
+        # (City_sightseeing, 'City sightseeing'),
+        # (Art_and_architecture, 'Art and architecture'),
+        # (Walking_tours, 'Walking tours'),
+        # (TLocal_culture, 'Local culture'),
+        # (Museum_and_gallery_visits, 'Museum and gallery visits'),
+        # (Countryside_and_village_visits, 'Countryside and village visits'),
+        # (Shopping_and_markets, 'Shopping and markets'),
+        # (Culture_shows_and_excursions, 'Culture shows and excursions'),
+        # (Festivals_and_events, 'Festivals and events'),
+        # (Helicopter_Tours, 'Helicopter Tours'),
+        # (Mountain_flights, 'Mountain flights'),
+        # (Train_tours, 'Train tours'),
+        # (Overland_Journeys, 'Overland Journeys'),
+        # (Rafting, 'Rafting'),
+        # # (Sailing, 'Sailing, yachting and motor boating'),
+        # (Local_boat_rides, 'Local boat rides'),
+        # (Cruise, 'Cruise'),
+        # # (Spiritual, 'Spiritual or religious tours'),
+        # (Yoga, 'Yoga'),
+        # (Meditation, 'Meditation'),
+        # (Honeymoon, 'Honeymoon'),
+        # (Romantic, 'Romantic'),
+        # (Food_tours, 'Food tours'),
+        # (Cooking_classes, 'Cooking classes'),
     )
 
     Hotel = 'a'

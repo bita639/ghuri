@@ -198,6 +198,7 @@ def admin_dashboard(request):
 def agency_dashboard(request):
     agency = request.user
     total_package = Package.objects.filter(agency_id=agency).count()
+    pending_package = Package.objects.filter(agency_id=agency, status='draf').count()
     total_booking = Booking.objects.filter(user_id=agency).count()
     pending_booking = Booking.objects.filter(user_id=agency, booking_status='pending').count()
 
@@ -205,6 +206,7 @@ def agency_dashboard(request):
         'total_package':total_package,
         'pending_booking':pending_booking,
         'total_booking':total_booking,
+        'pending_package':pending_package,
         
     }
     return render(request, 'agency/agency_dashboard.html', context)

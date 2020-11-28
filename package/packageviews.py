@@ -194,7 +194,7 @@ def view_package(request):
 
 
 def package_detail(request, year, month, day, package,package_id):    
-    package = get_object_or_404(Package, id=package_id, slug=package,publish__year=year,publish__month=month,publish__day=day)
+    package = get_object_or_404(Package, status= 'published', id=package_id, slug=package,publish__year=year,publish__month=month,publish__day=day)
     image = Image.objects.filter(package_id=package_id)
     agency = Agency.objects.filter(user_id=package.agency_id)
 
@@ -219,7 +219,7 @@ def package_detail(request, year, month, day, package,package_id):
 
     json_res = serializers.serialize('json', MapLocation.objects.filter(
         package_id=package_id), fields=('latitude', 'longitude', 'locattion_name'))
-    print(json_res)
+
 
         
     return render(request,'package.html',{'package': package, 'reviews':reviews, 'review_form':review_form, 'all_objects': json_res, 'agency':agency, 'image':image, 'similar_package':similar_package, 'media_url':settings.MEDIA_URL})
@@ -262,7 +262,7 @@ def login_view_package(request):
 
 @login_required
 def login_package_detail(request, year, month, day, package,package_id):    
-    package = get_object_or_404(Package, id=package_id, slug=package,publish__year=year,publish__month=month,publish__day=day)
+    package = get_object_or_404(Package, id=package_id, status= 'published', slug=package,publish__year=year,publish__month=month,publish__day=day)
     image = Image.objects.filter(package_id=package_id)
     agency = Agency.objects.filter(user_id=package.agency_id)
 
