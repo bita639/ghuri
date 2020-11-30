@@ -1,7 +1,7 @@
 {% extends 'profile_base.html' %}
 {% load static %}
 {% block content%}
-
+{% load crispy_forms_tags %}
 
 <div id="login">
     <div class="container">
@@ -11,7 +11,7 @@
                     <h2 class="text-center text-black pt-5">Please Fill With Your Details</h2>
                    <form method="POST" action='.'>
                         {% csrf_token %} 
-                        {{ form.as_p }} 
+                        {{ form|crispy }} 
                         <input type="submit" value="Submit"> 
                    </form>
                 </div>

@@ -163,19 +163,9 @@ def about(request):
 
 
 def view_package(request):
-    # package = Package.objects.select_related('agency_idx').annotate(agency_name=
-    #         F('myuser__user_id')).values('user_id', 'full_name')
+
     query = request.GET.get('city')
     package = Package.objects.filter(city_name=query, status='published')
-
-    # print(package)
-
-    
-    # for x in package:
-    #     json_ress = serializers.serialize('json',MapLocation.objects.filter(package_id = x), fields=('latitude', 'longitude', 'locattion_name'))
-    
-    
-    # json_res =json_ress
     
     paginator = Paginator(package, 6)
     page_number = request.GET.get('page')
@@ -469,7 +459,7 @@ class PackageBookingUpdateView(UpdateView):
     form_class = BookingAcceptForm
     template_name = "booking/booking_update.html"
   
-    success_url = reverse_lazy("booking_list")
+    success_url = reverse_lazy("agency_booking_list")
 
 def custom_trip_list(request, *args, **kwargs):
     user = request.user.id

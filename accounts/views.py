@@ -10,7 +10,6 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext as _
 from package.forms import SubscribeForm
-
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 from .models import MyUser, Agency, Admin, Client
@@ -201,12 +200,17 @@ def agency_dashboard(request):
     pending_package = Package.objects.filter(agency_id=agency, status='draf').count()
     total_booking = Booking.objects.filter(user_id=agency).count()
     pending_booking = Booking.objects.filter(user_id=agency, booking_status='pending').count()
+    total_blog = Post.objects.filter(author=agency).count()
+    pending_blog = Post.objects.filter(author=agency, status= 'draft').count()
+
 
     context ={
         'total_package':total_package,
         'pending_booking':pending_booking,
         'total_booking':total_booking,
         'pending_package':pending_package,
+        'total_blog':total_blog,
+        'pending_blog':pending_blog,
         
     }
     return render(request, 'agency/agency_dashboard.html', context)

@@ -136,15 +136,7 @@ class PaymentForm(forms.ModelForm):
 
 
 class CustomTripForm(forms.ModelForm):
-    # number_of_people = forms.CharField(
-	# 	label='How many people are travelling?',
-    #         max_length=100,
-    #         required=True,
-    #         widget=forms.Number(
-    #             attrs={'class': 'form-control', 'type': 'text',
-    #                    'placeholder': 'Type your Full Name as card'}
-    #         )
-	# )
+    
 
     number_of_people = forms.IntegerField(
 		label='How many people are travelling?',
@@ -159,6 +151,13 @@ class CustomTripForm(forms.ModelForm):
 		widget=forms.DateTimeInput(
 			format=('%Y-%m-%d'),
 			attrs={'class': 'form-control', 'min': datetime.today().strftime('%Y-%m-%d'), 'type':'date'}
+		)
+	)
+    budget = forms.IntegerField(
+		label='Budget Per person',
+		required=True,
+		widget=forms.NumberInput(
+			attrs={'class': 'form-control', 'type': 'number', 'placeholder': '100'}
 		)
 	)
 

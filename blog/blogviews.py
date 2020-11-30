@@ -20,14 +20,14 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 
 # Create your views here.
 def index(request, tag_slug=None):
-    object_list = Post.published.all()
+    object_list = Post.objects.filter(status='published')
 
     tag = None
     if tag_slug:
         tag =  get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
 
-    paginator = Paginator(object_list, 3)
+    paginator = Paginator(object_list, 6)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
     try:
@@ -37,6 +37,8 @@ def index(request, tag_slug=None):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
     return render (request,'blog/index.html',{'page':page, 'posts':posts,'tag':tag, 'media_url':settings.MEDIA_URL})
+
+
 
 def post_detail(request, year, month, day, post):    
     post = get_object_or_404(Post, slug=post,status='published',publish__year=year,publish__month=month,publish__day=day)
