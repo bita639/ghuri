@@ -11,6 +11,8 @@ from django.db.models import Count
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, UpdateView, DeleteView
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 # class PostListView(ListView):    
 #     queryset = Post.published.all()    
@@ -141,6 +143,7 @@ def AdminAgencyBlogPostCreate(request, *args, **kwargs):
         instance = agency_blog_create_form.save(commit=False)
         instance.author = request.user
         instance.save()
+        messages.success(request, 'New Blog Post Added Succesfully!!')
         return redirect('admin_blog_post')
 
     return render(request, 'blog/agency/admin/add_all_agency_blog_post.html', {
@@ -162,13 +165,25 @@ class AdminBlogPostDeleteView(DeleteView):
     model = Post
     form_class = BlogPostCreateForm
     template_name = "blog/agency/admin/delete_all_agency_blog_post.html"
-  
+    success_message = "Thing was deleted successfully."
     success_url = reverse_lazy("admin_blog_post")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(AdminBlogPostDeleteView, self).delete(request, *args, **kwargs)
 
 class AdminBlogPostUpdateView(UpdateView): 
     # specify the model you want to use 
     model = Post
     form_class = AdminBlogPostCreateForm
     template_name = "blog/agency/admin/edit_all_agency_blog_post.html"
-  
+    success_message = "Post  Published successfully."
     success_url = reverse_lazy("admin_blog_post")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Blog Post Updated Succesfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
+        
+        

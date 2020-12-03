@@ -6,7 +6,7 @@ from django import forms
 from django_countries.data import COUNTRIES
 User = get_user_model()
 from django.forms import ModelForm
-from .models import Subscription, Agency_payment, Customize_Tour, Package, Itinerary,Booking, Days, MapLocation, Activities, Meals, Event, Accomodation, Image, Review, Payment
+from .models import Subscription, PayAgency, Agency_payment, Customize_Tour, Package, Itinerary,Booking, Days, MapLocation, Activities, Meals, Event, Accomodation, Image, Review, Payment
 from accounts.models import MyUser
 from datetime import datetime
 from django_yearmonth_widget.widgets import DjangoYearMonthWidget
@@ -49,9 +49,10 @@ class ImageForm(forms.ModelForm):
         exclude = ('package_id', )
 
 class ReviewForm(forms.ModelForm):
+    
     class Meta:
         model = Review
-        fields = ('name', 'email', 'title', 'review' )
+        fields = ('name', 'email', 'review' )
 
 class BookingForm(forms.ModelForm):
     full_name = forms.CharField(
@@ -249,6 +250,25 @@ class Approve_package_Form(forms.ModelForm):
     class Meta:
         model = Package
         fields = ['status',]
+
+class Approve_review_Form(forms.ModelForm):
+    
+    class Meta:
+        model = Review
+        fields = ['review_status',]
+
+class Pay_Agency_Form(forms.ModelForm):
+    
+    class Meta:
+        model = PayAgency
+        fields = ('agency', 'amount', 'special_note', )
+
+
+class PaymentUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Payment
+        fields = ('payment_status',)
 
 LocationFormSet = inlineformset_factory(Package, MapLocation, form=MapForm, extra=1)
 ImageFormSet = inlineformset_factory(Package, Image, form=ImageForm, extra=1)

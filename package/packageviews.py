@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MapLocation,Customize_Tour_Agency, Package, Itinerary, Image, Review, Booking, Customize_Tour, Agency_payment
+from .models import PayAgency, Payment, MapLocation,Customize_Tour_Agency, Package, Itinerary, Image, Review, Booking, Customize_Tour, Agency_payment
 from accounts.models import MyUser, Agency, Admin, Client
 from django.core import serializers
 import json
@@ -12,8 +12,8 @@ from django.forms.models import inlineformset_factory
 from django.shortcuts import get_list_or_404, get_object_or_404, Http404
 from django.views import View
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, UpdateView
-from .forms import BookingAcceptForm, Approve_package_Form, Custom_Trip_Update_Form, SubscribeForm, Agency_Payment_Form, PackageForm, CustomTripForm, LocationFormSet, ImageFormSet, ImageForm, ReviewForm, BookingForm, PaymentForm
+from django.views.generic import CreateView, UpdateView, DeleteView
+from .forms import PaymentUpdateForm, Pay_Agency_Form, Approve_review_Form, BookingAcceptForm, Approve_package_Form, Custom_Trip_Update_Form, SubscribeForm, Agency_Payment_Form, PackageForm, CustomTripForm, LocationFormSet, ImageFormSet, ImageForm, ReviewForm, BookingForm, PaymentForm
 from django.db.models import F, Q
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -22,6 +22,8 @@ from django.db.models import Count
 from django.views.generic import TemplateView, ListView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.contrib import messages
+
 
 
 # Create your views here.
@@ -188,7 +190,7 @@ def package_detail(request, year, month, day, package,package_id):
     image = Image.objects.filter(package_id=package_id)
     agency = Agency.objects.filter(user_id=package.agency_id)
 
-    reviews = package.reviews.filter(active=True)
+    reviews = package.reviews.filter(review_status='approve')
 
     package_tags_ids = package.tags.values_list('id', flat=True)
     similar_package = Package.published.filter(tags__in=package_tags_ids).exclude(id=package.id)
@@ -202,6 +204,9 @@ def package_detail(request, year, month, day, package,package_id):
             new_review = review_form.save(commit=False)
             new_review.package = package
             new_review.save()
+            messages.success(request, 'Your comment will be publish after approval. Thanks!!!')
+            return HttpResponseRedirect('')
+            
         else:
             review_form =ReviewForm()
 
@@ -256,7 +261,7 @@ def login_package_detail(request, year, month, day, package,package_id):
     image = Image.objects.filter(package_id=package_id)
     agency = Agency.objects.filter(user_id=package.agency_id)
 
-    reviews = package.reviews.filter(active=True)
+    reviews = package.reviews.filter(review_status='approve')
 
     package_tags_ids = package.tags.values_list('id', flat=True)
     similar_package = Package.published.filter(tags__in=package_tags_ids).exclude(id=package.id)
@@ -286,6 +291,7 @@ def login_package_detail(request, year, month, day, package,package_id):
 def booking_now(request, package_id, *args, **kwargs):
     
     package = get_object_or_404(Package, id=package_id)
+
     instance = Package.objects.get(id=package_id)
     
     user_id = request.user
@@ -302,6 +308,8 @@ def booking_now(request, package_id, *args, **kwargs):
 
             new_payment = payment_form.save(commit=False)
             new_payment.booking_id = new_booking
+            new_payment.amount = package.payable
+            new_payment.agency = package.agency_id
             new_payment.save()
 
             
@@ -561,3 +569,86 @@ class admin_assign_agency(ListView):
     def get_queryset(self):
         assign_agency = Customize_Tour_Agency.objects.all()
         return assign_agency
+
+class AdminReviewView(LoginRequiredMixin, ListView):
+    model = Review
+    context_object_name = 'all_review' 
+    template_name = 'review/view_all_review.html'
+
+    def get_queryset(self):
+        all_review = Review.objects.all()
+        return all_review
+
+class AdminReviewUpdateView(UpdateView):
+    model = Review
+    form_class = Approve_review_Form
+    template_name = "review/update_review.html"
+    success_url = reverse_lazy("admin_review_list")
+class AdminReviewDeleteView(DeleteView): 
+    model = Review 
+    template_name = "review/delete_review.html"
+    success_url = reverse_lazy("admin_review_list")
+
+class UserPaymentHistory(LoginRequiredMixin, ListView):
+    model = Payment
+    context_object_name = 'user_all_payment' 
+    template_name = 'payment/view_all_user_payment.html'
+
+    def get_queryset(self):
+        user_all_payment = Payment.objects.all()
+        return user_all_payment
+
+class AgencyEarningHistory(LoginRequiredMixin, ListView):
+    model = Payment
+    context_object_name = 'user_all_payment' 
+    template_name = 'payment/agency_earning_history.html'
+
+    def get_queryset(self):
+        user_all_payment = Payment.objects.all()
+        return user_all_payment
+
+class PayAgencyView(LoginRequiredMixin, CreateView):
+    template_name = 'payment/pay_agency.html'
+    model = PayAgency
+    form_class = Pay_Agency_Form
+    success_url = reverse_lazy('agency_earning_history')
+
+class AgencyPaymentUpdateView(UpdateView):
+    model = Payment
+    form_class = PaymentUpdateForm
+    template_name = "payment/agency_payment_update.html"
+    success_url = reverse_lazy("agency_earning_history")
+
+class AgencyPaymentHistory(LoginRequiredMixin, ListView):
+    model = PayAgency
+    context_object_name = 'agency_all_payment' 
+    template_name = 'payment/view_all_agency_payment.html'
+
+    def get_queryset(self):
+        agency_all_payment = PayAgency.objects.all()
+        return agency_all_payment
+
+class AgencyEarningHistorySelf(LoginRequiredMixin, ListView):
+    model = Payment
+    context_object_name = 'agency_self_earning' 
+    template_name = 'payment/view_self_agency_payment.html'
+
+    def get_queryset(self):
+        agency = get_object_or_404(MyUser, id=self.request.user.id)
+
+        agency_self_earning = Payment.objects.filter(agency=agency.username)
+        return agency_self_earning
+
+class AgencyPaymentHistorySelf(LoginRequiredMixin, ListView):
+    model = PayAgency
+    context_object_name = 'agency_self_payment' 
+    template_name = 'payment/view_self_payment.html'
+
+    def get_queryset(self):
+        user = get_object_or_404(MyUser, id=self.request.user.id)
+        agency = get_object_or_404(Agency, user_id=user.id)
+
+        agency_self_payment = PayAgency.objects.filter(agency=agency.id)
+        return agency_self_payment
+
+

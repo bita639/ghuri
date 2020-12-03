@@ -1,0 +1,55 @@
+{% extends 'agency/agency_base.html' %}
+
+{% block content %}
+
+<!-- DataTales Example -->
+<h4 style="text-align: center;">Agency Earning History</h4> 
+<!-- <span><a href="{% url 'PackageCreateView' %}" class="btn btn-primary">Add a New Package</a></span> -->
+<br><br>
+<table class="table" id="dataTable" width="100%" cellspacing="0">
+    <thead class="thead-dark" >
+                    <tr>
+                        <th scope="col">Agency Name</th>
+                        <th scope="col">Earning Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Payment Status</th>
+                       
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+
+                        <tr>
+                            <th scope="col">Agency Name</th>
+                            <th scope="col">Earning Date</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Payment Status</th>
+                            
+                        </tr>
+                      
+
+                    </tr>
+                </tfoot>
+                <tbody>
+                     {% for i in agency_self_earning %}
+
+                     <tr>
+                        <td>{{i.agency}}</td>
+                         <td>{{i.payment_date}}</td>
+                         <td>{{i.amount}}</td>
+                         <td>{{i.payment_status}}</td>
+
+                     </tr>
+                     {% empty %}
+                        <tr><td scope="col">Currently no Data Available</td></tr>
+                    
+                     {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+ {% endblock %}
+    {% block js %}
+
+{% endblock %}

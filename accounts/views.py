@@ -22,7 +22,8 @@ from django.views import View
 from django.forms import formset_factory
 from django.shortcuts import get_list_or_404, get_object_or_404, Http404
 from django.forms.models import inlineformset_factory
-from package.models import Package, Customize_Tour, Review, Booking
+from package.models import Package, Customize_Tour, Review, Booking, Payment
+from django.db.models import Sum
 
 # Create your views here.
 from .forms import UserCreationForm, UserProfileForm_MyUser, UserProfileForm_Clients, UserLoginForm, AgencyCreationForm, MyUserForm, AgencyForm, AdminCreationForm
@@ -44,6 +45,7 @@ def register(request, *args, **kwargs):
         instance = form.save(commit=False)
         instance.user_type = 'client'
         instance.save()
+        messages.success(request, 'Registration Succesfull!! Please Login.')
         return HttpResponseRedirect("/login")
     context = {
 		'form': form,
@@ -59,6 +61,7 @@ def agencyregister(request, *args, **kwargs):
         instance = form.save(commit=False)
         instance.user_type = 'agency'
         instance.save()
+        messages.success(request, 'Registration Succesfull!! Please Login.')
         return HttpResponseRedirect("/login")
     context = {
         'form': form,
@@ -72,6 +75,7 @@ def AdminAgencyAdd(request, *args, **kwargs):
         instance = form.save(commit=False)
         instance.user_type = 'agency'
         instance.save()
+        messages.success(request, 'New Agency Added Succesfully!!')
         return HttpResponseRedirect("/admin/agency/")
     context = {
         'form': form
@@ -86,6 +90,7 @@ def add_new_admin(request, *args, **kwargs):
         instance = form.save(commit=False)
         instance.user_type = 'admin'
         instance.save()
+        messages.success(request, 'New Admin Added Succesfully!!')
         return HttpResponseRedirect("/admin/admin")
     context = {
         'form': form
@@ -177,6 +182,11 @@ def admin_dashboard(request):
     total_review = Review.objects.count()
     total_comment = Comment.objects.count()
     total_booking = Booking.objects.count()
+    total_earning = Payment.objects.all().aggregate(Sum('amount'))
+    total_pending_payment = Payment.objects.filter(payment_status='Pending').aggregate(Sum('amount'))
+    # ModelName.objects.aggregate(Sum('field_name'))
+    
+
 
     context ={
         'total_package':total_package,
@@ -187,6 +197,8 @@ def admin_dashboard(request):
         'total_review':total_review,
         'total_comment':total_comment,
         'total_booking':total_booking,
+        'total_earning':total_earning,
+        'total_pending_payment':total_pending_payment,
     }
     
     print(total_package)
@@ -529,6 +541,7 @@ def admin_user_register(request, *args, **kwargs):
         instance = form.save(commit=False)
         instance.user_type = 'client'
         instance.save()
+        messages.success(request, 'New user Added Succesfully!!')
         return HttpResponseRedirect("/admin/user/")
     context = {
 		'form': form

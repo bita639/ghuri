@@ -88,6 +88,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Package Settings:</h6>
             <a class="collapse-item" href="{% url 'admin_package_list' %}">View all Package</a>
+            <a class="collapse-item" href="{% url 'admin_review_list' %}">All Review</a>
           </div>
         </div>
       </li>
@@ -119,7 +120,11 @@
         </a>
         <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{% url 'admin_payment_method' %}">View all Payment Method</a>
+            <a class="collapse-item" href="{% url 'admin_payment_method' %}">Agency Payment Method</a>
+            <a class="collapse-item" href="{% url 'user_payment_list' %}">User Payment History</a>
+            <a class="collapse-item" href="{% url 'agency_earning_history' %}">Agency Earning History</a>
+            <a class="collapse-item" href="{% url 'agency_pay_now' %}">Pay Agency</a>
+            <a class="collapse-item" href="{% url 'agency_pay_history_list' %}">Agency Payment History</a>
     
           </div>
         </div>
@@ -156,7 +161,19 @@
         </div>
       </li>
 
-
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4"
+          aria-expanded="true" aria-controls="collapseUtilities4">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>Review</span>
+        </a>
+        <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{% url 'admin_review_list' %}">All Review</a>
+          </div>
+        </div>
+      </li> -->
 
 
 

@@ -300,6 +300,11 @@ class MapLocation(models.Model):
 
 
 class Review(models.Model):
+    REVIEW_CHOICES = (
+        ('approve', 'approve'),
+        ('reject', 'reject'),
+        ('pending', 'pending'),
+    )
     package = models.ForeignKey('Package', on_delete = models.CASCADE, related_name ='reviews')
     title = models.CharField(max_length=100)
     email = models.EmailField(max_length=255)
@@ -308,9 +313,11 @@ class Review(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
+    review_status = models.CharField(max_length=10,choices=REVIEW_CHOICES, default='pending')
 
     class Meta:
         ordering= ('created',)
+    
 
     def __str__(self):
         return 'comment by {} on {}'. format(self.name, self.package_id)
@@ -327,17 +334,30 @@ class Booking(models.Model):
     participants = models.IntegerField(blank=True, null=True)
     booking_status = models.CharField(max_length=30, blank=True, null=True, 
     choices=BOOKING_STATUS_CHOICES, default='Pending')
+    
+    def __str__(self):
+        return self.full_name
 
     class Meta:
         ordering= ('package',)
     
 
 class Payment(models.Model):
+    PAYMENT_STATUS_CHOICES = (
+        ('Pending', 'Pending'),
+        ('Confirmed', 'Confirmed'),
+        ('Payment on process', 'Payment on process'),
+    )
     booking_id = models.OneToOneField('Booking', on_delete = models.CASCADE, related_name ='booking_payment')
     card_number = models.IntegerField(blank=True, null=True)
     expiry_date = models.DateTimeField()
     card_holder_name = models.CharField(max_length=50)
     cvv = models.IntegerField(blank=True, null=True)
+    amount = models.IntegerField(blank=True, null=True)
+    agency = models.CharField(max_length=50)
+    payment_date = models.DateTimeField(auto_now_add=True)
+    payment_status = models.CharField(max_length=30, blank=True, null=True, 
+    choices=PAYMENT_STATUS_CHOICES, default='Pending')
 
 
 class Customize_Tour(models.Model):
@@ -429,3 +449,9 @@ class Contact(models.Model):
     trip_link = models.TextField(blank=True, null=True)
     subject = models.CharField(max_length=100)
     message = models.TextField(blank=True, null=True)
+
+class PayAgency(models.Model):
+    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, related_name='payment_agency_id')
+    amount = models.IntegerField(blank=True, null=True)
+    payment_date = models.DateTimeField(auto_now_add=True)
+    special_note = models.CharField(max_length=500)

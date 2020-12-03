@@ -51,7 +51,10 @@
                          <td><a href="{% url 'package_delete' i.id %}">Delete</a></td>
                          <td><a href="{{ i.get_absolute_url }}">View</a></td>
                      </tr>
+                     {% empty %}
+                        <tr><td scope="col">Currently no Data Available</td></tr>
                      {% endfor %}
+                     
                     
                 </tbody>
             </table>

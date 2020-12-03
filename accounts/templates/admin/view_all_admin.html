@@ -5,6 +5,13 @@
     
 
     <!-- DataTales Example -->
+    {% if messages %}
+        <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+            <h5  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </h5>
+            {% endfor %}
+        </div>
+        {% endif %}
     <h4 style="text-align: center;">Manage All Admin Information.</h4> 
     <span><a href="{% url 'adminregister' %}" class="btn btn-primary">Add New Admin</a></span><br><br>
     <table class="table" id="dataTable" width="100%" cellspacing="0">
@@ -51,7 +58,10 @@
                              <td><a href="{% url 'admin_delete' admin.user.pk %}">Delete</a></td>
                              <td><a href="#">View</a></td>
                          </tr>
-                         {% endfor %}
+                         {% empty %}
+                        <tr><td scope="col">Currently no Data Available</td></tr>
+                     {% endfor %}
+                         
                         
                     </tbody>
                 </table>

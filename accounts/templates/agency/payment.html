@@ -40,7 +40,10 @@
                              <td><a href="{% url 'agency_payment_delete' i.id %}">Delete</a></td>
                            
                          </tr>
-                         {% endfor %}
+                         {% empty %}
+                        <tr><td scope="col">Currently no Data Available</td></tr>
+                     {% endfor %}
+                        
                         
                     </tbody>
                 </table>

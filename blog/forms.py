@@ -2,6 +2,32 @@ from django import forms
 from .models import Comment, Post
 
 class CommentForm(forms.ModelForm):
+    name = forms.CharField(
+		label='Your Name',
+            max_length=250,
+            required=True,
+            widget=forms.TextInput(
+                attrs={'class': 'form-control', 'type': 'text',
+                       'placeholder': 'Jhon SMith'}
+            )
+	)
+    email = forms.CharField(
+		label='Your Email',
+            max_length=250,
+            required=True,
+            widget=forms.TextInput(
+                attrs={'class': 'form-control', 'type': 'text',
+                       'placeholder': 'example@example.com'}
+            )
+	)
+    body = forms.CharField(
+		label='Your Comment',
+            max_length=250,
+            required=True,
+            widget=forms.TextInput(
+                attrs={'class': 'form-control', 'type': 'text'}
+            )
+	)
     class Meta:
         model = Comment
         fields = ('name', 'email', 'body')

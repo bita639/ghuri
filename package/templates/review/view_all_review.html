@@ -1,0 +1,56 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<!-- DataTales Example -->
+<h4 style="text-align: center;">All Booking History</h4> 
+<!-- <span><a href="{% url 'PackageCreateView' %}" class="btn btn-primary">Add a New Package</a></span> -->
+<br><br>
+<table class="table" id="dataTable" width="100%" cellspacing="0">
+    <thead class="thead-dark" >
+                    <tr>
+                        <th scope="col">Package Name</th>
+                        <th scope="col">Reviewer Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Review</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Delete</th>
+
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+
+                        <th scope="col">Package Name</th>
+                        <th scope="col">Reviewer Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Review</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Delete</th>
+                      
+
+                    </tr>
+                </tfoot>
+                <tbody>
+                     {% for i in all_review %}
+
+                     <tr>
+                        <td>{{i.package}}</td>
+                         <td>{{i.name}}</td>
+                         <td>{{i.email}}</td>
+                         <td>{{i.review}}</td>
+                         <td><a href="{% url 'admin_review_edit' i.id %}">{{i.review_status}}</a></td>
+                         <td><a href="{% url 'admin_review_delete' i.id %}">Delete</a></td>
+                         
+                     </tr>
+                     {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+ {% endblock %}
+    {% block js %}
+
+{% endblock %}

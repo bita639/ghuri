@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 
-from .models import Package, Agency_payment, Customize_Tour,Customize_Tour_Agency, Payment, Booking, MapLocation, Image, Review, Accomodation, Meals, Event, Days, Itinerary, Subscription, Activity, ActivityType, Activities
+from .models import Package,Contact, PayAgency, Agency_payment, Customize_Tour,Customize_Tour_Agency, Payment, Booking, MapLocation, Image, Review, Accomodation, Meals, Event, Days, Itinerary, Subscription, Activity, ActivityType, Activities
 # Register your models here.
 
 admin.site.register(Package)
+admin.site.register(PayAgency)
+admin.site.register(Contact)
 admin.site.register(Customize_Tour)
 admin.site.register(Payment)
 admin.site.register(Customize_Tour_Agency)

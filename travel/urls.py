@@ -77,7 +77,11 @@ urlpatterns = [
     path('admin/package/edit/<int:pk>/', packageviews.AdminPackageUpdateView.as_view(), name='admin_package_edit'),
 
     path('admin/package/booking/list/', packageviews.AdminBookingView.as_view(), name='admin_booking_list'),
-
+    
+    path('admin/review/list/', packageviews.AdminReviewView.as_view(), name='admin_review_list'),
+    path('admin/review/edit/<int:pk>/', packageviews.AdminReviewUpdateView.as_view(), name='admin_review_edit'),
+    path('admin/review/delete/<int:pk>/', packageviews.AdminReviewDeleteView.as_view(), name='admin_review_delete'),
+    
     path('admin/agency/payment/', packageviews.AdminPaymentView.as_view(), name='admin_payment_method'),
     path('admin/agency/payment/delete/<int:pk>/', packageviews.Admin_Agency_Payment_Method_delete, name='admin_agency_payment_delete'),
     path('admin/agency/payment/update/<int:pk>/', packageviews.AdminAgenyPaymentUpdateView.as_view(), name='admin_agency_payment_update'),
@@ -104,6 +108,8 @@ urlpatterns = [
     path('user/payment/add', packageviews.Agency_Payment_Method, name='add_payment_method'),
     path('user/payment/delete/<int:pk>/', packageviews.Agency_Payment_Method_delete, name='agency_payment_delete'),
     path('user/payment/update/<int:pk>/', packageviews.AgenyPaymentUpdateView.as_view(), name='agency_payment_update'),
+    path('partner/earning/history/', packageviews.AgencyEarningHistorySelf.as_view(), name='agency_self_earning_history'),
+    path('partner/payment/history/', packageviews.AgencyPaymentHistorySelf.as_view(), name='agency_self_payment_history'),
 
     #-------------------Agency Dashboard Area
     path('partner/', views.agency_dashboard, name='agency_dashboard'),
@@ -129,6 +135,11 @@ urlpatterns = [
     
     path('agency/register/', views.agencyregister, name='agency_register'),
 
+    path('admin/user/payment/', packageviews.UserPaymentHistory.as_view(), name='user_payment_list'),
+    path('admin/agency/earnings/', packageviews.AgencyEarningHistory.as_view(), name='agency_earning_history'),
+    path('admin/agency/paynow/', packageviews.PayAgencyView.as_view(), name='agency_pay_now'),
+    path('admin/agency/payment/status/<int:pk>/', packageviews.AgencyPaymentUpdateView.as_view(), name='update_agency_payment_status'),
+    path('admin/agency/payment/list/', packageviews.AgencyPaymentHistory.as_view(), name='agency_pay_history_list'),
     
 ]
 
