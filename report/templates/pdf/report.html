@@ -1,0 +1,62 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate pdf Report</title>
+    <style type="text/css">
+        body {
+            font-weight: 200;
+            font-size: 14px;
+        }
+        .header {
+            font-size: 20px;
+            font-weight: 100;
+            text-align: center;
+            color: #007cae;
+        }
+        .title {
+            font-size: 22px;
+            font-weight: 100;
+           /* text-align: right;*/
+           padding: 10px 20px 0px 20px;  
+        }
+        .title span {
+            color: #007cae;
+        }
+        .details {
+            padding: 10px 20px 0px 20px;
+            text-align: left !important;
+            /*margin-left: 40%;*/
+        }
+        .hrItem {
+            border: none;
+            height: 1px;
+            /* Set the hr color */
+            color: #333; /* old IE */
+            background-color: #fff; /* Modern Browsers */
+        }
+    </style>
+</head>
+<body>
+    <div class='wrapper'>
+        <div class='header'>
+            <p class='title'>Ghuri Travel Reports From {{fromdate}} To {{todate}}  </p>
+        </div>
+    <div>
+    <div class='details'>
+        <hr/>
+        Total Booking : {{ total_booking }}
+        <hr/>
+        Total Earning : {{total_earning.amount__sum}}<hr/>
+        Total Customize Booking : {{custom_booking}} <hr/>
+        Total Paid To partner : {{agency_paid.amount__sum}}<hr/>
+        Total Package Added : {{total_package}} <hr/>
+        Total Review Added : {{total_review}} <hr/>
+        Total Blog Post Added : {{total_blog}} <hr/>
+        Total New comment : {{total_comment}}
+        <hr class='hrItem' />
+    </div>
+</div>
+</body>
+</html>

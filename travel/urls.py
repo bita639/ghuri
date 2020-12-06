@@ -9,6 +9,7 @@ from django.conf.urls.static import static
 from accounts import views
 from package import packageviews
 from blog import blogviews
+from report import reportviews
 
 
 
@@ -54,6 +55,8 @@ urlpatterns = [
 
     #-------------------Admin Dashboard Area
     path('admin/', views.admin_dashboard, name='admin_dashboard'),
+    path('admin/reports', reportviews.showresults, name='web_reports'),
+    path('admin/reports/pdf', reportviews.GeneratePDF.as_view(), name='pdf_reports'),
     path('admin/add/', views.add_new_admin, name='adminregister'),
     path('admin/profile/', views.AdminProfileView.as_view(), name='admin_profile'),
     path('admin/admin/', views.AllAdminView.as_view(), name='all_admin_list'),

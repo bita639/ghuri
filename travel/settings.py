@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'accounts',
     'package',
     'blog',
+    'report',
     'taggit',
     'bootstrap_datepicker_plus',
     'django_static_jquery3',

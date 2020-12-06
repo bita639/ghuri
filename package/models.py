@@ -419,7 +419,7 @@ class Customize_Tour(models.Model):
     travel_date = models.DateField()
     destination = MultiSelectField(max_length=200,choices=DESTINATION_CHOICES)
     activities = MultiSelectField(max_length=200,choices=ACTIVITY_CHOICES)
-
+    booking_date = models.DateTimeField(auto_now_add=True)
     age_group = models.CharField(max_length=200,choices=AGE_CHOICES)
     tour_type = models.CharField(max_length=200,choices=TOUR_TYPE_CHOICES)
     accomodation_type = models.CharField(max_length=200,choices=ACCOMODATION_TYPE_CHOICES)
